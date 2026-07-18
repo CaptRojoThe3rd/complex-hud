@@ -1,6 +1,6 @@
 package com.captrojo.complexhud.api;
 
-public enum HUDPositionOrigin
+public enum PositionOrigin
 {
 	TOP_LEFT,
 	TOP_CENTER,
