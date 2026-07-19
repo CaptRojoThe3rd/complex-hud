@@ -2,6 +2,8 @@ package com.captrojo.complexhud.api;
 
 public enum PositionOrigin
 {
+	HOTBAR_SIDE_LEFT,
+	HOTBAR_SIDE_RIGHT,
 	TOP_LEFT,
 	TOP_CENTER,
 	TOP_RIGHT,
@@ -10,9 +12,5 @@ public enum PositionOrigin
 	MIDDLE_RIGHT,
 	BOTTOM_LEFT,
 	BOTTOM_CENTER,
-	BOTTOM_RIGHT,
-	HOTBAR_TOP_LEFT,
-	HOTBAR_TOP_RIGHT,
-	HOTBAR_SIDE_LEFT,
-	HOTBAR_SIDE_RIGHT;
+	BOTTOM_RIGHT;
 }

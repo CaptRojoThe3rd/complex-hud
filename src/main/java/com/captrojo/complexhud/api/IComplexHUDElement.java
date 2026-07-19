@@ -40,5 +40,5 @@ public interface IComplexHUDElement
 	public boolean renderInF3();
 	
 	/* Render the HUD element. */
-	public void render(ScaledResolution sr, int mouse_x, int mouse_y, float partial_ticks, PositionInfo pos);
+	public void render(ScaledResolution sr, int mouse_x, int mouse_y, float partial_ticks, PositionInfoXY2 pos);
 }

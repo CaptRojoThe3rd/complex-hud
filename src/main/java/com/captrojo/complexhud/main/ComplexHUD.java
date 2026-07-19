@@ -43,9 +43,10 @@ public class ComplexHUD
 		HUDElementList.init();
 		
 		if (DEBUG) {
-			HUDAPI.registerElement(new DebugHUDElement(0, "Complex HUD " + VERSION));
-			HUDAPI.registerElement(new DebugHUDElement(1, "other cool text"));
-			HUDAPI.registerElement(new DebugHUDElement(2, "more cool text"));
+			HUDAPI.registerElement(new DebugHUDElement(0, "([0])"));
+			HUDAPI.registerElement(new DebugHUDElement(1, "[1]"));
+			HUDAPI.registerElement(new DebugHUDElement(2, "[2]"));
+			HUDAPI.registerElement(new DebugHUDElement(3, "[3]"));
 		}
 	}
 }

@@ -1,17 +1,17 @@
 package com.captrojo.complexhud.api;
 
-public class PositionInfo
+public class PositionInfoXY2
 {
 	public int left_x;
 	public int right_x;
 	public int top_y;
 	public int bottom_y;
 	
-	public PositionInfo()
+	public PositionInfoXY2()
 	{
 	}
 	
-	public PositionInfo(int left_x, int right_x, int top_y, int bottom_y)
+	public PositionInfoXY2(int left_x, int right_x, int top_y, int bottom_y)
 	{
 		this.set(left_x, right_x, top_y, bottom_y);
 	}

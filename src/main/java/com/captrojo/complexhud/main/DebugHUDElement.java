@@ -1,7 +1,7 @@
 package com.captrojo.complexhud.main;
 
 import com.captrojo.complexhud.api.IComplexHUDElement;
-import com.captrojo.complexhud.api.PositionInfo;
+import com.captrojo.complexhud.api.PositionInfoXY2;
 import com.captrojo.complexhud.api.PositionOperation;
 import com.captrojo.complexhud.api.PositionOrigin;
 
@@ -43,14 +43,21 @@ public class DebugHUDElement implements IComplexHUDElement
 	@Override
 	public PositionOrigin getPosOrigin()
 	{
-		return PositionOrigin.TOP_LEFT;
+		return PositionOrigin.TOP_CENTER;
 	}
 
 	@Override
 	public PositionOperation getPosOperation()
 	{
-		if (this.priority == 0) {
+		switch (this.priority) {
+		case 0:
+			return PositionOperation.DOWN;
+		case 1:
 			return PositionOperation.LEFT;
+		case 2:
+			return PositionOperation.UP;
+		case 3:
+			return PositionOperation.RIGHT;
 		}
 		return PositionOperation.DOWN;
 	}
@@ -74,7 +81,7 @@ public class DebugHUDElement implements IComplexHUDElement
 	}
 
 	@Override
-	public void render(ScaledResolution sr, int mouse_x, int mouse_y, float partial_ticks, PositionInfo pos)
+	public void render(ScaledResolution sr, int mouse_x, int mouse_y, float partial_ticks, PositionInfoXY2 pos)
 	{
 		FontRenderer fr = Minecraft.getMinecraft().fontRenderer;
 		fr.drawStringWithShadow(this.text, pos.left_x, pos.top_y, 0xffffff);
