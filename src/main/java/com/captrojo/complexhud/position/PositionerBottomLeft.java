@@ -2,21 +2,18 @@ package com.captrojo.complexhud.position;
 
 import com.captrojo.complexhud.main.RegisteredElement;
 
-import net.minecraft.client.gui.ScaledResolution;
-
-public class PositionerTopRight extends PositionerBase
+public class PositionerBottomLeft extends PositionerBase
 {
 	@Override
 	public void positionSections()
 	{
 		this.calcDims();
-		this.positionXRight();
-		this.positionYTop();
+		this.positionXLeft();
+		this.positionYBottom();
 	}
 
 	@Override
 	void alignElement(RegisteredElement re)
 	{
-		this.alignRightSideOfScreen(re);
 	}
 }

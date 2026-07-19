@@ -2,16 +2,17 @@ package com.captrojo.complexhud.position;
 
 import com.captrojo.complexhud.main.RegisteredElement;
 
-import net.minecraft.client.gui.ScaledResolution;
+import net.minecraftforge.client.GuiIngameForge;
 
-public class PositionerTopCenter extends PositionerBase
+public class PositionerBottomCenter extends PositionerBase
 {
 	@Override
 	public void positionSections()
 	{
 		this.calcDims();
 		this.positionXCenter();
-		this.positionYTop();
+		int hotbar_height = Math.max(GuiIngameForge.left_height, GuiIngameForge.right_height) - 9;
+		this.positionYBottomSp(end_y - hotbar_height);
 	}
 
 	@Override

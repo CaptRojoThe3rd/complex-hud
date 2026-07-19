@@ -43,7 +43,7 @@ public class DebugHUDElement implements IComplexHUDElement
 	@Override
 	public PositionOrigin getPosOrigin()
 	{
-		return PositionOrigin.TOP_CENTER;
+		return PositionOrigin.HOTBAR_SIDE_LEFT;
 	}
 
 	@Override

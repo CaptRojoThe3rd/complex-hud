@@ -4,19 +4,21 @@ import com.captrojo.complexhud.main.RegisteredElement;
 
 import net.minecraft.client.gui.ScaledResolution;
 
-public class PositionerTopRight extends PositionerBase
+public class PositionerMiddleCenter extends PositionerBase
 {
 	@Override
 	public void positionSections()
 	{
 		this.calcDims();
-		this.positionXRight();
-		this.positionYTop();
+		this.positionXCenter();
+		this.positionYMiddle();
 	}
 
 	@Override
 	void alignElement(RegisteredElement re)
 	{
-		this.alignRightSideOfScreen(re);
+		if (!re.pos_op.horz) {
+			this.centerX(re);
+		}
 	}
 }

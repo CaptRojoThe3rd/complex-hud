@@ -2,6 +2,14 @@ package com.captrojo.complexhud.main;
 
 import com.captrojo.complexhud.api.PositionInfoXY2;
 import com.captrojo.complexhud.position.PositionerBase;
+import com.captrojo.complexhud.position.PositionerBottomCenter;
+import com.captrojo.complexhud.position.PositionerBottomLeft;
+import com.captrojo.complexhud.position.PositionerBottomRight;
+import com.captrojo.complexhud.position.PositionerHotbarSideLeft;
+import com.captrojo.complexhud.position.PositionerHotbarSideRight;
+import com.captrojo.complexhud.position.PositionerMiddleCenter;
+import com.captrojo.complexhud.position.PositionerMiddleLeft;
+import com.captrojo.complexhud.position.PositionerMiddleRight;
 import com.captrojo.complexhud.position.PositionerTopCenter;
 import com.captrojo.complexhud.position.PositionerTopLeft;
 import com.captrojo.complexhud.position.PositionerTopRight;
@@ -13,20 +21,20 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 public class ClientEventHandler
 {
 	static PositionerBase[] apos = new PositionerBase[] {
-		null,
-		null,
+		new PositionerHotbarSideLeft(),
+		new PositionerHotbarSideRight(),
 		
 		new PositionerTopLeft(),
 		new PositionerTopCenter(),
 		new PositionerTopRight(),
 
-		null,
-		null,
-		null,
+		new PositionerMiddleLeft(),
+		new PositionerMiddleCenter(),
+		new PositionerMiddleRight(),
 
-		null,
-		null,
-		null
+		new PositionerBottomLeft(),
+		new PositionerBottomCenter(),
+		new PositionerBottomRight()
 	};
 	
 	@SubscribeEvent
@@ -44,6 +52,7 @@ public class ClientEventHandler
 			return;
 		}
 		
+		PositionerBase.reset(event.resolution);
 		for (PositionerBase pb : apos) {
 			if (pb != null) {
 				pb.reset();
@@ -66,7 +75,7 @@ public class ClientEventHandler
 		
 		for (PositionerBase pb : apos) {
 			if (pb != null) {
-				pb.positionSections(event.resolution);
+				pb.positionSections();
 			}
 		}
 		
@@ -75,7 +84,7 @@ public class ClientEventHandler
 				continue;
 			}
 			int i = re.element.getPosOrigin().ordinal();
-			apos[i].positionElement(re, event.resolution);
+			apos[i].positionElement(re);
 			re.element.render(event.resolution, event.mouseX, event.mouseY, event.partialTicks, re.pos);
 		}
 	}
