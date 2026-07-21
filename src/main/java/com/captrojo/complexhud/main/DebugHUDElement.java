@@ -1,9 +1,12 @@
 package com.captrojo.complexhud.main;
 
+import java.util.List;
+
 import com.captrojo.complexhud.api.IComplexHUDElement;
 import com.captrojo.complexhud.api.PositionInfoXY2;
 import com.captrojo.complexhud.api.PositionOperation;
 import com.captrojo.complexhud.api.PositionOrigin;
+import com.captrojo.complexhud.config.ConfigOption;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -21,9 +24,57 @@ public class DebugHUDElement implements IComplexHUDElement
 	}
 	
 	@Override
-	public int getRenderPriority()
+	public String getUnlocalizedName()
+	{
+		return I18nHlpr.getf("element.debug.name", this.priority);
+	}
+
+	@Override
+	public int getDefaultPriority()
 	{
 		return this.priority;
+	}
+
+	@Override
+	public boolean getDefaultFixedSetting()
+	{
+		return false;
+	}
+	
+	@Override
+	public PositionOrigin getDefaultPosOrigin()
+	{
+		return PositionOrigin.TOP_LEFT;
+	}
+
+	@Override
+	public PositionOperation getDefaultPosOperation()
+	{
+		return PositionOperation.DOWN;
+	}
+
+	@Override
+	public int getDefaultXOffs()
+	{
+		return 0;
+	}
+
+	@Override
+	public int getDefaultYOffs()
+	{
+		return 0;
+	}
+	
+	@Override
+	public boolean getDefaultRenderInF3Setting()
+	{
+		return false;
+	}
+	
+	@Override
+	public List<ConfigOption> getConfigOptions()
+	{
+		return null;
 	}
 
 	@Override
@@ -41,43 +92,14 @@ public class DebugHUDElement implements IComplexHUDElement
 	}
 
 	@Override
-	public PositionOrigin getPosOrigin()
-	{
-		return PositionOrigin.HOTBAR_SIDE_LEFT;
-	}
-
-	@Override
-	public PositionOperation getPosOperation()
-	{
-		switch (this.priority) {
-		case 0:
-			return PositionOperation.DOWN;
-		case 1:
-			return PositionOperation.LEFT;
-		case 2:
-			return PositionOperation.UP;
-		case 3:
-			return PositionOperation.RIGHT;
-		}
-		return PositionOperation.DOWN;
-	}
-
-	@Override
-	public boolean isFixed()
-	{
-		return false;
-	}
-
-	@Override
 	public boolean isToBeRendered()
 	{
 		return true;
 	}
-	
+
 	@Override
-	public boolean renderInF3()
+	public void doPreRenderWork()
 	{
-		return false;
 	}
 
 	@Override

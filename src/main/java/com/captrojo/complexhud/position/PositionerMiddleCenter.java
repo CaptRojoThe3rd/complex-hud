@@ -17,7 +17,7 @@ public class PositionerMiddleCenter extends PositionerBase
 	@Override
 	void alignElement(RegisteredElement re)
 	{
-		if (!re.pos_op.horz) {
+		if (!re.getPosOp().horz) {
 			this.centerX(re);
 		}
 	}

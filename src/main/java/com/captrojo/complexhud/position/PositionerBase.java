@@ -79,7 +79,7 @@ public abstract class PositionerBase
 	{
 		re.pos = new PositionInfoXY2();
 		
-		switch (re.pos_op) {
+		switch (re.getPosOp()) {
 		case LEFT:
 			re.pos.left_x = this.sec_left.w;
 			re.pos.top_y = 0;
@@ -248,7 +248,7 @@ public abstract class PositionerBase
 	
 	public void positionElement(RegisteredElement re)
 	{
-		switch (re.pos_op) {
+		switch (re.getPosOp()) {
 		case LEFT:
 			re.pos.left_x += this.sec_left.x;
 			re.pos.top_y += this.sec_left.y;
@@ -267,6 +267,8 @@ public abstract class PositionerBase
 			break;
 		}
 		this.alignElement(re);
+		re.pos.left_x += re.getXOffs();
+		re.pos.top_y += re.getYOffs();
 		re.pos.right_x = re.pos.left_x + re.width - 1;
 		re.pos.bottom_y = re.pos.top_y + re.height - 1;
 	}
@@ -295,7 +297,7 @@ public abstract class PositionerBase
 	
 	void alignRightSideSp(RegisteredElement re, int end_x_sp)
 	{
-		if (!re.pos_op.horz) {
+		if (!re.getPosOp().horz) {
 			if (this.getMode() == MODE_SINGLE_ROW) {
 				this.alignRight(re, end_x_sp);
 			} else {

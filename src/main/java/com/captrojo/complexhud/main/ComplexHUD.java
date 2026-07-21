@@ -1,10 +1,12 @@
 package com.captrojo.complexhud.main;
 
 import com.captrojo.complexhud.api.HUDAPI;
+import com.captrojo.complexhud.config.ModConfig;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -20,6 +22,8 @@ public class ComplexHUD
 	public static final int VERSION_NUM = 0x010000;
 	public static final boolean DEBUG = true;
 	
+	public static String config_dir;
+	
 	public static String ident(String str)
 	{
 		if (str.contains(":")) {
@@ -32,21 +36,37 @@ public class ComplexHUD
 	{
 		return new ResourceLocation(ident(path));
 	}
+	
+	public static String[] convertEnumToNames(Enum[] en)
+	{
+		String[] names = new String[en.length];
+		for (int i = 0; i < en.length; i++) {
+			names[i] = en[i].name().toLowerCase();
+		}
+		return names;
+	}
 
 	@EventHandler
-	public void init(FMLInitializationEvent event)
+	public void preInit(FMLPreInitializationEvent event)
 	{
 		if (event.getSide() == Side.SERVER) {
 			return;
 		}
+		
+		config_dir = event.getSuggestedConfigurationFile().getParent();
+		ModConfig.init(event.getSuggestedConfigurationFile());
+		
 		MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
 		HUDElementList.init();
 		
 		if (DEBUG) {
-			HUDAPI.registerElement(new DebugHUDElement(0, "([0])"));
-			HUDAPI.registerElement(new DebugHUDElement(1, "[1]"));
-			HUDAPI.registerElement(new DebugHUDElement(2, "[2]"));
-			HUDAPI.registerElement(new DebugHUDElement(3, "[3]"));
+			for (int i = 0; i < 20; i++) {
+				HUDAPI.registerElement(MOD_ID, new DebugHUDElement(i, "[" + i + "]"));
+			}
+//			HUDAPI.registerElement(MOD_ID, new DebugHUDElement(0, "([0])"));
+//			HUDAPI.registerElement(MOD_ID, new DebugHUDElement(1, "[1]"));
+//			HUDAPI.registerElement(MOD_ID, new DebugHUDElement(2, "[2]"));
+//			HUDAPI.registerElement(MOD_ID, new DebugHUDElement(3, "[3]"));
 		}
 	}
 }

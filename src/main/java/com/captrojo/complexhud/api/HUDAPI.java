@@ -12,7 +12,7 @@ public class HUDAPI
 	}
 	
 	/* Get a number representing the mod version.
-	 * Format: MJ.MN.PT -> 0xMJMNPT (1.0.0 -> 0x010000)
+	 * Format: MJ.MN.PT -> 0xMJMNPT (1.2.3 -> 0x010203)
 	 */
 	public static int getVersionNumber()
 	{
@@ -22,8 +22,8 @@ public class HUDAPI
 	/* Register a HUD element. 
 	 * There is no requirement that a HUD element ever be rendered.
 	 */
-	public static void registerElement(IComplexHUDElement element)
+	public static void registerElement(String mod_id, IComplexHUDElement element)
 	{
-		HUDElementList.registerElement(element);
+		HUDElementList.registerElement(mod_id, element);
 	}
 }

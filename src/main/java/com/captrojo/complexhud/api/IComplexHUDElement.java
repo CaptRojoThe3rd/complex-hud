@@ -1,16 +1,43 @@
 package com.captrojo.complexhud.api;
 
+import java.util.List;
+
+import com.captrojo.complexhud.config.ConfigOption;
+
 import net.minecraft.client.gui.ScaledResolution;
 
 public interface IComplexHUDElement
 {
-	/* Get the render priority of the element.
-	 * 
-	 * Lower values mean the element is rendered earlier. For example, if the origin is set
-	 * to TOP_LEFT, then an element with a low value will be rendered closer to the top left
-	 * of the screen.
+	/* Get the unlocalized name of the element.
+	 * Used for the settings screen.
 	 */
-	public int getRenderPriority();
+	public String getUnlocalizedName();
+	
+	/* Get default priority of the element. */
+	public int getDefaultPriority();
+	
+	/* Get default setting for whether the element should be fixed in position or not. */
+	public boolean getDefaultFixedSetting();
+	
+	/* Get default position origin of the element. */
+	public PositionOrigin getDefaultPosOrigin();
+	
+	/* Get default position operation of the element. */
+	public PositionOperation getDefaultPosOperation();
+	
+	/* Get default x offset. */
+	public int getDefaultXOffs();
+	
+	/* Get default y offset. */
+	public int getDefaultYOffs();
+	
+	/* Get default setting for whether the element should render in F3. */
+	public boolean getDefaultRenderInF3Setting();
+	
+	/* Get any extra config options associated with this element.
+	 * Return null if there aren't any.
+	 */
+	public List<ConfigOption> getConfigOptions();
 	
 	/* Get the width of the HUD element. */
 	public int getWidth();
@@ -18,26 +45,13 @@ public interface IComplexHUDElement
 	/* Get the height of the HUD element. */
 	public int getHeight();
 	
-	/* Get the origin of the position of the HUD element. */
-	public PositionOrigin getPosOrigin();
-	
-	/* Get the position operation of the HUD element. */
-	public PositionOperation getPosOperation();
-	
-	/* Get whether the element is fixed on the screen.
-	 * 
-	 * false - The element's position is affected by other elements, and the element affects
-	 * the position of other elements who share this element's origin position.
-	 * 
-	 * true - The element is not affected by and will not affect other elements.
-	 */
-	public boolean isFixed();
-	
 	/* Get whether the HUD element will be rendered or not. */
 	public boolean isToBeRendered();
 	
-	/* Whether the HUD element should render while the F3 menu is active. */
-	public boolean renderInF3();
+	/* Do any pre-render work. You can do literally anything here, as long as the getWidth
+	 * and getHeight methods are ready to be called afterwards.
+	 */
+	public void doPreRenderWork();
 	
 	/* Render the HUD element. */
 	public void render(ScaledResolution sr, int mouse_x, int mouse_y, float partial_ticks, PositionInfoXY2 pos);
