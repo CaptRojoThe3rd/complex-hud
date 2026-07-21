@@ -120,8 +120,7 @@ public class ClientEventHandler
 		}
 		
 		if (event.button.id == ModConfig.optn_id) {
-			GuiScreen settings_head = new GuiScreenSettingsHead(event.gui);
-			Minecraft.getMinecraft().displayGuiScreen(settings_head);
+			Minecraft.getMinecraft().displayGuiScreen(new GuiScreenSettingsHead(event.gui));
 		}
 	}
 	

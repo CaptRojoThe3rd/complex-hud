@@ -25,6 +25,13 @@ public class GuiConfigOptionList extends GuiScrollingList2
 		
 		this.selected_index = -1;
 	}
+	
+	void updateScreen()
+	{
+		for (GuiConfigOption gui : this.option_list) {
+			gui.updateScreen();
+		}
+	}
 
 	@Override
 	protected int getSize()

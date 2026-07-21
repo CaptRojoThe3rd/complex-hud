@@ -56,6 +56,10 @@ public abstract class GuiConfigOption
 		return true;
 	}
 	
+	void updateScreen()
+	{
+	}
+	
 	void draw(int x, int y, int mouse_x, int mouse_y)
 	{
 		this.x = x;

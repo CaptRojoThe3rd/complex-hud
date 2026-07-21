@@ -47,6 +47,14 @@ public class GuiSectionedOptions extends GuiScreen
 		ConfigOptionSection sec = this.option_sections.get(idx);
 		this.option_list = new GuiConfigOptionList(this.x + 113, this.y, GuiConfigOption.createFrom(sec));
 	}
+	
+	@Override
+	public void updateScreen()
+	{
+		if (this.option_list != null) {
+			this.option_list.updateScreen();
+		}
+	}
 
 	@Override
 	public void initGui()

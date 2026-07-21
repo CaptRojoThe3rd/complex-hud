@@ -21,6 +21,12 @@ public abstract class GuiConfigOptionTextField extends GuiConfigOption
 	}
 	
 	abstract boolean setValueIfValid();
+	
+	@Override
+	void updateScreen()
+	{
+		this.text_field.updateCursorCounter();
+	}
 
 	@Override
 	void draw(int x, int y, int mouse_x, int mouse_y)
