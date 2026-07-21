@@ -1,6 +1,7 @@
 package com.captrojo.complexhud.gui;
 
 import com.captrojo.complexhud.config.ModConfig;
+import com.captrojo.complexhud.main.ClientEventHandler;
 import com.captrojo.complexhud.main.HUDElementList;
 import com.captrojo.complexhud.main.I18nHlpr;
 
@@ -19,7 +20,7 @@ public class GuiScreenSettingsHead extends GuiScreen
 	public GuiScreenSettingsHead(GuiScreen parent)
 	{
 		this.parent_screen = parent;
-		this.title = I18nHlpr.get("options.complex_hud.title");
+		this.title = I18nHlpr.get("options.complex_hud");
 	}
 
 	@Override
@@ -32,14 +33,14 @@ public class GuiScreenSettingsHead extends GuiScreen
 			this.width / 2 - 75,
 			this.height / 6 + 72,
 			150, 20,
-			I18nHlpr.get("options.complex_hud.button_pos_optns")
+			I18nHlpr.get("options.complexhud.pos_optns")
 		));
 		this.buttonList.add(new GuiButton(
 			BTN_ELEMENT_OPTNS,
 			this.width / 2 - 75,
 			this.height / 6 + 96,
 			150, 20,
-			I18nHlpr.get("options.complex_hud.button_element_optns")
+			I18nHlpr.get("options.complexhud.element_optns")
 		));
 		
 		this.buttonList.add(new GuiButton(
@@ -57,7 +58,7 @@ public class GuiScreenSettingsHead extends GuiScreen
 		if (button.id == BTN_DONE) {
 			this.mc.displayGuiScreen(this.parent_screen);
 		} else if (button.id == BTN_POS_OPTNS) {
-//			this.mc.displayGuiScreen(new GuiSectionedOptions(this));
+			this.mc.displayGuiScreen(new GuiSectionedOptions(this, ModConfig.pos_config_obj, ClientEventHandler.getAllPosSettings()));
 		} else if (button.id == BTN_ELEMENT_OPTNS) {
 			this.mc.displayGuiScreen(new GuiSectionedOptions(this, ModConfig.element_config_obj, HUDElementList.getAllOptions()));
 		}

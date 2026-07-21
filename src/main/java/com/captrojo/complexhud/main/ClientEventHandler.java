@@ -1,6 +1,9 @@
 package com.captrojo.complexhud.main;
 
+import java.util.ArrayList;
+
 import com.captrojo.complexhud.api.PositionInfoXY2;
+import com.captrojo.complexhud.config.ConfigOptionSection;
 import com.captrojo.complexhud.config.ModConfig;
 import com.captrojo.complexhud.gui.GuiScreenSettingsHead;
 import com.captrojo.complexhud.position.PositionerBase;
@@ -44,6 +47,15 @@ public class ClientEventHandler
 		new PositionerBottomCenter(),
 		new PositionerBottomRight()
 	};
+	
+	public static ArrayList<ConfigOptionSection> getAllPosSettings()
+	{
+		ArrayList<ConfigOptionSection> list = new ArrayList<ConfigOptionSection>();
+		for (PositionerBase pb : apos) {
+			list.add(pb.options_sec);
+		}
+		return list;
+	}
 	
 	@SubscribeEvent
 	public void onRenderGameOverlayPre(RenderGameOverlayEvent.Pre event)
@@ -137,7 +149,7 @@ public class ClientEventHandler
 			event.gui.height / 6 + ModConfig.optn_y_offs,
 			150,
 			20,
-			I18nHlpr.get("options.complex_hud_settings")
+			I18nHlpr.get("options.complex_hud")
 		);
 		event.buttonList.add(button);
 	}

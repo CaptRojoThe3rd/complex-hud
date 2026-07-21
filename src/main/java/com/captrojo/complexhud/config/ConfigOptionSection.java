@@ -25,6 +25,12 @@ public class ConfigOptionSection
 		this.option_list.add(option);
 	}
 	
+	public void addAll(ConfigOption...options) {
+		for (ConfigOption optn : options) {
+			this.add(optn);
+		}
+	}
+	
 	public ConfigOption get(int idx)
 	{
 		return this.option_list.get(idx);

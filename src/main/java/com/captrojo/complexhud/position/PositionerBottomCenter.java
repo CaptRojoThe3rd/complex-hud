@@ -6,6 +6,11 @@ import net.minecraftforge.client.GuiIngameForge;
 
 public class PositionerBottomCenter extends PositionerBase
 {
+	public PositionerBottomCenter()
+	{
+		super("positioner.bottom_center");
+	}
+
 	@Override
 	public void positionSections()
 	{

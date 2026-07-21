@@ -7,13 +7,19 @@ public class GuiConfigOptionString extends GuiConfigOptionTextField
 	GuiConfigOptionString(ConfigOption cfg_optn)
 	{
 		super(cfg_optn);
-		this.text_field.setText(cfg_optn.getString());
+		this.updateUIWithValue();
 	}
 
 	@Override
 	boolean setValueIfValid()
 	{
-		this.cfg_option.set(this.text_field.getText());
+		this.cfg_optn.set(this.text_field.getText());
 		return true;
+	}
+
+	@Override
+	void updateUIWithValue()
+	{
+		this.text_field.setText(this.cfg_optn.getString());
 	}
 }

@@ -4,6 +4,11 @@ import com.captrojo.complexhud.main.RegisteredElement;
 
 public class PositionerBottomLeft extends PositionerBase
 {
+	public PositionerBottomLeft()
+	{
+		super("positioner.bottom_left");
+	}
+
 	@Override
 	public void positionSections()
 	{

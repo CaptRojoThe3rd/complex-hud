@@ -6,6 +6,11 @@ import net.minecraft.client.gui.ScaledResolution;
 
 public class PositionerTopLeft extends PositionerBase
 {
+	public PositionerTopLeft()
+	{
+		super("positioner.top_left");
+	}
+
 	@Override
 	public void positionSections()
 	{

@@ -28,7 +28,7 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 	ConfigOption cfg_offs_x;
 	ConfigOption cfg_offs_y;
 	ConfigOption cfg_rndr_f3;
-	ConfigOptionSection options;
+	ConfigOptionSection options_sec;
 	
 	/* Cache these values to avoid unnecessary processing every time we need them */
 	public boolean to_be_rendered;
@@ -51,22 +51,24 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 		this.cfg_rndr_f3 = new ConfigOption(Type.BOOLEAN, "render_in_f3", element.getDefaultRenderInF3Setting());
 		List<ConfigOption> extra_options = element.getConfigOptions();
 		
-		this.options = new ConfigOptionSection(this.key, this.unlocalized_name);
-		this.options.add(this.cfg_rndr_prio);
-		this.options.add(this.cfg_fixed);
-		this.options.add(this.cfg_pos_origin);
-		this.options.add(this.cfg_pos_op);
-		this.options.add(this.cfg_offs_x);
-		this.options.add(this.cfg_offs_y);
-		this.options.add(this.cfg_rndr_f3);
+		this.options_sec = new ConfigOptionSection(this.key, this.unlocalized_name);
+		this.options_sec.addAll(
+			this.cfg_rndr_prio,
+			this.cfg_fixed,
+			this.cfg_pos_origin,
+			this.cfg_pos_op,
+			this.cfg_offs_x,
+			this.cfg_offs_y,
+			this.cfg_rndr_f3
+		);
 		if (extra_options != null) {
 			for (ConfigOption optn : extra_options) {
-				this.options.add(optn);
+				this.options_sec.add(optn);
 			}
 		}
 		
-		this.options.loadFromJson(ModConfig.element_config_obj);
-		this.options.saveToJson(ModConfig.element_config_obj);
+		this.options_sec.loadFromJson(ModConfig.element_config_obj);
+		this.options_sec.saveToJson(ModConfig.element_config_obj);
 		ModConfig.saveJson();
 	}
 	

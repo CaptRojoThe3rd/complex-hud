@@ -1,5 +1,6 @@
 package com.captrojo.complexhud.config;
 
+import com.captrojo.complexhud.main.I18nHlpr;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -29,6 +30,8 @@ public class ConfigOption
 	
 	Enum[] enum_vals;
 	
+	String unlocalized_name;
+	
 	public ConfigOption(Type type, String key, Object val)
 	{
 		if (type == Type.ENUM) {
@@ -37,6 +40,8 @@ public class ConfigOption
 		this.type = type;
 		this.key = key;
 		this.value = val;
+		
+		this.unlocalized_name = "options.complexhud." + key;
 	}
 	
 	public ConfigOption(Enum[] enum_values, String key, Enum value)
@@ -48,6 +53,8 @@ public class ConfigOption
 		this.enum_vals = enum_values;
 		this.min = 0;
 		this.max = enum_values.length;
+		
+		this.unlocalized_name = "options.complexhud." + key;
 	}
 	
 	/* Set the valid range of values for this config option.
@@ -58,6 +65,18 @@ public class ConfigOption
 		this.min = min;
 		this.max = max;
 		return this;
+	}
+	
+	/* Set the unlocalized name of this config option, overwriting the default one. */
+	public ConfigOption setUnlocalizedName(String unlocalized_name)
+	{
+		this.unlocalized_name = unlocalized_name;
+		return this;
+	}
+	
+	public String getName()
+	{
+		return I18nHlpr.get(this.unlocalized_name);
 	}
 	
 	public void loadFromJson(JsonObject section_obj)

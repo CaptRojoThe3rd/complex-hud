@@ -10,7 +10,7 @@ public class GuiConfigOptionBoolean extends GuiConfigOptionButton
 	GuiConfigOptionBoolean(ConfigOption cfg_optn)
 	{
 		super(cfg_optn);
-		this.button.displayString = "" + cfg_optn.getBool();
+		this.updateUIWithValue();
 	}
 
 	@Override
@@ -19,10 +19,16 @@ public class GuiConfigOptionBoolean extends GuiConfigOptionButton
 		if (!this.checkMousePos(mouse_x, mouse_y)) {
 			return false;
 		}
-		this.cfg_option.set(!this.cfg_option.getBool());
-		this.button.displayString = Boolean.toString(this.cfg_option.getBool());
-		this.button.func_146113_a(Minecraft.getMinecraft().getSoundHandler());
+		this.cfg_optn.set(!this.cfg_optn.getBool());
+		this.updateUIWithValue();
+		this.playClickSound();
 		HUDElementList.onSettingsChanged();
 		return true;
+	}
+
+	@Override
+	void updateUIWithValue()
+	{
+		this.button.displayString = Boolean.toString(this.cfg_optn.getBool());
 	}
 }

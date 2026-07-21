@@ -7,17 +7,23 @@ public class GuiConfigOptionInt extends GuiConfigOptionTextField
 	GuiConfigOptionInt(ConfigOption cfg_optn)
 	{
 		super(cfg_optn);
-		this.text_field.setText("" + cfg_optn.getInt());
+		this.updateUIWithValue();
 	}
 
 	@Override
 	boolean setValueIfValid()
 	{
 		try {
-			this.cfg_option.set(Integer.valueOf(this.text_field.getText()));
+			this.cfg_optn.set(Integer.valueOf(this.text_field.getText()));
 			return true;
 		} catch (NumberFormatException e) {
 			return false;
 		}
+	}
+
+	@Override
+	void updateUIWithValue()
+	{
+		this.text_field.setText(Integer.toString(this.cfg_optn.getInt()));
 	}
 }

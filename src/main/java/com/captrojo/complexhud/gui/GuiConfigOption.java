@@ -33,7 +33,7 @@ public abstract class GuiConfigOption
 		return list;
 	}
 	
-	ConfigOption cfg_option;
+	ConfigOption cfg_optn;
 	
 	int x;
 	int y;
@@ -42,7 +42,7 @@ public abstract class GuiConfigOption
 	
 	GuiConfigOption(ConfigOption cfg_optn)
 	{
-		this.cfg_option = cfg_optn;
+		this.cfg_optn = cfg_optn;
 	}
 	
 	boolean checkMousePos(int mouse_x, int mouse_y)
@@ -65,4 +65,6 @@ public abstract class GuiConfigOption
 	abstract boolean mouseClicked(int mouse_x, int mouse_y);
 	
 	abstract void keyTyped(char c, int n);
+	
+	abstract void updateUIWithValue();
 }

@@ -37,7 +37,7 @@ public class HUDElementList
 	{
 		ArrayList<ConfigOptionSection> list = new ArrayList<ConfigOptionSection>();
 		for (RegisteredElement re : element_list) {
-			list.add(re.options);
+			list.add(re.options_sec);
 		}
 		return list;
 	}

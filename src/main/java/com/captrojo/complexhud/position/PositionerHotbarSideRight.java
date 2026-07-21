@@ -4,6 +4,11 @@ import com.captrojo.complexhud.main.RegisteredElement;
 
 public class PositionerHotbarSideRight extends PositionerBase
 {
+	public PositionerHotbarSideRight()
+	{
+		super("positioner.hotbar_side_right");
+	}
+
 	@Override
 	public void positionSections()
 	{

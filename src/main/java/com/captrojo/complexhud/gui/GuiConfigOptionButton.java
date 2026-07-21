@@ -18,6 +18,11 @@ public abstract class GuiConfigOptionButton extends GuiConfigOption
 		this.button = new GuiButton(0, 0, 0, this.w, this.h, "");
 	}
 
+	void playClickSound()
+	{
+		this.button.func_146113_a(Minecraft.getMinecraft().getSoundHandler());
+	}
+	
 	@Override
 	void draw(int x, int y, int mouse_x, int mouse_y)
 	{

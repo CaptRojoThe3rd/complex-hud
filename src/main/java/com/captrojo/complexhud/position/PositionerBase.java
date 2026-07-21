@@ -2,6 +2,10 @@ package com.captrojo.complexhud.position;
 
 import com.captrojo.complexhud.api.PositionInfoXY2;
 import com.captrojo.complexhud.api.PositionInfoXYWH;
+import com.captrojo.complexhud.config.ConfigOption;
+import com.captrojo.complexhud.config.ConfigOption.Type;
+import com.captrojo.complexhud.config.ConfigOptionSection;
+import com.captrojo.complexhud.config.ModConfig;
 import com.captrojo.complexhud.main.RegisteredElement;
 
 import net.minecraft.client.gui.ScaledResolution;
@@ -37,6 +41,11 @@ public abstract class PositionerBase
 		middle_y = sr.getScaledHeight() / 2;
 	}
 	
+	ConfigOption cfg_offs_x;
+	ConfigOption cfg_offs_y;
+	ConfigOption cfg_alignment_enabled;
+	public ConfigOptionSection options_sec;
+	
 	PositionInfoXYWH sec_left;
 	PositionInfoXYWH sec_right;
 	PositionInfoXYWH sec_top;
@@ -49,8 +58,16 @@ public abstract class PositionerBase
 	int row_height;
 	int row_width;
 
-	public PositionerBase()
+	public PositionerBase(String unlocalized_name)
 	{
+		this.cfg_offs_x = new ConfigOption(Type.INT, "offset_x", 0);
+		this.cfg_offs_y = new ConfigOption(Type.INT, "offset_y", 0);
+		this.cfg_alignment_enabled = new ConfigOption(Type.BOOLEAN, "alignment_enabled", true);
+		this.options_sec = new ConfigOptionSection(this.toString(), unlocalized_name);
+		this.options_sec.addAll(this.cfg_offs_x, this.cfg_offs_y, this.cfg_alignment_enabled);
+		this.options_sec.loadFromJson(ModConfig.pos_config_obj);
+		this.options_sec.saveToJson(ModConfig.pos_config_obj);
+		
 		this.sec_left = new PositionInfoXYWH();
 		this.sec_right = new PositionInfoXYWH();
 		this.sec_top = new PositionInfoXYWH();
@@ -266,9 +283,11 @@ public abstract class PositionerBase
 			re.pos.top_y += this.sec_top.y;
 			break;
 		}
-		this.alignElement(re);
-		re.pos.left_x += re.getXOffs();
-		re.pos.top_y += re.getYOffs();
+		if (this.cfg_alignment_enabled.getBool()) {
+			this.alignElement(re);
+		}
+		re.pos.left_x += re.getXOffs() + this.cfg_offs_x.getInt();
+		re.pos.top_y += re.getYOffs() + this.cfg_offs_y.getInt();
 		re.pos.right_x = re.pos.left_x + re.width - 1;
 		re.pos.bottom_y = re.pos.top_y + re.height - 1;
 	}

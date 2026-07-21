@@ -1,4 +1,31 @@
 
-options.complex_hud_settings=Complex HUD Settings
-
 element.debug.name=Debug %d
+
+gui.apply=Apply
+
+options.complex_hud=Complex HUD Settings
+
+options.complexhud.pos_optns=Positioning Options
+options.complexhud.element_optns=Element Options
+
+options.complexhud.priority=Priority
+options.complexhud.fixed=Fixed Position
+options.complexhud.origin=Position Origin
+options.complexhud.operation=Position Operation
+options.complexhud.offset_x=X Offset
+options.complexhud.offset_y=Y Offset
+options.complexhud.render_in_f3=Render in F3
+
+options.complexhud.alignment_enabled=Alignment Enabled
+
+positioner.hotbar_side_left=Hotbar Side Left
+positioner.hotbar_side_right=Hotbar Side Right
+positioner.top_left=Top Left
+positioner.top_center=Top Center
+positioner.top_right=Top Right
+positioner.middle_left=Middle Left
+positioner.middle_center=Middle Center
+positioner.middle_right=Middle Right
+positioner.bottom_left=Bottom Left
+positioner.bottom_center=Bottom Center
+positioner.bottom_right=Bottom Right
