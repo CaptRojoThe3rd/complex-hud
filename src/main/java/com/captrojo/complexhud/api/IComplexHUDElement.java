@@ -31,6 +31,18 @@ public interface IComplexHUDElement
 	/* Get default y offset. */
 	public int getDefaultYOffs();
 	
+	/* Get default top buffer size. */
+	public int getDefaultBufferTopSize();
+	
+	/* Get default bottom buffer size. */
+	public int getDefaultBufferBottomSize();
+	
+	/* Get default left buffer size. */
+	public int getDefaultBufferLeftSize();
+	
+	/* Get default right buffer size. */
+	public int getDefaultBufferRightSize();
+	
 	/* Get default setting for whether the element should render in F3. */
 	public boolean getDefaultRenderInF3Setting();
 	
@@ -38,6 +50,11 @@ public interface IComplexHUDElement
 	 * Return null if there aren't any.
 	 */
 	public ConfigOption[] getConfigOptions();
+	
+	/* Called when the config is updated. Use this if you want to cache values to speed up
+	 * rendering.
+	 */
+	public void onConfigUpdated();
 	
 	/* Get the width of the HUD element. */
 	public int getWidth();
@@ -47,6 +64,9 @@ public interface IComplexHUDElement
 	
 	/* Get whether the HUD element will be rendered or not. */
 	public boolean isToBeRendered();
+	
+	/* Called every tick. */
+	public void updateTick();
 	
 	/* Do any pre-render work. You can do literally anything here, as long as the getWidth,
 	 * getHeight, and isToBeRendered methods are ready to be called afterwards.

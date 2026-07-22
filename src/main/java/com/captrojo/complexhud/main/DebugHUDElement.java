@@ -71,6 +71,30 @@ public class DebugHUDElement implements IComplexHUDElement
 	{
 		return 0;
 	}
+
+	@Override
+	public int getDefaultBufferTopSize()
+	{
+		return 0;
+	}
+
+	@Override
+	public int getDefaultBufferBottomSize()
+	{
+		return 0;
+	}
+
+	@Override
+	public int getDefaultBufferLeftSize()
+	{
+		return 0;
+	}
+
+	@Override
+	public int getDefaultBufferRightSize()
+	{
+		return 0;
+	}
 	
 	@Override
 	public boolean getDefaultRenderInF3Setting()
@@ -82,6 +106,11 @@ public class DebugHUDElement implements IComplexHUDElement
 	public ConfigOption[] getConfigOptions()
 	{
 		return null;
+	}
+	
+	@Override
+	public void onConfigUpdated()
+	{
 	}
 
 	@Override
@@ -102,6 +131,11 @@ public class DebugHUDElement implements IComplexHUDElement
 	public boolean isToBeRendered()
 	{
 		return true;
+	}
+
+	@Override
+	public void updateTick()
+	{
 	}
 
 	@Override

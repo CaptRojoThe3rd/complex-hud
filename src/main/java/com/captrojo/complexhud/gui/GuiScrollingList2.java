@@ -19,7 +19,7 @@ public abstract class GuiScrollingList2
 	protected final int top_y;
 	protected final int bottom_y;
 	protected final int left_x;
-	protected final int right_y;
+	protected final int right_x;
 	protected final int element_height;
 	
 	protected int scrollbar_color_bg = 0x000000;
@@ -52,7 +52,7 @@ public abstract class GuiScrollingList2
 		this.bottom_y = bottom;
 		this.element_height = element_height;
 		this.left_x = left;
-		this.right_y = w + this.left_x;
+		this.right_x = w + this.left_x;
 	}
 
 	protected abstract int getSize();
@@ -214,28 +214,30 @@ public abstract class GuiScrollingList2
 				this.initial_mouse_click_y = (float) mouse_y;
 			}
 		} else {
-			while (Mouse.next()) {
-				int var16 = Mouse.getEventDWheel();
+			if (mouse_x > this.left_x && mouse_x < this.right_x && mouse_y > this.top_y && mouse_y < this.bottom_y) {
+				while (Mouse.next()) {
+					int var16 = Mouse.getEventDWheel();
 
-				if (var16 != 0) {
-					if (var16 > 0) {
-						var16 = -1;
-					} else if (var16 < 0) {
-						var16 = 1;
+					if (var16 != 0) {
+						if (var16 > 0) {
+							var16 = -1;
+						} else if (var16 < 0) {
+							var16 = 1;
+						}
+
+						this.scroll_distance += (float) (var16 * this.element_height / 2);
 					}
-
-					this.scroll_distance += (float) (var16 * this.element_height / 2);
 				}
-			}
 
-			this.initial_mouse_click_y = -1.0f;
+				this.initial_mouse_click_y = -1.0f;
+			}
 		}
 
 		this.applyScrollLimits();
 		
 		Tessellator ts = Tessellator.instance;
 		if (this.mc.theWorld != null) {
-			this.drawGradientRect(this.left_x, this.top_y, this.right_y, this.bottom_y, -1072689136, -804253680);
+			this.drawGradientRect(this.left_x, this.top_y, this.right_x, this.bottom_y, -1072689136, -804253680);
 		} else {
 			GL11.glDisable(GL11.GL_LIGHTING);
 			GL11.glDisable(GL11.GL_FOG);
@@ -335,8 +337,8 @@ public abstract class GuiScrollingList2
 		ts.startDrawingQuads();
 		ts.setColorOpaque_I(0x202020);
 		ts.addVertexWithUV((double) this.left_x, (double) this.bottom_y, 0.0, (double) ((float) this.left_x / var17), (double) ((float) (this.bottom_y + (int) this.scroll_distance) / var17));
-		ts.addVertexWithUV((double) this.right_y, (double) this.bottom_y, 0.0, (double) ((float) this.right_y / var17), (double) ((float) (this.bottom_y + (int) this.scroll_distance) / var17));
-		ts.addVertexWithUV((double) this.right_y, (double) this.top_y, 0.0, (double) ((float) this.right_y / var17), (double) ((float) (this.top_y + (int) this.scroll_distance) / var17));
+		ts.addVertexWithUV((double) this.right_x, (double) this.bottom_y, 0.0, (double) ((float) this.right_x / var17), (double) ((float) (this.bottom_y + (int) this.scroll_distance) / var17));
+		ts.addVertexWithUV((double) this.right_x, (double) this.top_y, 0.0, (double) ((float) this.right_x / var17), (double) ((float) (this.top_y + (int) this.scroll_distance) / var17));
 		ts.addVertexWithUV((double) this.left_x, (double) this.top_y, 0.0, (double) ((float) this.left_x / var17), (double) ((float) (this.top_y + (int) this.scroll_distance) / var17));
 		ts.draw();
 	}
@@ -402,17 +404,17 @@ public abstract class GuiScrollingList2
 		ts.startDrawingQuads();
 		ts.setColorRGBA_I(0x000000, 0);
 		ts.addVertexWithUV((double) this.left_x, (double) (this.top_y + edge_gradient_size), 0.0, 0.0, 1.0);
-		ts.addVertexWithUV((double) this.right_y, (double) (this.top_y + edge_gradient_size), 0.0, 1.0, 1.0);
+		ts.addVertexWithUV((double) this.right_x, (double) (this.top_y + edge_gradient_size), 0.0, 1.0, 1.0);
 		ts.setColorRGBA_I(0x000000, 255);
-		ts.addVertexWithUV((double) this.right_y, (double) this.top_y, 0.0, 1.0, 0.0);
+		ts.addVertexWithUV((double) this.right_x, (double) this.top_y, 0.0, 1.0, 0.0);
 		ts.addVertexWithUV((double) this.left_x, (double) this.top_y, 0.0, 0.0, 0.0);
 		ts.draw();
 		ts.startDrawingQuads();
 		ts.setColorRGBA_I(0x000000, 255);
 		ts.addVertexWithUV((double) this.left_x, (double) this.bottom_y, 0.0, 0.0, 1.0);
-		ts.addVertexWithUV((double) this.right_y, (double) this.bottom_y, 0.0, 1.0, 1.0);
+		ts.addVertexWithUV((double) this.right_x, (double) this.bottom_y, 0.0, 1.0, 1.0);
 		ts.setColorRGBA_I(0x000000, 0);
-		ts.addVertexWithUV((double) this.right_y, (double) (this.bottom_y - edge_gradient_size), 0.0, 1.0, 0.0);
+		ts.addVertexWithUV((double) this.right_x, (double) (this.bottom_y - edge_gradient_size), 0.0, 1.0, 0.0);
 		ts.addVertexWithUV((double) this.left_x, (double) (this.bottom_y - edge_gradient_size), 0.0, 0.0, 0.0);
 		ts.draw();
 	}

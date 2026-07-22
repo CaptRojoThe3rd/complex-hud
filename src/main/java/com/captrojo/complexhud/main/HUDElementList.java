@@ -21,9 +21,12 @@ public class HUDElementList
 		needs_sorting = false;
 	}
 	
-	public static void onSettingsChanged()
+	public static void onConfigUpdated()
 	{
 		needs_sorting = true;
+		for (RegisteredElement re : element_list) {
+			re.element.onConfigUpdated();
+		}
 	}
 	
 	public static void registerElement(String mod_id, IComplexHUDElement e)

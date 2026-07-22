@@ -286,8 +286,12 @@ public abstract class PositionerBase
 		if (this.cfg_alignment_enabled.getBool()) {
 			this.alignElement(re);
 		}
+		
 		re.pos.left_x += re.getXOffs() + this.cfg_offs_x.getInt();
+		re.pos.left_x += re.element.getDefaultBufferLeftSize();
 		re.pos.top_y += re.getYOffs() + this.cfg_offs_y.getInt();
+		re.pos.top_y += re.element.getDefaultBufferTopSize();
+		
 		re.pos.right_x = re.pos.left_x + re.width - 1;
 		re.pos.bottom_y = re.pos.top_y + re.height - 1;
 	}

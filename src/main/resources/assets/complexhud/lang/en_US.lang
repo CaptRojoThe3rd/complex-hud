@@ -26,6 +26,10 @@ options.complexhud.operation=Position Operation
 options.complexhud.offset_x=X Offset
 options.complexhud.offset_y=Y Offset
 options.complexhud.render_in_f3=Render in F3
+options.complexhud.buffer_top=Top Buffer Space Size
+options.complexhud.buffer_bottom=Bottom Buffer Space Size
+options.complexhud.buffer_left=Left Buffer Space Size
+options.complexhud.buffer_right=Right Buffer Space Size
 
 options.complexhud.alignment_enabled=Alignment Enabled
 

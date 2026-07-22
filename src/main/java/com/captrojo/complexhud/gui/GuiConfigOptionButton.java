@@ -1,5 +1,6 @@
 package com.captrojo.complexhud.gui;
 
+import com.captrojo.complexhud.api.IComplexHUDElement;
 import com.captrojo.complexhud.config.ConfigOption;
 
 import net.minecraft.client.Minecraft;

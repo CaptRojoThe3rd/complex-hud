@@ -3,6 +3,7 @@ package com.captrojo.complexhud.main;
 import com.captrojo.complexhud.api.HUDAPI;
 import com.captrojo.complexhud.api.PositionOrigin;
 import com.captrojo.complexhud.config.ModConfig;
+import com.captrojo.complexhud.element.ElementHealthBar;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -61,8 +62,13 @@ public class ComplexHUD
 		ModKeyInput.registerKeybinds();
 		FMLCommonHandler.instance().bus().register(new ModKeyInput());
 		
-		MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
+		ClientEventHandler.instance = new ClientEventHandler();
+		FMLCommonHandler.instance().bus().register(ClientEventHandler.instance);
+		MinecraftForge.EVENT_BUS.register(ClientEventHandler.instance);
+		
 		HUDElementList.init();
+		
+		HUDAPI.registerElement(MOD_ID, new ElementHealthBar());
 		
 		if (Boolean.getBoolean("complexhud.debug")) {
 			for (PositionOrigin o : PositionOrigin.values()) {

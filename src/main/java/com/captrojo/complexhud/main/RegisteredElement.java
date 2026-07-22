@@ -28,6 +28,10 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 	ConfigOption cfg_offs_x;
 	ConfigOption cfg_offs_y;
 	ConfigOption cfg_rndr_f3;
+	ConfigOption cfg_buffer_top;
+	ConfigOption cfg_buffer_bottom;
+	ConfigOption cfg_buffer_left;
+	ConfigOption cfg_buffer_right;
 	ConfigOptionSection options_sec;
 	
 	/* Cache these values to avoid unnecessary processing every time we need them */
@@ -49,6 +53,10 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 		this.cfg_offs_x = new ConfigOption(Type.INT, "offset_x", element.getDefaultXOffs());
 		this.cfg_offs_y = new ConfigOption(Type.INT, "offset_y", element.getDefaultYOffs());
 		this.cfg_rndr_f3 = new ConfigOption(Type.BOOLEAN, "render_in_f3", element.getDefaultRenderInF3Setting());
+		this.cfg_buffer_top = new ConfigOption(Type.INT, "buffer_top", element.getDefaultBufferTopSize());
+		this.cfg_buffer_bottom = new ConfigOption(Type.INT, "buffer_bottom", element.getDefaultBufferBottomSize());
+		this.cfg_buffer_left = new ConfigOption(Type.INT, "buffer_left", element.getDefaultBufferLeftSize());
+		this.cfg_buffer_right = new ConfigOption(Type.INT, "buffer_right", element.getDefaultBufferRightSize());
 		ConfigOption[] extra_options = element.getConfigOptions();
 		
 		this.options_sec = new ConfigOptionSection(this.key, this.unlocalized_name);
@@ -59,7 +67,11 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 			this.cfg_pos_op,
 			this.cfg_offs_x,
 			this.cfg_offs_y,
-			this.cfg_rndr_f3
+			this.cfg_rndr_f3,
+			this.cfg_buffer_top,
+			this.cfg_buffer_bottom,
+			this.cfg_buffer_left,
+			this.cfg_buffer_right
 		);
 		if (extra_options != null) {
 			for (ConfigOption optn : extra_options) {
@@ -69,6 +81,7 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 		
 		this.options_sec.loadFromJson(ModConfig.cfgobj_elements);
 		this.options_sec.saveToJson(ModConfig.cfgobj_elements);
+		this.element.onConfigUpdated();
 		ModConfig.save();
 	}
 	
@@ -83,7 +96,9 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 	public void reloadValues2()
 	{
 		this.width = this.element.getWidth();
+		this.width += this.cfg_buffer_left.getInt() + this.cfg_buffer_right.getInt();
 		this.height = this.element.getHeight();
+		this.height += this.cfg_buffer_top.getInt() + this.cfg_buffer_bottom.getInt();
 	}
 	
 	public int getRenderPriority()

@@ -1,9 +1,8 @@
 package com.captrojo.complexhud.gui;
 
+import com.captrojo.complexhud.api.IComplexHUDElement;
 import com.captrojo.complexhud.config.ConfigOption;
 import com.captrojo.complexhud.main.HUDElementList;
-
-import net.minecraft.client.Minecraft;
 
 public class GuiConfigOptionBoolean extends GuiConfigOptionButton
 {
@@ -22,7 +21,7 @@ public class GuiConfigOptionBoolean extends GuiConfigOptionButton
 		this.cfg_optn.set(!this.cfg_optn.getBool());
 		this.updateUIWithValue();
 		this.playClickSound();
-		HUDElementList.onSettingsChanged();
+		HUDElementList.onConfigUpdated();
 		return true;
 	}
 

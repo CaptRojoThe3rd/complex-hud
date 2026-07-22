@@ -1,5 +1,6 @@
 package com.captrojo.complexhud.gui;
 
+import com.captrojo.complexhud.api.IComplexHUDElement;
 import com.captrojo.complexhud.config.ConfigOption;
 
 public class GuiConfigOptionDouble extends GuiConfigOptionTextField

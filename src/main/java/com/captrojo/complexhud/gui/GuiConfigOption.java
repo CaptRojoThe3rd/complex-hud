@@ -2,6 +2,7 @@ package com.captrojo.complexhud.gui;
 
 import java.util.ArrayList;
 
+import com.captrojo.complexhud.api.IComplexHUDElement;
 import com.captrojo.complexhud.config.ConfigOption;
 import com.captrojo.complexhud.config.ConfigOptionSection;
 

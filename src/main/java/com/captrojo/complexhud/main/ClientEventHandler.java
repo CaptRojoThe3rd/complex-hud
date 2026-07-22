@@ -22,10 +22,13 @@ import com.captrojo.complexhud.position.PositionerTopLeft;
 import com.captrojo.complexhud.position.PositionerTopRight;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiOptions;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.profiler.Profiler;
 import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.client.event.GuiScreenEvent.ActionPerformedEvent;
 import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
@@ -35,6 +38,8 @@ import net.minecraftforge.common.ForgeHooks;
 
 public class ClientEventHandler
 {
+	static ClientEventHandler instance;
+	
 	static PositionerBase[] apos = new PositionerBase[] {
 		new PositionerHotbarSideLeft(),
 		new PositionerHotbarSideRight(),
@@ -65,29 +70,38 @@ public class ClientEventHandler
 	}
 	
 	@SubscribeEvent
-	public void onRenderGameOverlayPre(RenderGameOverlayEvent.Pre event)
+	public void onClientTick(TickEvent.ClientTickEvent event)
 	{
-		if (event.type == ElementType.ALL) { 
-			if (HUDElementList.needs_sorting) {
-				HUDElementList.sort();
+		if (event.phase == Phase.START && !Minecraft.getMinecraft().isGamePaused()) {
+			for (RegisteredElement re : HUDElementList.element_list) {
+				re.element.updateTick();
 			}
 		}
 	}
-
+	
 	@SubscribeEvent
-	public void onRenderGameOverlayPost(RenderGameOverlayEvent.Post event)
+	public void onRenderGameOverlayPre(RenderGameOverlayEvent.Pre event)
 	{
-		if (event.type == ElementType.ARMOR) {
-			if (ModConfig.armor_bar_y_fix.getBool()) {
-				EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-				if (ForgeHooks.getTotalArmorValue(player) == 0) {
-					GuiIngameForge.left_height -= 10;
-				}
-			}
+		if (event.type == ElementType.HEALTH) {
+			event.setCanceled(true);
 			return;
 		}
 		
-		if (event.type == ElementType.ALL) {
+		Profiler pf = Minecraft.getMinecraft().mcProfiler;
+		
+		if (event.type == ElementType.CROSSHAIRS) { 
+			pf.startSection("complexhud");
+			
+			if (HUDElementList.needs_sorting) {
+				HUDElementList.sort();
+			}
+			
+			pf.startSection("prerender");
+			for (RegisteredElement re : HUDElementList.element_list) {
+				re.element.doPreRenderWork();
+			}
+			
+			pf.endStartSection("positioning");
 			PositionerBase.reset(event.resolution);
 			for (PositionerBase pb : apos) {
 				if (pb != null) {
@@ -96,7 +110,6 @@ public class ClientEventHandler
 			}
 			
 			for (RegisteredElement re : HUDElementList.element_list) {
-				re.element.doPreRenderWork();
 				re.reloadValues1();
 				if (!re.to_be_rendered) {
 					continue;
@@ -116,6 +129,7 @@ public class ClientEventHandler
 				}
 			}
 			
+			pf.endStartSection("render");
 			for (RegisteredElement re : HUDElementList.element_list) {
 				if (!re.to_be_rendered) {
 					continue;
@@ -123,6 +137,23 @@ public class ClientEventHandler
 				int i = re.getPosOrigin().ordinal();
 				apos[i].positionElement(re);
 				re.element.render(event.resolution, event.mouseX, event.mouseY, event.partialTicks, re.pos);
+			}
+			
+			pf.endSection();
+			pf.endSection();
+			return;
+		}
+	}
+
+	@SubscribeEvent
+	public void onRenderGameOverlayPost(RenderGameOverlayEvent.Post event)
+	{
+		if (event.type == ElementType.ARMOR) {
+			if (ModConfig.armor_bar_y_fix.getBool()) {
+				EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+				if (ForgeHooks.getTotalArmorValue(player) == 0) {
+					GuiIngameForge.left_height -= 10;
+				}
 			}
 			return;
 		}
