@@ -63,6 +63,6 @@ public class GuiConfigOptionList extends GuiScrollingList2
 		
 		FontRenderer fr = this.mc.fontRenderer;
 		String str = optn.cfg_optn.getName();
-		fr.drawStringWithShadow(str, this.left_x + 4, element_y + 4, 0xffffff);
+		fr.drawStringWithShadow(str, this.left_x, element_y + 4, 0xffffff);
 	}
 }

@@ -10,6 +10,7 @@ import com.captrojo.complexhud.main.ComplexHUD;
 import com.captrojo.complexhud.main.I18nHlpr;
 import com.google.gson.JsonObject;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
@@ -21,7 +22,8 @@ public class GuiSectionedOptions extends GuiScreen
 	static final int BTN_DONE = 0;
 	static final int BTN_APPLY = 1;
 	static final int BTN_CANCEL = 2;
-	static final int BTN_TEST = 3;
+	static final int BTN_UNDO = 3;
+	static final int BTN_TEST = 4;
 
 	int x;
 	int y;
@@ -33,19 +35,50 @@ public class GuiSectionedOptions extends GuiScreen
 
 	JsonObject root_obj;
 	ArrayList<ConfigOptionSection> option_sections;
+	int selected_idx;
+	
+	boolean show_hud_button;
 
-	public GuiSectionedOptions(GuiScreen parent, JsonObject root_obj, ArrayList<ConfigOptionSection> option_sections)
+	public GuiSectionedOptions(
+		GuiScreen parent,
+		JsonObject root_obj,
+		ArrayList<ConfigOptionSection> option_sections,
+		boolean show_hud_button
+	)
 	{
 		this.parent_screen = parent;
 		
 		this.root_obj = root_obj;
 		this.option_sections = option_sections;
+		this.selected_idx = -1;
+		
+		this.show_hud_button = show_hud_button && Minecraft.getMinecraft().theWorld != null;
 	}
 	
 	void setSelectedSection(int idx)
 	{
+		if (idx < 0) {
+			return;
+		}
 		ConfigOptionSection sec = this.option_sections.get(idx);
 		this.option_list = new GuiConfigOptionList(this.x + 113, this.y, GuiConfigOption.createFrom(sec));
+		this.section_list.selected_index = idx;
+		this.selected_idx = idx;
+	}
+	
+	void loadSettings()
+	{
+		for (ConfigOptionSection optn_sec : this.option_sections) {
+			optn_sec.loadFromJson(this.root_obj);
+		}
+	}
+	
+	void saveSettings()
+	{
+		for (ConfigOptionSection optn_sec : this.option_sections) {
+			optn_sec.saveToJson(this.root_obj);
+		}
+		ModConfig.save();
 	}
 	
 	@Override
@@ -66,32 +99,47 @@ public class GuiSectionedOptions extends GuiScreen
 		
 		this.buttonList.add(new GuiButton(
 			BTN_DONE,
-			this.x + 380 - 80,
+			this.x + 380 - 70,
 			this.y + 232,
-			80,
+			70,
 			20,
-			I18nHlpr.get("gui.done")));
+			I18nHlpr.get("gui.done")
+		));
 		this.buttonList.add(new GuiButton(
 			BTN_APPLY,
-			this.x + 380 - 164,
+			this.x + 380 - 142,
 			this.y + 232,
-			80,
+			70,
 			20,
-			I18nHlpr.get("gui.apply")));
+			I18nHlpr.get("gui.apply")
+		));
 		this.buttonList.add(new GuiButton(
 			BTN_CANCEL,
-			this.x + 380 - 248,
+			this.x + 380 - 214,
 			this.y + 232,
-			80,
+			70,
 			20,
-			I18nHlpr.get("gui.cancel")));
+			I18nHlpr.get("gui.cancel")
+		));
 		this.buttonList.add(new GuiButton(
-			BTN_TEST,
-			this.x + 4,
+			BTN_UNDO,
+			this.x + 380 - 286,
 			this.y + 232,
-			80,
+			70,
 			20,
-			I18nHlpr.get("gui.show_hud")));
+			I18nHlpr.get("gui.undo")
+		));
+		
+		if (this.show_hud_button) {
+			this.buttonList.add(new GuiButton(
+				BTN_TEST,
+				this.x + 4,
+				this.y + 232,
+				70,
+				20,
+				I18nHlpr.get("gui.show_hud")
+			));
+		}
 	}
 	
 	@Override
@@ -122,21 +170,19 @@ public class GuiSectionedOptions extends GuiScreen
 	protected void actionPerformed(GuiButton button)
 	{
 		if (button.id == BTN_DONE) {
-			for (ConfigOptionSection optn_sec : this.option_sections) {
-				optn_sec.saveToJson(this.root_obj);
-			}
-			ModConfig.saveJson();
+			this.saveSettings();
 			this.mc.displayGuiScreen(this.parent_screen);
 		} else if (button.id == BTN_APPLY) {
-			for (ConfigOptionSection optn_sec : this.option_sections) {
-				optn_sec.saveToJson(this.root_obj);
-			}
-			ModConfig.saveJson();
+			this.saveSettings();
 		} else if (button.id == BTN_CANCEL) {
-			for (ConfigOptionSection optn_sec : this.option_sections) {
-				optn_sec.loadFromJson(this.root_obj);
-			}
+			this.loadSettings();
 			this.mc.displayGuiScreen(this.parent_screen);
+		} else if (button.id == BTN_UNDO) {
+			this.loadSettings();
+			this.mc.displayGuiScreen(this);
+			this.setSelectedSection(this.selected_idx);
+		} else if (button.id == BTN_TEST) {
+			this.mc.displayGuiScreen(new GuiScreenEmpty(this));
 		}
 	}
 

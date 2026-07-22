@@ -16,17 +16,24 @@ public class DebugHUDElement implements IComplexHUDElement
 {
 	int priority;
 	String text;
+	PositionOrigin origin;
 	
 	public DebugHUDElement(int priority, String text)
 	{
+		this(priority, PositionOrigin.TOP_LEFT, text);
+	}
+	
+	public DebugHUDElement(int priority, PositionOrigin origin, String text)
+	{
 		this.priority = priority;
+		this.origin = origin;
 		this.text = text;
 	}
 	
 	@Override
 	public String getUnlocalizedName()
 	{
-		return I18nHlpr.getf("element.debug.name", this.priority);
+		return "Debug " + Integer.toString(this.priority);
 	}
 
 	@Override
@@ -44,7 +51,7 @@ public class DebugHUDElement implements IComplexHUDElement
 	@Override
 	public PositionOrigin getDefaultPosOrigin()
 	{
-		return PositionOrigin.TOP_LEFT;
+		return this.origin;
 	}
 
 	@Override
@@ -72,7 +79,7 @@ public class DebugHUDElement implements IComplexHUDElement
 	}
 	
 	@Override
-	public List<ConfigOption> getConfigOptions()
+	public ConfigOption[] getConfigOptions()
 	{
 		return null;
 	}

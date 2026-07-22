@@ -37,7 +37,7 @@ public interface IComplexHUDElement
 	/* Get any extra config options associated with this element.
 	 * Return null if there aren't any.
 	 */
-	public List<ConfigOption> getConfigOptions();
+	public ConfigOption[] getConfigOptions();
 	
 	/* Get the width of the HUD element. */
 	public int getWidth();
@@ -48,8 +48,8 @@ public interface IComplexHUDElement
 	/* Get whether the HUD element will be rendered or not. */
 	public boolean isToBeRendered();
 	
-	/* Do any pre-render work. You can do literally anything here, as long as the getWidth
-	 * and getHeight methods are ready to be called afterwards.
+	/* Do any pre-render work. You can do literally anything here, as long as the getWidth,
+	 * getHeight, and isToBeRendered methods are ready to be called afterwards.
 	 */
 	public void doPreRenderWork();
 	

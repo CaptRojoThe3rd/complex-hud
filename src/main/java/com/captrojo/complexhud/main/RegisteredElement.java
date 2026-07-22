@@ -49,7 +49,7 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 		this.cfg_offs_x = new ConfigOption(Type.INT, "offset_x", element.getDefaultXOffs());
 		this.cfg_offs_y = new ConfigOption(Type.INT, "offset_y", element.getDefaultYOffs());
 		this.cfg_rndr_f3 = new ConfigOption(Type.BOOLEAN, "render_in_f3", element.getDefaultRenderInF3Setting());
-		List<ConfigOption> extra_options = element.getConfigOptions();
+		ConfigOption[] extra_options = element.getConfigOptions();
 		
 		this.options_sec = new ConfigOptionSection(this.key, this.unlocalized_name);
 		this.options_sec.addAll(
@@ -67,9 +67,9 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 			}
 		}
 		
-		this.options_sec.loadFromJson(ModConfig.element_config_obj);
-		this.options_sec.saveToJson(ModConfig.element_config_obj);
-		ModConfig.saveJson();
+		this.options_sec.loadFromJson(ModConfig.cfgobj_elements);
+		this.options_sec.saveToJson(ModConfig.cfgobj_elements);
+		ModConfig.save();
 	}
 	
 	public void reloadValues1()

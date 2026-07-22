@@ -16,7 +16,7 @@ public class GuiOptionSectionList extends GuiScrollingList2
 	
 	public GuiOptionSectionList(int x, int y, GuiSectionedOptions gui, ArrayList<ConfigOptionSection> option_sections)
 	{
-		super(Minecraft.getMinecraft(), 100, 222, y + 3, y + 225, x + 4, 20);
+		super(Minecraft.getMinecraft(), 102, 222, y + 3, y + 225, x + 4, 20);
 		this.gui = gui;
 		this.option_sections = option_sections;
 

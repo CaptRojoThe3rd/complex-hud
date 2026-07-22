@@ -1,12 +1,23 @@
 
-element.debug.name=Debug %d
-
+gui.show_hud=Show HUD
+gui.undo=Undo
 gui.apply=Apply
 
 options.complex_hud=Complex HUD Settings
 
+options.complexhud.general_optns=General Options
 options.complexhud.pos_optns=Positioning Options
 options.complexhud.element_optns=Element Options
+
+options.complexhud.menu_settings=Menu Settings
+options.complexhud.done_btn_y_offs='Done' Button Y Offset
+options.complexhud.optn_btn_enabled=Mod Option Button Enabled
+options.complexhud.optn_btn_id=Mod Option Button ID
+options.complexhud.optn_btn_x_offs=Mod Option Button X Offset
+options.complexhud.optn_btn_y_offs=Mod Option Button Y Offset
+
+options.complexhud.fixes=Fixes
+options.complexhud.armor_bar_y_fix=Armor Bar Y Fix
 
 options.complexhud.priority=Priority
 options.complexhud.fixed=Fixed Position
@@ -20,6 +31,8 @@ options.complexhud.alignment_enabled=Alignment Enabled
 
 positioner.hotbar_side_left=Hotbar Side Left
 positioner.hotbar_side_right=Hotbar Side Right
+positioner.hotbar_top_left=Hotbar Top Left
+positioner.hotbar_top_right=Hotbar Top Right
 positioner.top_left=Top Left
 positioner.top_center=Top Center
 positioner.top_right=Top Right

@@ -17,6 +17,7 @@ public class PositionerTopRight extends PositionerBase
 		this.calcDims();
 		this.positionXRight();
 		this.positionYTop();
+		
 	}
 
 	@Override

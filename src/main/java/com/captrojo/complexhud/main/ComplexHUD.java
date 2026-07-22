@@ -1,6 +1,7 @@
 package com.captrojo.complexhud.main;
 
 import com.captrojo.complexhud.api.HUDAPI;
+import com.captrojo.complexhud.api.PositionOrigin;
 import com.captrojo.complexhud.config.ModConfig;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -64,8 +65,11 @@ public class ComplexHUD
 		HUDElementList.init();
 		
 		if (Boolean.getBoolean("complexhud.debug")) {
-			for (int i = 0; i < 20; i++) {
-				HUDAPI.registerElement(MOD_ID, new DebugHUDElement(i, "[" + i + "]"));
+			for (PositionOrigin o : PositionOrigin.values()) {
+				HUDAPI.registerElement(MOD_ID, new DebugHUDElement(o.ordinal(), o, o.toString()));
+			}
+			for (int i = 0; i < 15; i++) {
+				HUDAPI.registerElement(MOD_ID, new DebugHUDElement(i + 100, "[" + i + "]"));
 			}
 		}
 	}

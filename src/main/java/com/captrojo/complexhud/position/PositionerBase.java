@@ -63,10 +63,10 @@ public abstract class PositionerBase
 		this.cfg_offs_x = new ConfigOption(Type.INT, "offset_x", 0);
 		this.cfg_offs_y = new ConfigOption(Type.INT, "offset_y", 0);
 		this.cfg_alignment_enabled = new ConfigOption(Type.BOOLEAN, "alignment_enabled", true);
-		this.options_sec = new ConfigOptionSection(this.toString(), unlocalized_name);
+		this.options_sec = new ConfigOptionSection(unlocalized_name, unlocalized_name);
 		this.options_sec.addAll(this.cfg_offs_x, this.cfg_offs_y, this.cfg_alignment_enabled);
-		this.options_sec.loadFromJson(ModConfig.pos_config_obj);
-		this.options_sec.saveToJson(ModConfig.pos_config_obj);
+		this.options_sec.loadFromJson(ModConfig.cfgobj_positioning);
+		this.options_sec.saveToJson(ModConfig.cfgobj_positioning);
 		
 		this.sec_left = new PositionInfoXYWH();
 		this.sec_right = new PositionInfoXYWH();
