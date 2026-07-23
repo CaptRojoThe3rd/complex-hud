@@ -10,9 +10,9 @@ import net.minecraft.client.renderer.Tessellator;
 
 public class GuiConfigOptionList extends GuiScrollingList2
 {
-	ArrayList<GuiConfigOption> option_list;
+	ArrayList<GuiConfigEntry> option_list;
 
-	public GuiConfigOptionList(int x, int y, ArrayList<GuiConfigOption> option_list)
+	public GuiConfigOptionList(int x, int y, ArrayList<GuiConfigEntry> option_list)
 	{
 		super(Minecraft.getMinecraft(), 263, 222, y + 3, y + 225, x + 4, 20);
 		this.option_list = option_list;
@@ -29,7 +29,7 @@ public class GuiConfigOptionList extends GuiScrollingList2
 
 	void updateScreen()
 	{
-		for (GuiConfigOption gui : this.option_list) {
+		for (GuiConfigEntry gui : this.option_list) {
 			gui.updateScreen();
 		}
 	}
@@ -65,20 +65,7 @@ public class GuiConfigOptionList extends GuiScrollingList2
 			return;
 		}
 
-		GuiConfigOption optn = this.option_list.get(idx);
-		optn.draw(this.left_x + 136, element_y, this.mouse_x, this.mouse_y);
-		
-		String str = optn.cfg_optn.getName();
-		FontRenderer fr = this.mc.fontRenderer;
-
-		if (fr.getStringWidth(str) > 125) {
-			while (fr.getStringWidth(str) > 125) {
-				str = str.substring(0, str.length() - 1);
-			}
-			str += "...";
-		}
-		
-		fr.drawStringWithShadow(str, this.left_x, element_y + 4, 0xffffff);
-
+		GuiConfigEntry entry = this.option_list.get(idx);
+		entry.draw(this.left_x, element_y, this.mouse_x, this.mouse_y);
 	}
 }

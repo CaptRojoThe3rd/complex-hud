@@ -1,8 +1,6 @@
 package com.captrojo.complexhud.api;
 
-import java.util.List;
-
-import com.captrojo.complexhud.config.ConfigOption;
+import com.captrojo.complexhud.config.IConfigEntry;
 
 import net.minecraft.client.gui.ScaledResolution;
 
@@ -49,7 +47,7 @@ public interface IComplexHUDElement
 	/* Get any extra config options associated with this element.
 	 * Return null if there aren't any.
 	 */
-	public ConfigOption[] getConfigOptions();
+	public IConfigEntry[] getConfigOptions();
 	
 	/* Called when the config is updated. Use this if you want to cache values to speed up
 	 * rendering.

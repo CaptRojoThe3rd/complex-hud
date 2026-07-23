@@ -5,12 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiTextField;
-
-public class ConfigOption
+public class ConfigOption implements IConfigEntry
 {
 	public static enum Type
 	{
@@ -20,6 +15,8 @@ public class ConfigOption
 		DOUBLE,
 		STRING
 	}
+	
+	boolean enabled = true;
 	
 	public final Type type;
 	public final String key;
@@ -57,6 +54,17 @@ public class ConfigOption
 		this.unlocalized_name = "options.complexhud." + key;
 	}
 	
+	/* Enable/disable this config option. */
+	public void setEnabled(boolean enabled)
+	{
+		this.enabled = enabled;
+	}
+	
+	public boolean isEnabled()
+	{
+		return this.enabled;
+	}
+	
 	/* Set the valid range of values for this config option.
 	 * This is not necessary to call when creating an ENUM config option.
 	 */
@@ -77,54 +85,6 @@ public class ConfigOption
 	public String getName()
 	{
 		return I18nHlpr.get(this.unlocalized_name);
-	}
-	
-	public void loadFromJson(JsonObject section_obj)
-	{
-		JsonElement e = section_obj.get(this.key);
-		if (e == null || !e.isJsonPrimitive()) {
-			return;
-		}
-		switch (this.type) {
-		case BOOLEAN:
-			this.value = e.getAsBoolean();
-			break;
-		case ENUM:
-			this.value = this.enum_vals[e.getAsInt()];
-			break;
-		case INT:
-			this.value = e.getAsInt();
-			break;
-		case DOUBLE:
-			this.value = e.getAsDouble();
-			break;
-		case STRING:
-			this.value = e.getAsString();
-			break;
-		}
-	}
-	
-	public void saveToJson(JsonObject section_obj)
-	{
-		JsonElement e = null;
-		switch (this.type) {
-		case BOOLEAN:
-			e = new JsonPrimitive(this.getBool());
-			break;
-		case ENUM:
-			e = new JsonPrimitive(this.getEnum().ordinal());
-			break;
-		case INT:
-			e = new JsonPrimitive(this.getInt());
-			break;
-		case DOUBLE:
-			e = new JsonPrimitive(this.getDouble());
-			break;
-		case STRING:
-			e = new JsonPrimitive(this.getString());
-			break;
-		}
-		section_obj.add(this.key, e);
 	}
 	
 	public void set(Object val)
@@ -173,5 +133,55 @@ public class ConfigOption
 		} else if (this.type == Type.DOUBLE) {
 			this.value = Math.min(Math.max(this.getDouble(), (double) this.min), (double) this.max);
 		}
+	}
+	
+	@Override
+	public void loadFromJson(JsonObject section_obj)
+	{
+		JsonElement e = section_obj.get(this.key);
+		if (e == null || !e.isJsonPrimitive()) {
+			return;
+		}
+		switch (this.type) {
+		case BOOLEAN:
+			this.value = e.getAsBoolean();
+			break;
+		case ENUM:
+			this.value = this.enum_vals[e.getAsInt()];
+			break;
+		case INT:
+			this.value = e.getAsInt();
+			break;
+		case DOUBLE:
+			this.value = e.getAsDouble();
+			break;
+		case STRING:
+			this.value = e.getAsString();
+			break;
+		}
+	}
+	
+	@Override
+	public void saveToJson(JsonObject section_obj)
+	{
+		JsonElement e = null;
+		switch (this.type) {
+		case BOOLEAN:
+			e = new JsonPrimitive(this.getBool());
+			break;
+		case ENUM:
+			e = new JsonPrimitive(this.getEnum().ordinal());
+			break;
+		case INT:
+			e = new JsonPrimitive(this.getInt());
+			break;
+		case DOUBLE:
+			e = new JsonPrimitive(this.getDouble());
+			break;
+		case STRING:
+			e = new JsonPrimitive(this.getString());
+			break;
+		}
+		section_obj.add(this.key, e);
 	}
 }

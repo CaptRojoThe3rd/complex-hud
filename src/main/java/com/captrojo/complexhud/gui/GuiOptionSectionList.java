@@ -2,7 +2,7 @@ package com.captrojo.complexhud.gui;
 
 import java.util.ArrayList;
 
-import com.captrojo.complexhud.config.ConfigOptionSection;
+import com.captrojo.complexhud.config.ConfigSection;
 import com.captrojo.complexhud.main.I18nHlpr;
 
 import net.minecraft.client.Minecraft;
@@ -12,9 +12,9 @@ import net.minecraft.client.renderer.Tessellator;
 public class GuiOptionSectionList extends GuiScrollingList2
 {
 	GuiSectionedOptions gui;
-	ArrayList<ConfigOptionSection> option_sections;
+	ArrayList<ConfigSection> option_sections;
 	
-	public GuiOptionSectionList(int x, int y, GuiSectionedOptions gui, ArrayList<ConfigOptionSection> option_sections)
+	public GuiOptionSectionList(int x, int y, GuiSectionedOptions gui, ArrayList<ConfigSection> option_sections)
 	{
 		super(Minecraft.getMinecraft(), 102, 222, y + 3, y + 225, x + 4, 20);
 		this.gui = gui;
@@ -67,7 +67,7 @@ public class GuiOptionSectionList extends GuiScrollingList2
 			return;
 		}
 		
-		ConfigOptionSection optn_sec = this.option_sections.get(idx);
+		ConfigSection optn_sec = this.option_sections.get(idx);
 		String s = optn_sec.getName();
 		
 		int font_color = this.isSelected(idx) ? 0xc0c0ff : 0xffffff;

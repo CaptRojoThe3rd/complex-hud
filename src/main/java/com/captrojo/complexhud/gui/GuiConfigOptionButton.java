@@ -31,8 +31,9 @@ public abstract class GuiConfigOptionButton extends GuiConfigOption
 		
 		FontRenderer fr = Minecraft.getMinecraft().fontRenderer;
 		
-		this.button.xPosition = x;
+		this.button.xPosition = x + 136;
 		this.button.yPosition = y;
+		this.button.enabled = this.cfg_optn.isEnabled();
 		this.button.drawButton(Minecraft.getMinecraft(), mouse_x, mouse_y);
 	}
 	

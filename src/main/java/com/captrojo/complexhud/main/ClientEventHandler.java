@@ -3,7 +3,7 @@ package com.captrojo.complexhud.main;
 import java.util.ArrayList;
 
 import com.captrojo.complexhud.api.PositionInfoXY2;
-import com.captrojo.complexhud.config.ConfigOptionSection;
+import com.captrojo.complexhud.config.ConfigSection;
 import com.captrojo.complexhud.config.ModConfig;
 import com.captrojo.complexhud.gui.GuiScreenSettingsHead;
 import com.captrojo.complexhud.position.PositionerBase;
@@ -60,9 +60,9 @@ public class ClientEventHandler
 		new PositionerBottomRight()
 	};
 	
-	public static ArrayList<ConfigOptionSection> getAllPosSettings()
+	public static ArrayList<ConfigSection> getAllPosSettings()
 	{
-		ArrayList<ConfigOptionSection> list = new ArrayList<ConfigOptionSection>();
+		ArrayList<ConfigSection> list = new ArrayList<ConfigSection>();
 		for (PositionerBase pb : apos) {
 			list.add(pb.options_sec);
 		}

@@ -1,14 +1,14 @@
 package com.captrojo.complexhud.main;
 
-import java.util.List;
-
 import com.captrojo.complexhud.api.IComplexHUDElement;
 import com.captrojo.complexhud.api.PositionInfoXY2;
 import com.captrojo.complexhud.api.PositionOperation;
 import com.captrojo.complexhud.api.PositionOrigin;
+import com.captrojo.complexhud.config.ConfigHeading;
 import com.captrojo.complexhud.config.ConfigOption;
 import com.captrojo.complexhud.config.ConfigOption.Type;
-import com.captrojo.complexhud.config.ConfigOptionSection;
+import com.captrojo.complexhud.config.ConfigSection;
+import com.captrojo.complexhud.config.IConfigEntry;
 import com.captrojo.complexhud.config.ModConfig;
 
 import net.minecraft.client.Minecraft;
@@ -32,7 +32,7 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 	ConfigOption cfg_buffer_bottom;
 	ConfigOption cfg_buffer_left;
 	ConfigOption cfg_buffer_right;
-	ConfigOptionSection options_sec;
+	ConfigSection options_sec;
 	
 	/* Cache these values to avoid unnecessary processing every time we need them */
 	public boolean to_be_rendered;
@@ -57,10 +57,11 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 		this.cfg_buffer_bottom = new ConfigOption(Type.INT, "buffer_bottom", element.getDefaultBufferBottomSize());
 		this.cfg_buffer_left = new ConfigOption(Type.INT, "buffer_left", element.getDefaultBufferLeftSize());
 		this.cfg_buffer_right = new ConfigOption(Type.INT, "buffer_right", element.getDefaultBufferRightSize());
-		ConfigOption[] extra_options = element.getConfigOptions();
+		IConfigEntry[] extra_options = element.getConfigOptions();
 		
-		this.options_sec = new ConfigOptionSection(this.key, this.unlocalized_name);
+		this.options_sec = new ConfigSection(this.key, this.unlocalized_name);
 		this.options_sec.addAll(
+			new ConfigHeading("options.complexhud.general_optns"),
 			this.cfg_rndr_prio,
 			this.cfg_fixed,
 			this.cfg_pos_origin,
@@ -74,7 +75,7 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 			this.cfg_buffer_right
 		);
 		if (extra_options != null) {
-			for (ConfigOption optn : extra_options) {
+			for (IConfigEntry optn : extra_options) {
 				this.options_sec.add(optn);
 			}
 		}

@@ -3,7 +3,7 @@ package com.captrojo.complexhud.main;
 import java.util.ArrayList;
 
 import com.captrojo.complexhud.api.IComplexHUDElement;
-import com.captrojo.complexhud.config.ConfigOptionSection;
+import com.captrojo.complexhud.config.ConfigSection;
 
 public class HUDElementList
 {
@@ -36,9 +36,9 @@ public class HUDElementList
 		sort();
 	}
 	
-	public static ArrayList<ConfigOptionSection> getAllOptions()
+	public static ArrayList<ConfigSection> getAllOptions()
 	{
-		ArrayList<ConfigOptionSection> list = new ArrayList<ConfigOptionSection>();
+		ArrayList<ConfigSection> list = new ArrayList<ConfigSection>();
 		for (RegisteredElement re : element_list) {
 			list.add(re.options_sec);
 		}

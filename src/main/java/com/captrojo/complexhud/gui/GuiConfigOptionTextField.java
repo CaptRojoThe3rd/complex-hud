@@ -33,9 +33,10 @@ public abstract class GuiConfigOptionTextField extends GuiConfigOption
 	void draw(int x, int y, int mouse_x, int mouse_y)
 	{
 		super.draw(x, y, mouse_x, mouse_y);
-		this.text_field.xPosition = x + 1;
+		this.text_field.xPosition = x + 137;
 		this.text_field.yPosition = y + 1;
 		this.text_field.setTextColor(this.is_input_valid ? 0xffffff : 0xff2020);
+		this.text_field.setEnabled(this.cfg_optn.isEnabled());
 		this.text_field.drawTextBox();
 	}
 

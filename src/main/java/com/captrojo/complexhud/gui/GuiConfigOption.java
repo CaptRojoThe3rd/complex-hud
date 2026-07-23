@@ -2,74 +2,53 @@ package com.captrojo.complexhud.gui;
 
 import java.util.ArrayList;
 
-import com.captrojo.complexhud.api.IComplexHUDElement;
 import com.captrojo.complexhud.config.ConfigOption;
-import com.captrojo.complexhud.config.ConfigOptionSection;
+import com.captrojo.complexhud.config.ConfigSection;
+import com.captrojo.complexhud.config.IConfigEntry;
 
-public abstract class GuiConfigOption
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+
+public abstract class GuiConfigOption extends GuiConfigEntry
 {
-	static GuiConfigOption createFrom(ConfigOption cfg_optn)
-	{
-		switch (cfg_optn.type) {
-		case BOOLEAN:
-			return new GuiConfigOptionBoolean(cfg_optn);
-		case ENUM:
-			return new GuiConfigOptionEnum(cfg_optn);
-		case INT:
-			return new GuiConfigOptionInt(cfg_optn);
-		case DOUBLE:
-			return new GuiConfigOptionDouble(cfg_optn);
-		case STRING:
-			return new GuiConfigOptionString(cfg_optn);
-		}
-		return null;
-	}
-	
-	static ArrayList<GuiConfigOption> createFrom(ConfigOptionSection section)
-	{
-		ArrayList<GuiConfigOption> list = new ArrayList<GuiConfigOption>();
-		for (int i = 0; i < section.size(); i++) {
-			list.add(createFrom(section.get(i)));
-		}
-		return list;
-	}
-	
 	ConfigOption cfg_optn;
-	
-	int x;
-	int y;
-	int w;
-	int h;
 	
 	GuiConfigOption(ConfigOption cfg_optn)
 	{
+		super(cfg_optn);
 		this.cfg_optn = cfg_optn;
 	}
 	
 	boolean checkMousePos(int mouse_x, int mouse_y)
 	{
+		this.x += 136;
 		if (mouse_x < this.x || mouse_x > (this.x + this.w)) {
 			return false;
 		}
 		if (mouse_y < this.y || mouse_y > (this.y + this.h)) {
 			return false;
 		}
+		this.x -= 136;
 		return true;
 	}
 	
-	void updateScreen()
-	{
-	}
+	abstract void updateUIWithValue();
 	
+	@Override
 	void draw(int x, int y, int mouse_x, int mouse_y)
 	{
-		this.x = x;
-		this.y = y;
+		super.draw(x, y, mouse_x, mouse_y);
+		
+		String str = this.cfg_optn.getName();
+		FontRenderer fr = Minecraft.getMinecraft().fontRenderer;
+
+		if (fr.getStringWidth(str) > 125) {
+			while (fr.getStringWidth(str) > 125) {
+				str = str.substring(0, str.length() - 1);
+			}
+			str += "...";
+		}
+		
+		fr.drawStringWithShadow(str, x + 4, y + 4, this.cfg_optn.isEnabled() ? 0xffffff : 0xc0c0c0);
 	}
-	
-	abstract boolean mouseClicked(int mouse_x, int mouse_y);
-	
-	abstract void keyTyped(char c, int n);
-	
-	abstract void updateUIWithValue();
 }

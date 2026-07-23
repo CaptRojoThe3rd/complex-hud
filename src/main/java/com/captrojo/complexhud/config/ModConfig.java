@@ -31,12 +31,12 @@ public class ModConfig
 	public static ConfigOption optn_id;
 	public static ConfigOption optn_x_offs;
 	public static ConfigOption optn_y_offs;
-	public static ConfigOptionSection cfgsec_menu_settings;
+	public static ConfigSection cfgsec_menu_settings;
 	
 	public static ConfigOption armor_bar_y_fix;
-	public static ConfigOptionSection cfgsec_fixes;
+	public static ConfigSection cfgsec_fixes;
 	
-	public static ArrayList<ConfigOptionSection> cfg_sections;
+	public static ArrayList<ConfigSection> cfg_sections;
 	
 	public static void init(File cfg_file)
 	{	
@@ -48,7 +48,7 @@ public class ModConfig
 		optn_x_offs = new ConfigOption(Type.INT, "optn_btn_x_offs", -155);
 		optn_y_offs = new ConfigOption(Type.INT, "optn_btn_y_offs", 42);
 		
-		cfgsec_menu_settings = new ConfigOptionSection("menu_settings", "options.complexhud.menu_settings");
+		cfgsec_menu_settings = new ConfigSection("menu_settings", "options.complexhud.menu_settings");
 		cfgsec_menu_settings.addAll(
 			done_y_offs,
 			optn_enabled,
@@ -61,12 +61,12 @@ public class ModConfig
 		
 		armor_bar_y_fix = new ConfigOption(Type.BOOLEAN, "armor_bar_y_fix", true);
 		
-		cfgsec_fixes = new ConfigOptionSection("fixes", "options.complexhud.fixes");
+		cfgsec_fixes = new ConfigSection("fixes", "options.complexhud.fixes");
 		cfgsec_fixes.addAll(
 			armor_bar_y_fix
 		);
 		
-		cfg_sections = new ArrayList<ConfigOptionSection>();
+		cfg_sections = new ArrayList<ConfigSection>();
 		cfg_sections.add(cfgsec_menu_settings);
 		cfg_sections.add(cfgsec_fixes);
 		

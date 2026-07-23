@@ -5,8 +5,10 @@ import org.lwjgl.opengl.GL11;
 import com.captrojo.complexhud.api.PositionInfoXY2;
 import com.captrojo.complexhud.api.PositionOperation;
 import com.captrojo.complexhud.api.PositionOrigin;
+import com.captrojo.complexhud.config.ConfigHeading;
 import com.captrojo.complexhud.config.ConfigOption;
 import com.captrojo.complexhud.config.ConfigOption.Type;
+import com.captrojo.complexhud.config.IConfigEntry;
 
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -17,30 +19,30 @@ import net.minecraftforge.client.GuiIngameForge;
 
 public class ElementHealthBar extends OverriddenVanillaElement
 {	
-	static final int BG_U0 = 0;
-	static final int FG_U0 = 27;
+	static final int U_BG = 0;
+	static final int U_FG = 27;
 	
-	static final int U_FG_NORM = 27;
-	static final int U_FG_HIGH = 63;
+	static final int U_BG_HIGH_OFFS = 9;
+	static final int U_BG_LOW_OFFS = 18;
+	
+	static final int U_FG_HIGH_OFFS = 36;
 	static final int U_FG_HARD_OFFS = 72;
 	
-	static final int U_BG_NORM = 0;
-	static final int U_BG_HIGH = 9;
-	static final int U_BG_LOW = 18;
-	
 	static final int V_NORM = 0;
-	static final int V_POISON = 9;
-	static final int V_WITHER = 18;
-	static final int V_ABSORB = 27;
+	static final int V_DROWNING = 9;
+	static final int V_POISON = 18;
+	static final int V_WITHER = 27;
+	static final int V_ABSORB = 36;
 	
-	static final int[] U_QUARTERS = {246, 27, 18, 9, 0};
+	static final int[] U_QUARTERS = {27, 18, 9, 0};
 	
 	ConfigOption cfg_top_to_bottom;
 	ConfigOption cfg_right_to_left;
 	ConfigOption cfg_hearts_per_row;
 	ConfigOption cfg_low_health_point;
 	ConfigOption cfg_compress_rows;
-	ConfigOption cfg_row_spacing;
+	ConfigOption cfg_min_row_spacing;
+	ConfigOption cfg_row_spacing_addend;
 	ConfigOption cfg_heart_spacing;
 	
 	boolean top_to_bottom;
@@ -48,7 +50,8 @@ public class ElementHealthBar extends OverriddenVanillaElement
 	int hearts_per_row;
 	int low_health_point;
 	boolean compress_rows;
-	int row_spacing;
+	int min_row_spacing;
+	int row_spacing_addend;
 	int heart_spacing;
 	
 	int width;
@@ -69,7 +72,8 @@ public class ElementHealthBar extends OverriddenVanillaElement
 		this.cfg_hearts_per_row = new ConfigOption(Type.INT, "hearts_per_row", 10);
 		this.cfg_low_health_point = new ConfigOption(Type.DOUBLE, "low_health_point", 2.0);
 		this.cfg_compress_rows = new ConfigOption(Type.BOOLEAN, "compress_rows", true);
-		this.cfg_row_spacing = new ConfigOption(Type.INT, "row_spacing", 0);
+		this.cfg_min_row_spacing = new ConfigOption(Type.INT, "min_row_spacing", 3);
+		this.cfg_row_spacing_addend = new ConfigOption(Type.INT, "row_spacing", 0);
 		this.cfg_heart_spacing = new ConfigOption(Type.INT, "heart_spacing", -1);
 	}
 
@@ -146,15 +150,18 @@ public class ElementHealthBar extends OverriddenVanillaElement
 	}
 
 	@Override
-	public ConfigOption[] getConfigOptions()
+	public IConfigEntry[] getConfigOptions()
 	{
-		return new ConfigOption[] {
+		return new IConfigEntry[] {
+			new ConfigHeading(null),
+			new ConfigHeading("options.complexhud.health_bar_std_optns"),
 			this.cfg_top_to_bottom,
 			this.cfg_right_to_left,
 			this.cfg_hearts_per_row,
 			this.cfg_low_health_point,
 			this.cfg_compress_rows,
-			this.cfg_row_spacing,
+			this.cfg_min_row_spacing,
+			this.cfg_row_spacing_addend,
 			this.cfg_heart_spacing
 		};
 	}
@@ -167,8 +174,11 @@ public class ElementHealthBar extends OverriddenVanillaElement
 		this.hearts_per_row = this.cfg_hearts_per_row.getInt();
 		this.low_health_point = (int) (this.cfg_low_health_point.getDouble() * 4.0);
 		this.compress_rows = this.cfg_compress_rows.getBool();
-		this.row_spacing = this.cfg_row_spacing.getInt();
+		this.min_row_spacing = this.cfg_min_row_spacing.getInt();
+		this.row_spacing_addend = this.cfg_row_spacing_addend.getInt();
 		this.heart_spacing = this.cfg_heart_spacing.getInt();
+		
+		this.cfg_min_row_spacing.setEnabled(this.compress_rows);
 	}
 	
 	@Override
@@ -211,11 +221,11 @@ public class ElementHealthBar extends OverriddenVanillaElement
 
 		this.health_rows = MathHelper.ceiling_float_int((this.health_max + this.absorb) / 4.0f / (float) this.hearts_per_row);
 		if (this.compress_rows) {
-			this.row_height = Math.max(10 - (this.health_rows - 2), 3);
+			this.row_height = Math.max(10 - (this.health_rows - 2), this.min_row_spacing);
 		} else {
 			this.row_height = 10;
 		}
-		this.row_height += this.row_spacing;
+		this.row_height += this.row_spacing_addend;
 		
 		this.height = this.health_rows * this.row_height;
 		if (this.row_height != 10) {
@@ -238,29 +248,25 @@ public class ElementHealthBar extends OverriddenVanillaElement
 			highlight = false;
 		}
 		
-		int u_bg;
-		int u1;
+		int u_bg = U_BG;
+		int u_fg = U_FG;
 		int v1;
 		
 		if (highlight) {
-			u_bg = U_BG_HIGH;
-			u1 = U_FG_HIGH;
+			u_bg += U_BG_HIGH_OFFS;
+			u_fg += U_FG_HIGH_OFFS;
 		} else if ((this.update_counter & 0x4) != 0 && this.health <= this.low_health_point) {
-			u_bg = U_BG_LOW;
-			u1 = U_FG_NORM;
-		} else {
-			u_bg = U_BG_NORM;
-			u1 = U_FG_NORM;
+			u_bg += U_BG_LOW_OFFS;
 		}
 		
 		if (this.mc.theWorld.getWorldInfo().isHardcoreModeEnabled()) {
-			u1 += U_FG_HARD_OFFS;
+			u_fg += U_FG_HARD_OFFS;
 		}
 
-		if (this.mc.thePlayer.isPotionActive(Potion.poison)) {
-			v1 = V_POISON;
-		} else if (mc.thePlayer.isPotionActive(Potion.wither)) {
+		if (this.mc.thePlayer.isPotionActive(Potion.wither)) {
 			v1 = V_WITHER;
+		} else if (mc.thePlayer.isPotionActive(Potion.poison)) {
+			v1 = V_POISON;
 		} else {
 			v1 = V_NORM;
 		}
@@ -306,21 +312,17 @@ public class ElementHealthBar extends OverriddenVanillaElement
 				p = health_to_draw;
 				health_to_draw -= 4;
 			}
-			int u = u1;
-			if (p > 0) {
-				u += U_QUARTERS[Math.min(p, 4)];
-			} else {
-				u = 246;
-			}
 			
 			int x = column * (9 + this.heart_spacing) + pos.left_x;
 			int y = row * this.row_height + y_bump + pos.top_y + 1;
 			if (!this.top_to_bottom) {
-				y -= this.row_spacing;
+				y -= this.row_spacing_addend;
 			}
 			
 			this.drawTexturedModalRect(x, y, u_bg, v, 9, 9);
-			this.drawTexturedModalRect(x, y, u, v, 9, 9);
+			if (p > 0) {
+				this.drawTexturedModalRect(x, y, u_fg + U_QUARTERS[Math.min(p, 4) - 1], v, 9, 9);
+			}
 			
 		}
 		GL11.glDisable(GL11.GL_BLEND);

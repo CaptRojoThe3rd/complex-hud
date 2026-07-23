@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.lwjgl.opengl.GL11;
 
-import com.captrojo.complexhud.config.ConfigOptionSection;
+import com.captrojo.complexhud.config.ConfigSection;
 import com.captrojo.complexhud.config.ModConfig;
 import com.captrojo.complexhud.main.ComplexHUD;
 import com.captrojo.complexhud.main.I18nHlpr;
@@ -34,7 +34,7 @@ public class GuiSectionedOptions extends GuiScreen
 	GuiConfigOptionList option_list;
 
 	JsonObject root_obj;
-	ArrayList<ConfigOptionSection> option_sections;
+	ArrayList<ConfigSection> option_sections;
 	int selected_idx;
 	
 	boolean show_hud_button;
@@ -42,7 +42,7 @@ public class GuiSectionedOptions extends GuiScreen
 	public GuiSectionedOptions(
 		GuiScreen parent,
 		JsonObject root_obj,
-		ArrayList<ConfigOptionSection> option_sections,
+		ArrayList<ConfigSection> option_sections,
 		boolean show_hud_button
 	)
 	{
@@ -60,22 +60,22 @@ public class GuiSectionedOptions extends GuiScreen
 		if (idx < 0) {
 			return;
 		}
-		ConfigOptionSection sec = this.option_sections.get(idx);
-		this.option_list = new GuiConfigOptionList(this.x + 113, this.y, GuiConfigOption.createFrom(sec));
+		ConfigSection sec = this.option_sections.get(idx);
+		this.option_list = new GuiConfigOptionList(this.x + 113, this.y, GuiConfigEntry.createFrom(sec));
 		this.section_list.selected_index = idx;
 		this.selected_idx = idx;
 	}
 	
 	void loadSettings()
 	{
-		for (ConfigOptionSection optn_sec : this.option_sections) {
+		for (ConfigSection optn_sec : this.option_sections) {
 			optn_sec.loadFromJson(this.root_obj);
 		}
 	}
 	
 	void saveSettings()
 	{
-		for (ConfigOptionSection optn_sec : this.option_sections) {
+		for (ConfigSection optn_sec : this.option_sections) {
 			optn_sec.saveToJson(this.root_obj);
 		}
 		ModConfig.save();
@@ -148,7 +148,7 @@ public class GuiSectionedOptions extends GuiScreen
 		super.keyTyped(c, n);
 		
 		if (this.option_list != null) {
-			for (GuiConfigOption optn : this.option_list.option_list) {
+			for (GuiConfigEntry optn : this.option_list.option_list) {
 				optn.keyTyped(c, n);
 			}
 		}
@@ -160,7 +160,7 @@ public class GuiSectionedOptions extends GuiScreen
 		super.mouseClicked(mouse_x, mouse_y, button);
 		
 		if (this.option_list != null) {
-			for (GuiConfigOption optn : this.option_list.option_list) {
+			for (GuiConfigEntry optn : this.option_list.option_list) {
 				optn.mouseClicked(mouse_x, mouse_y);
 			}
 		}

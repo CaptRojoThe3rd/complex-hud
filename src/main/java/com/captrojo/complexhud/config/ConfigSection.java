@@ -6,32 +6,32 @@ import com.captrojo.complexhud.main.I18nHlpr;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-public class ConfigOptionSection
+public class ConfigSection
 {
 	String key;
 	String unlocalized_name;
 	
-	ArrayList<ConfigOption> option_list;
+	ArrayList<IConfigEntry> option_list;
 	
-	public ConfigOptionSection(String key, String unlocalized_name)
+	public ConfigSection(String key, String unlocalized_name)
 	{
 		this.key = key;
 		this.unlocalized_name = unlocalized_name;
-		this.option_list = new ArrayList<ConfigOption>();
+		this.option_list = new ArrayList<IConfigEntry>();
 	}
 	
-	public void add(ConfigOption option)
+	public void add(IConfigEntry option)
 	{
 		this.option_list.add(option);
 	}
 	
-	public void addAll(ConfigOption...options) {
-		for (ConfigOption optn : options) {
+	public void addAll(IConfigEntry...options) {
+		for (IConfigEntry optn : options) {
 			this.add(optn);
 		}
 	}
 	
-	public ConfigOption get(int idx)
+	public IConfigEntry get(int idx)
 	{
 		return this.option_list.get(idx);
 	}
@@ -53,7 +53,7 @@ public class ConfigOptionSection
 			return;
 		}
 		JsonObject section_obj = e.getAsJsonObject();
-		for (ConfigOption optn : this.option_list) {
+		for (IConfigEntry optn : this.option_list) {
 			optn.loadFromJson(section_obj);
 		}
 	}
@@ -61,7 +61,7 @@ public class ConfigOptionSection
 	public void saveToJson(JsonObject root_obj)
 	{
 		JsonObject section_obj = new JsonObject();
-		for (ConfigOption optn : this.option_list) {
+		for (IConfigEntry optn : this.option_list) {
 			optn.saveToJson(section_obj);
 		}
 		root_obj.add(this.key, section_obj);
