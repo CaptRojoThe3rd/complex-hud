@@ -2,6 +2,7 @@
 hud.health_bar=Health Bar
 hud.armor_bar=Armor Bar
 hud.hunger_bar=Hunger Bar
+hud.air_bar.Air Bar
 
 gui.show_hud=Show HUD
 gui.undo=Undo
