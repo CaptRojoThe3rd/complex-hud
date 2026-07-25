@@ -1,5 +1,6 @@
 package com.captrojo.complexhud.config;
 
+import com.captrojo.complexhud.api.IConfigEntry;
 import com.captrojo.complexhud.main.I18nHlpr;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -17,6 +18,7 @@ public class ConfigOption implements IConfigEntry
 	}
 	
 	boolean enabled = true;
+	boolean invalid = false;
 	
 	public final Type type;
 	public final String key;
@@ -54,7 +56,6 @@ public class ConfigOption implements IConfigEntry
 		this.unlocalized_name = "options.complexhud." + key;
 	}
 	
-	/* Enable/disable this config option. */
 	public void setEnabled(boolean enabled)
 	{
 		this.enabled = enabled;
@@ -63,6 +64,16 @@ public class ConfigOption implements IConfigEntry
 	public boolean isEnabled()
 	{
 		return this.enabled;
+	}
+	
+	public void setInvalid(boolean invalid)
+	{
+		this.invalid = invalid;
+	}
+	
+	public boolean isInvalid()
+	{
+		return this.invalid;
 	}
 	
 	/* Set the valid range of values for this config option.

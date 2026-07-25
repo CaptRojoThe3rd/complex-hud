@@ -83,13 +83,24 @@ public class ClientEventHandler
 	public void onRenderGameOverlayPre(RenderGameOverlayEvent.Pre event)
 	{
 		if (event.type == ElementType.HEALTH) {
-			event.setCanceled(true);
+			event.setCanceled(ComplexHUD.e_health_bar.override_vanilla);
+			return;
+		}
+		if (event.type == ElementType.ARMOR) {
+			event.setCanceled(ComplexHUD.e_armor_bar.override_vanilla);
+			return;
+		}
+		if (event.type == ElementType.FOOD) {
+			event.setCanceled(ComplexHUD.e_hunger_bar.override_vanilla);
+			return;
+		}
+		if (event.type == ElementType.AIR) {
+			event.setCanceled(ComplexHUD.e_air_bar.override_vanilla);
 			return;
 		}
 		
-		Profiler pf = Minecraft.getMinecraft().mcProfiler;
-		
-		if (event.type == ElementType.CROSSHAIRS) { 
+		if (event.type == ElementType.CROSSHAIRS) {
+			Profiler pf = Minecraft.getMinecraft().mcProfiler;
 			pf.startSection("complexhud");
 			
 			if (HUDElementList.needs_sorting) {

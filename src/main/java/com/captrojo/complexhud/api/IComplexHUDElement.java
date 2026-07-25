@@ -1,7 +1,5 @@
 package com.captrojo.complexhud.api;
 
-import com.captrojo.complexhud.config.IConfigEntry;
-
 import net.minecraft.client.gui.ScaledResolution;
 
 public interface IComplexHUDElement

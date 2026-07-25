@@ -1,4 +1,8 @@
 
+hud.health_bar=Health Bar
+hud.armor_bar=Armor Bar
+hud.hunger_bar=Hunger Bar
+
 gui.show_hud=Show HUD
 gui.undo=Undo
 gui.apply=Apply
@@ -30,6 +34,40 @@ options.complexhud.buffer_top=Top Buffer Space Size
 options.complexhud.buffer_bottom=Bottom Buffer Space Size
 options.complexhud.buffer_left=Left Buffer Space Size
 options.complexhud.buffer_right=Right Buffer Space Size
+
+options.complexhud.overridden_element_optns=Override Options
+options.complexhud.enabled=Enabled
+options.complexhud.override_vanilla=Override Vanilla
+
+options.complexhud.health_bar_std_optns=Standard Health Bar Options
+options.complexhud.quarter_hearts=Quarter Hearts
+options.complexhud.top_to_bottom=Top to Bottom
+options.complexhud.right_to_left=Right to Left
+options.complexhud.hearts_per_row=Hearts Per Row
+options.complexhud.low_health_point=Low Health Threshold
+options.complexhud.compress_rows=Compress Rows
+options.complexhud.min_row_spacing=Minimum Row Spacing
+options.complexhud.row_spacing=Row Spacing Addend
+options.complexhud.heart_spacing=Horizontal Heart Spacing
+
+options.complexhud.health_bar_overload_optns=Overloaded Health Bar Options
+options.complexhud.overloaded_hearts=Enable Overloaded Health Bar
+options.complexhud.hearts_per_load=Hearts Per Load
+options.complexhud.overload_colors=Overload Colors
+
+options.complexhud.armor_bar_std_optns=Standard Armor Bar Options
+options.complexhud.icon_count=Icon Count
+options.complexhud.icon_spacing=Icon Spacing
+options.complexhud.show_empty_icons=Show Empty Icons
+
+options.complexhud.armor_bar_overload_optns=Overloaded Armor Bar Options
+options.complexhud.overloaded_armor=Overloaded Armor
+
+options.complexhud.hunger_bar_optns=Standard Hunger Bar Options
+
+options.complexhud.appleskin_hunger_bar_optns=AppleSkin Hunger Bar Options
+options.complexhud.show_exhaustion=Show Exhaustion
+options.complexhud.show_saturation=Show Saturation
 
 options.complexhud.alignment_enabled=Alignment Enabled
 

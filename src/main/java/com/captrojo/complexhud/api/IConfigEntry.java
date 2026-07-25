@@ -1,4 +1,4 @@
-package com.captrojo.complexhud.config;
+package com.captrojo.complexhud.api;
 
 import com.google.gson.JsonObject;
 

@@ -36,6 +36,31 @@ public class HUDElementList
 		sort();
 	}
 	
+	public static boolean replaceElement(String mod_id, String name, IComplexHUDElement new_element)
+	{
+		for (int i = 0; i < element_list.size(); i++) {
+			RegisteredElement old_re = element_list.get(i);
+			if (old_re.mod_id.equals(mod_id) && old_re.unlocalized_name.equals(name)) {
+				RegisteredElement new_re = new RegisteredElement(mod_id, new_element);
+				element_list.set(i, new_re);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static boolean removeElement(String mod_id, String name)
+	{
+		for (int i = 0; i < element_list.size(); i++) {
+			RegisteredElement old_re = element_list.get(i);
+			if (old_re.mod_id.equals(mod_id) && old_re.unlocalized_name.equals(name)) {
+				element_list.remove(i);
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public static ArrayList<ConfigSection> getAllOptions()
 	{
 		ArrayList<ConfigSection> list = new ArrayList<ConfigSection>();

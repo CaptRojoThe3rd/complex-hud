@@ -2,6 +2,7 @@ package com.captrojo.complexhud.config;
 
 import java.util.ArrayList;
 
+import com.captrojo.complexhud.api.IConfigEntry;
 import com.captrojo.complexhud.main.I18nHlpr;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

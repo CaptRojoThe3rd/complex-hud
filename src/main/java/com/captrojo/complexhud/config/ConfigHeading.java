@@ -1,5 +1,6 @@
 package com.captrojo.complexhud.config;
 
+import com.captrojo.complexhud.api.IConfigEntry;
 import com.captrojo.complexhud.main.I18nHlpr;
 import com.google.gson.JsonObject;
 

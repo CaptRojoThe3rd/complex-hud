@@ -2,9 +2,9 @@ package com.captrojo.complexhud.gui;
 
 import java.util.ArrayList;
 
+import com.captrojo.complexhud.api.IConfigEntry;
 import com.captrojo.complexhud.config.ConfigOption;
 import com.captrojo.complexhud.config.ConfigSection;
-import com.captrojo.complexhud.config.IConfigEntry;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -42,11 +42,12 @@ public abstract class GuiConfigOption extends GuiConfigEntry
 		String str = this.cfg_optn.getName();
 		FontRenderer fr = Minecraft.getMinecraft().fontRenderer;
 
-		if (fr.getStringWidth(str) > 125) {
-			while (fr.getStringWidth(str) > 125) {
-				str = str.substring(0, str.length() - 1);
-			}
+		if (fr.getStringWidth(str) > 134) {
 			str += "...";
+			while (fr.getStringWidth(str) > 134) {
+				str = str.substring(0, str.length() - 4);
+				str += "...";
+			}
 		}
 		
 		fr.drawStringWithShadow(str, x + 4, y + 4, this.cfg_optn.isEnabled() ? 0xffffff : 0xc0c0c0);

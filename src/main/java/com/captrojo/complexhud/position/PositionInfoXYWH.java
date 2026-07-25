@@ -1,4 +1,4 @@
-package com.captrojo.complexhud.api;
+package com.captrojo.complexhud.position;
 
 public class PositionInfoXYWH
 {

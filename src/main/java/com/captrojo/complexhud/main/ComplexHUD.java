@@ -3,9 +3,13 @@ package com.captrojo.complexhud.main;
 import com.captrojo.complexhud.api.HUDAPI;
 import com.captrojo.complexhud.api.PositionOrigin;
 import com.captrojo.complexhud.config.ModConfig;
+import com.captrojo.complexhud.element.ElementAirBar;
+import com.captrojo.complexhud.element.ElementArmorBar;
 import com.captrojo.complexhud.element.ElementHealthBar;
+import com.captrojo.complexhud.element.ElementHungerBar;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -25,7 +29,14 @@ public class ComplexHUD
 	public static final String VERSION = "1.0.0";
 	public static final int VERSION_NUM = 0x010000;
 	
+	public static boolean applecore_loaded;
+	
 	public static String config_dir;
+	
+	static ElementHealthBar e_health_bar;
+	static ElementArmorBar e_armor_bar;
+	static ElementHungerBar e_hunger_bar;
+	static ElementAirBar e_air_bar;
 	
 	public static String ident(String str)
 	{
@@ -56,6 +67,8 @@ public class ComplexHUD
 			return;
 		}
 		
+		applecore_loaded = Loader.isModLoaded("AppleCore");
+		
 		config_dir = event.getSuggestedConfigurationFile().getParent();
 		ModConfig.init(event.getSuggestedConfigurationFile());
 		
@@ -68,7 +81,15 @@ public class ComplexHUD
 		
 		HUDElementList.init();
 		
-		HUDAPI.registerElement(MOD_ID, new ElementHealthBar());
+		e_health_bar = new ElementHealthBar();
+		e_armor_bar = new ElementArmorBar();
+		e_hunger_bar = new ElementHungerBar();
+		e_air_bar = new ElementAirBar();
+		
+		HUDAPI.registerElement(MOD_ID, e_health_bar);
+		HUDAPI.registerElement(MOD_ID, e_armor_bar);
+		HUDAPI.registerElement(MOD_ID, e_hunger_bar);
+		HUDAPI.registerElement(MOD_ID, e_air_bar);
 		
 		if (Boolean.getBoolean("complexhud.debug")) {
 			for (PositionOrigin o : PositionOrigin.values()) {
