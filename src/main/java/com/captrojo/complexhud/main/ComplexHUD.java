@@ -7,6 +7,7 @@ import com.captrojo.complexhud.element.ElementAirBar;
 import com.captrojo.complexhud.element.ElementArmorBar;
 import com.captrojo.complexhud.element.ElementHealthBar;
 import com.captrojo.complexhud.element.ElementHungerBar;
+import com.captrojo.complexhud.element.ElementMountHealthBar;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
@@ -37,6 +38,7 @@ public class ComplexHUD
 	static ElementArmorBar e_armor_bar;
 	static ElementHungerBar e_hunger_bar;
 	static ElementAirBar e_air_bar;
+	static ElementMountHealthBar e_mount_health_bar;
 	
 	public static String ident(String str)
 	{
@@ -85,11 +87,13 @@ public class ComplexHUD
 		e_armor_bar = new ElementArmorBar();
 		e_hunger_bar = new ElementHungerBar();
 		e_air_bar = new ElementAirBar();
+		e_mount_health_bar = new ElementMountHealthBar();
 		
 		HUDAPI.registerElement(MOD_ID, e_health_bar);
 		HUDAPI.registerElement(MOD_ID, e_armor_bar);
 		HUDAPI.registerElement(MOD_ID, e_hunger_bar);
 		HUDAPI.registerElement(MOD_ID, e_air_bar);
+		HUDAPI.registerElement(MOD_ID, e_mount_health_bar);
 		
 		if (Boolean.getBoolean("complexhud.debug")) {
 			for (PositionOrigin o : PositionOrigin.values()) {

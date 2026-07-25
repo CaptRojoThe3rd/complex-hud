@@ -138,6 +138,26 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 		return this.cfg_rndr_f3.getBool();
 	}
 	
+	public int getTopBufferSize()
+	{
+		return this.cfg_buffer_top.getInt();
+	}
+	
+	public int getBottomBufferSize()
+	{
+		return this.cfg_buffer_bottom.getInt();
+	}
+	
+	public int getLeftBufferSize()
+	{
+		return this.cfg_buffer_left.getInt();
+	}
+	
+	public int getRightBufferSize()
+	{
+		return this.cfg_buffer_right.getInt();
+	}
+	
 	@Override
 	public int compareTo(RegisteredElement o)
 	{

@@ -98,6 +98,10 @@ public class ClientEventHandler
 			event.setCanceled(ComplexHUD.e_air_bar.override_vanilla);
 			return;
 		}
+		if (event.type == ElementType.HEALTHMOUNT) {
+			event.setCanceled(ComplexHUD.e_mount_health_bar.override_vanilla);
+			return;
+		}
 		
 		if (event.type == ElementType.CROSSHAIRS) {
 			Profiler pf = Minecraft.getMinecraft().mcProfiler;

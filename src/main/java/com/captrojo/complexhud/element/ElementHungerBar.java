@@ -37,13 +37,16 @@ public class ElementHungerBar extends OverriddenVanillaElement
 	static final int V_HUNGER = 27;
 	static final int V_SAT_OFFS = 9;
 	
+	ConfigOption cfg_show_on_mount;
 	ConfigOption cfg_icon_spacing;
 	ConfigOption cfg_right_to_left;
 	ConfigOption cfg_show_exh;
 	ConfigOption cfg_show_sat;
 	
+	boolean show_on_mount;
 	int icon_spacing;
 	boolean right_to_left;
+	
 	boolean show_exh;
 	boolean show_sat;
 	
@@ -51,8 +54,10 @@ public class ElementHungerBar extends OverriddenVanillaElement
 	
 	public ElementHungerBar()
 	{
+		this.cfg_show_on_mount = new ConfigOption(Type.BOOLEAN, "show_on_mount", false);
 		this.cfg_icon_spacing = new ConfigOption(Type.INT, "icon_spacing", -1);
 		this.cfg_right_to_left = new ConfigOption(Type.BOOLEAN, "right_to_left", true);
+		
 		this.cfg_show_exh = new ConfigOption(Type.BOOLEAN, "show_exhaustion", ComplexHUD.applecore_loaded);
 		this.cfg_show_sat = new ConfigOption(Type.BOOLEAN, "show_saturation", ComplexHUD.applecore_loaded);
 	}
@@ -140,6 +145,7 @@ public class ElementHungerBar extends OverriddenVanillaElement
 			
 			new ConfigHeading(null),
 			new ConfigHeading("options.complexhud.hunger_bar_optns"),
+			this.cfg_show_on_mount,
 			this.cfg_icon_spacing,
 			this.cfg_right_to_left,
 			
@@ -155,8 +161,10 @@ public class ElementHungerBar extends OverriddenVanillaElement
 	{
 		super.onConfigUpdated();
 		
+		this.show_on_mount = this.cfg_show_on_mount.getBool();
 		this.icon_spacing = this.cfg_icon_spacing.getInt();
 		this.right_to_left = this.cfg_right_to_left.getBool();
+		
 		this.show_exh = this.cfg_show_exh.getBool() && ComplexHUD.applecore_loaded;
 		/* The saturation values are still accessible without AppleCore, but they
 		 * seem buggy when AppleCore isn't installed. It is as if the game does not
@@ -184,7 +192,13 @@ public class ElementHungerBar extends OverriddenVanillaElement
 	@Override
 	public boolean isToBeRendered()
 	{
-		return this.enabled && this.mc.playerController.shouldDrawHUD() && GuiIngameForge.renderFood;
+		if (!this.mc.playerController.shouldDrawHUD() || !this.enabled) {
+			return false;
+		}
+		if (this.show_on_mount && this.mc.thePlayer.ridingEntity != null) {
+			return true;
+		}
+		return GuiIngameForge.renderFood;
 	}
 
 	@Override
