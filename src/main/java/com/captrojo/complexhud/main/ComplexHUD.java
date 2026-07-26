@@ -30,8 +30,7 @@ public class ComplexHUD
 {
 	public static final String MOD_ID = "complexhud";
 	public static final String NAME = "Complex HUD";
-	public static final String VERSION = "1.0.0";
-	public static final int VERSION_NUM = 0x010000;
+	public static final String VERSION = "0.0.0";
 	
 	public static boolean applecore_loaded;
 	
