@@ -103,6 +103,11 @@ public class ClientEventHandler
 			return;
 		}
 		
+		if (event.type == ElementType.BOSSHEALTH) {
+			event.setCanceled(ComplexHUD.e_boss_health.override_vanilla);
+			return;
+		}
+		
 		if (event.type == ElementType.CROSSHAIRS) {
 			Profiler pf = Minecraft.getMinecraft().mcProfiler;
 			pf.startSection("complexhud");
