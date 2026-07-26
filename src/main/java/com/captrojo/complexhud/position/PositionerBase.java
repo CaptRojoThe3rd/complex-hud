@@ -43,6 +43,7 @@ public abstract class PositionerBase
 	ConfigOption cfg_offs_x;
 	ConfigOption cfg_offs_y;
 	ConfigOption cfg_alignment_enabled;
+	ConfigOption cfg_mode;
 	public ConfigSection options_sec;
 	
 	PositionInfoXYWH sec_left;
@@ -62,8 +63,14 @@ public abstract class PositionerBase
 		this.cfg_offs_x = new ConfigOption(Type.INT, "offset_x", 0);
 		this.cfg_offs_y = new ConfigOption(Type.INT, "offset_y", 0);
 		this.cfg_alignment_enabled = new ConfigOption(Type.BOOLEAN, "alignment_enabled", true);
+		this.cfg_mode = new ConfigOption(PosModeEnum.values(), "mode", PosModeEnum.SINGLE_ROW);
 		this.options_sec = new ConfigSection(unlocalized_name, unlocalized_name);
-		this.options_sec.addAll(this.cfg_offs_x, this.cfg_offs_y, this.cfg_alignment_enabled);
+		this.options_sec.addAll(
+			this.cfg_offs_x,
+			this.cfg_offs_y,
+			this.cfg_alignment_enabled,
+			this.cfg_mode
+		);
 		this.options_sec.loadFromJson(ModConfig.cfgobj_positioning);
 		this.options_sec.saveToJson(ModConfig.cfgobj_positioning);
 		
@@ -75,7 +82,7 @@ public abstract class PositionerBase
 	
 	int getMode()
 	{
-		return MODE_SINGLE_ROW;
+		return this.cfg_mode.getEnum().ordinal();
 	}
 	
 	public void reset()

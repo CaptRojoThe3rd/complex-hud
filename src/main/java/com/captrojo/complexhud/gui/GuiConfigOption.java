@@ -50,6 +50,6 @@ public abstract class GuiConfigOption extends GuiConfigEntry
 			}
 		}
 		
-		fr.drawStringWithShadow(str, x + 4, y + 4, this.cfg_optn.isEnabled() ? 0xffffff : 0xc0c0c0);
+		fr.drawStringWithShadow(str, x, y + 5, this.cfg_optn.isEnabled() ? 0xffffff : 0xc0c0c0);
 	}
 }

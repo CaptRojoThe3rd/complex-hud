@@ -2,7 +2,11 @@
 hud.health_bar=Health Bar
 hud.armor_bar=Armor Bar
 hud.hunger_bar=Hunger Bar
-hud.air_bar.Air Bar
+hud.air_bar=Air Bar
+hud.mount_health_bar=Mount Health Bar
+hud.boss_health=Boss Health Bar
+hud.xp_bar=XP Bar
+hud.jump_bar=Jump Bar
 
 gui.show_hud=Show HUD
 gui.undo=Undo
@@ -22,7 +26,15 @@ options.complexhud.optn_btn_x_offs=Mod Option Button X Offset
 options.complexhud.optn_btn_y_offs=Mod Option Button Y Offset
 
 options.complexhud.fixes=Fixes
+
+options.complexhud.misc_fixes=Misc. Fixes
 options.complexhud.armor_bar_y_fix=Armor Bar Y Fix
+
+options.complexhud.guiingameforge_hacks=GuiIngameForge Hacks
+options.complexhud.left_height_offs_pre=left_height Offset (Pre)
+options.complexhud.right_height_offs_pre=right_height Offset (Pre)
+options.complexhud.left_height_offs_post=left_height Offset (Post)
+options.complexhud.right_height_offs_post=right_height Offset (Post)
 
 options.complexhud.priority=Priority
 options.complexhud.fixed=Fixed Position
@@ -70,10 +82,27 @@ options.complexhud.appleskin_hunger_bar_optns=AppleSkin Hunger Bar Options
 options.complexhud.show_exhaustion=Show Exhaustion
 options.complexhud.show_saturation=Show Saturation
 
+options.complexhud.air_bar_optns=Air Bar Options
+
+options.complexhud.mount_health_bar_std_optns=Standard Mount Health Bar Options
+options.complexhud.show_mount_name=Show Mount Name
+
+options.complexhud.mount_health_bar_overload_optns=Overloaded Mount Health Bar Options
+
+options.complexhud.boss_health_optns=Boss Health Bar Options
+options.complexhud.bar_width=Bar Width
+options.complexhud.text_alignment=Text Alignment
+options.complexhud.bar_text_spacing=Bar Text Spacing
+
+options.complexhud.xp_bar_optns=XP Bar Options
+options.complexhud.hide_for_jump_bar=Hide for Jump Bar
+
 options.complexhud.alignment_enabled=Alignment Enabled
+options.complexhud.mode=Mode
 
 positioner.hotbar_side_left=Hotbar Side Left
 positioner.hotbar_side_right=Hotbar Side Right
+positioner.hotbar_top_both=Hotbar Top Both
 positioner.hotbar_top_left=Hotbar Top Left
 positioner.hotbar_top_right=Hotbar Top Right
 positioner.top_left=Top Left

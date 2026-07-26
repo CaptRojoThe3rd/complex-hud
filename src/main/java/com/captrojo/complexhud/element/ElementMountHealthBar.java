@@ -255,7 +255,7 @@ public class ElementMountHealthBar extends ElementHealthBarBase
 						1.0f
 					);
 				}
-				if (this.right_to_left) {
+				if (!this.right_to_left) {
 					this.drawTexturedModalRectFlippedHorz(x, y, u_fg + U_QUARTERS[Math.min(p, 4) - 1], V_ALL, 9, 9);
 				} else {
 					this.drawTexturedModalRect(x, y, u_fg + U_QUARTERS[Math.min(p, 4) - 1], V_ALL, 9, 9);

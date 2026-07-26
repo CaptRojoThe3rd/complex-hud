@@ -34,6 +34,10 @@ public class ModConfig
 	public static ConfigSection cfgsec_menu_settings;
 	
 	public static ConfigOption armor_bar_y_fix;
+	public static ConfigOption left_height_offs_pre;
+	public static ConfigOption right_height_offs_pre;
+	public static ConfigOption left_height_offs_post;
+	public static ConfigOption right_height_offs_post;
 	public static ConfigSection cfgsec_fixes;
 	
 	public static ArrayList<ConfigSection> cfg_sections;
@@ -60,10 +64,22 @@ public class ModConfig
 		cfgsec_menu_settings.saveToJson(cfgobj_general);
 		
 		armor_bar_y_fix = new ConfigOption(Type.BOOLEAN, "armor_bar_y_fix", true);
+		left_height_offs_pre = new ConfigOption(Type.INT, "left_height_offs_pre", -7);
+		right_height_offs_pre = new ConfigOption(Type.INT, "right_height_offs_pre", -7);
+		left_height_offs_post = new ConfigOption(Type.INT, "left_height_offs_post", 0);
+		right_height_offs_post = new ConfigOption(Type.INT, "right_height_offs_post", 0);
 		
 		cfgsec_fixes = new ConfigSection("fixes", "options.complexhud.fixes");
 		cfgsec_fixes.addAll(
-			armor_bar_y_fix
+			new ConfigHeading("options.complexhud.misc_fixes"),
+			armor_bar_y_fix,
+			
+			new ConfigHeading(null),
+			new ConfigHeading("options.complexhud.guiingameforge_hacks"),
+			left_height_offs_pre,
+			right_height_offs_pre,
+			left_height_offs_post,
+			right_height_offs_post
 		);
 		
 		cfg_sections = new ArrayList<ConfigSection>();

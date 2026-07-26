@@ -12,6 +12,7 @@ import com.captrojo.complexhud.position.PositionerBottomLeft;
 import com.captrojo.complexhud.position.PositionerBottomRight;
 import com.captrojo.complexhud.position.PositionerHotbarSideLeft;
 import com.captrojo.complexhud.position.PositionerHotbarSideRight;
+import com.captrojo.complexhud.position.PositionerHotbarTopBoth;
 import com.captrojo.complexhud.position.PositionerHotbarTopLeft;
 import com.captrojo.complexhud.position.PositionerHotbarTopRight;
 import com.captrojo.complexhud.position.PositionerMiddleCenter;
@@ -44,6 +45,7 @@ public class ClientEventHandler
 		new PositionerHotbarSideLeft(),
 		new PositionerHotbarSideRight(),
 		
+		new PositionerHotbarTopBoth(),
 		new PositionerHotbarTopLeft(),
 		new PositionerHotbarTopRight(),
 		
@@ -107,10 +109,21 @@ public class ClientEventHandler
 			event.setCanceled(ComplexHUD.e_boss_health.override_vanilla);
 			return;
 		}
+		if (event.type == ElementType.EXPERIENCE) {
+			event.setCanceled(ComplexHUD.e_xp_bar.override_vanilla);
+			return;
+		}
+		if (event.type == ElementType.JUMPBAR) {
+			event.setCanceled(ComplexHUD.e_jump_bar.override_vanilla);
+			return;
+		}
 		
 		if (event.type == ElementType.CROSSHAIRS) {
 			Profiler pf = Minecraft.getMinecraft().mcProfiler;
 			pf.startSection("complexhud");
+			
+			GuiIngameForge.left_height += ModConfig.left_height_offs_pre.getInt();
+			GuiIngameForge.right_height += ModConfig.right_height_offs_pre.getInt();
 			
 			if (HUDElementList.needs_sorting) {
 				HUDElementList.sort();
@@ -148,6 +161,9 @@ public class ClientEventHandler
 					pb.positionSections();
 				}
 			}
+			
+			GuiIngameForge.left_height += ModConfig.left_height_offs_post.getInt();
+			GuiIngameForge.right_height += ModConfig.right_height_offs_post.getInt();
 			
 			pf.endStartSection("render");
 			for (RegisteredElement re : HUDElementList.element_list) {
