@@ -149,7 +149,7 @@ public class ClientEventHandler
 				}
 				re.reloadValues2();
 				if (re.isFixed()) {
-					re.pos = new PositionInfoXY2(0, re.width - 1, 0, re.height - 1);
+					re.pos = new PositionInfoXY2(0, re.adj_width - 1, 0, re.adj_height - 1);
 					continue;
 				}
 				int i = re.getPosOrigin().ordinal();

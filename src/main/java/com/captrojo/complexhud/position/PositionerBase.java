@@ -106,33 +106,33 @@ public abstract class PositionerBase
 		case LEFT:
 			re.pos.left_x = this.sec_left.w;
 			re.pos.top_y = 0;
-			this.sec_left.w += re.width;
-			if (re.height > this.sec_left.h) {
-				this.sec_left.h = re.height;
+			this.sec_left.w += re.adj_width;
+			if (re.adj_height > this.sec_left.h) {
+				this.sec_left.h = re.adj_height;
 			}
 			break;
 		case RIGHT:
 			re.pos.left_x = this.sec_right.w;
 			re.pos.top_y = 0;
-			this.sec_right.w += re.width;
-			if (re.height > this.sec_right.h) {
-				this.sec_right.h = re.height;
+			this.sec_right.w += re.adj_width;
+			if (re.adj_height > this.sec_right.h) {
+				this.sec_right.h = re.adj_height;
 			}
 			break;
 		case DOWN:
 			re.pos.left_x = 0;
 			re.pos.top_y = this.sec_bottom.h;
-			this.sec_bottom.h += re.height;
-			if (re.width > this.sec_bottom.w) {
-				this.sec_bottom.w = re.width;
+			this.sec_bottom.h += re.adj_height;
+			if (re.adj_width > this.sec_bottom.w) {
+				this.sec_bottom.w = re.adj_width;
 			}
 			break;
 		case UP:
 			re.pos.left_x = 0;
 			re.pos.top_y = this.sec_top.h;
-			this.sec_top.h += re.height;
-			if (re.width > this.sec_top.w) {
-				this.sec_top.w = re.width;
+			this.sec_top.h += re.adj_height;
+			if (re.adj_width > this.sec_top.w) {
+				this.sec_top.w = re.adj_width;
 			}
 			break;
 		}
@@ -298,25 +298,28 @@ public abstract class PositionerBase
 		re.pos.top_y += re.getYOffs() + this.cfg_offs_y.getInt();
 		re.pos.top_y += re.getTopBufferSize();
 		
-		re.pos.right_x = re.pos.left_x + re.width - 1;
-		re.pos.bottom_y = re.pos.top_y + re.height - 1;
+		/* We want to use non-adjusted width and height here, since the element
+		 * is unaware of buffer sizes.
+		 */
+		re.pos.right_x = re.pos.left_x + re.element.getWidth() - 1;
+		re.pos.bottom_y = re.pos.top_y + re.element.getHeight() - 1;
 	}
 	
 	abstract void alignElement(RegisteredElement re);
 	
 	void centerX(RegisteredElement re)
 	{
-		re.pos.left_x = (sr.getScaledWidth() / 2) - (re.width / 2);
+		re.pos.left_x = (sr.getScaledWidth() / 2) - (re.adj_width / 2);
 	}
 	
 	void centerY(RegisteredElement re)
 	{
-		re.pos.top_y = (sr.getScaledHeight() / 2) - (re.height / 2);
+		re.pos.top_y = (sr.getScaledHeight() / 2) - (re.adj_height / 2);
 	}
 	
 	void alignRight(RegisteredElement re, int right_x)
 	{
-		re.pos.left_x = right_x - re.width;
+		re.pos.left_x = right_x - re.adj_width;
 	}
 	
 	void alignRightSideOfScreen(RegisteredElement re)

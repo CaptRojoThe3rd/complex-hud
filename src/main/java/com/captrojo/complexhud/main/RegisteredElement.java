@@ -37,8 +37,8 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 	
 	/* Cache these values to avoid unnecessary processing every time we need them */
 	public boolean to_be_rendered;
-	public int width;
-	public int height;
+	public int adj_width;
+	public int adj_height;
 	
 	public RegisteredElement(String mod_id, IComplexHUDElement element)
 	{
@@ -97,10 +97,10 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 	
 	public void reloadValues2()
 	{
-		this.width = this.element.getWidth();
-		this.width += this.cfg_buffer_left.getInt() + this.cfg_buffer_right.getInt();
-		this.height = this.element.getHeight();
-		this.height += this.cfg_buffer_top.getInt() + this.cfg_buffer_bottom.getInt();
+		this.adj_width = this.element.getWidth();
+		this.adj_width += this.cfg_buffer_left.getInt() + this.cfg_buffer_right.getInt();
+		this.adj_height = this.element.getHeight();
+		this.adj_height += this.cfg_buffer_top.getInt() + this.cfg_buffer_bottom.getInt();
 	}
 	
 	public int getRenderPriority()
