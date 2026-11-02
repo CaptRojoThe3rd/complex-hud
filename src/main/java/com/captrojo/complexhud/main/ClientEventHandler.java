@@ -75,7 +75,7 @@ public class ClientEventHandler
 	public void onClientTick(TickEvent.ClientTickEvent event)
 	{
 		if (event.phase == Phase.START && !Minecraft.getMinecraft().isGamePaused()) {
-			for (RegisteredElement re : HUDElementList.element_list) {
+			for (RegisteredElement re : HUDElementList.instance.element_list) {
 				re.element.updateTick();
 			}
 		}
@@ -125,12 +125,12 @@ public class ClientEventHandler
 			GuiIngameForge.left_height += ModConfig.left_height_offs_pre.getInt();
 			GuiIngameForge.right_height += ModConfig.right_height_offs_pre.getInt();
 			
-			if (HUDElementList.needs_sorting) {
-				HUDElementList.sort();
+			if (HUDElementList.instance.needs_sorting) {
+				HUDElementList.instance.sort();
 			}
 			
 			pf.startSection("prerender");
-			for (RegisteredElement re : HUDElementList.element_list) {
+			for (RegisteredElement re : HUDElementList.instance.element_list) {
 				re.element.doPreRenderWork();
 			}
 			
@@ -142,7 +142,7 @@ public class ClientEventHandler
 				}
 			}
 			
-			for (RegisteredElement re : HUDElementList.element_list) {
+			for (RegisteredElement re : HUDElementList.instance.element_list) {
 				re.reloadValues1();
 				if (!re.to_be_rendered) {
 					continue;
@@ -166,7 +166,7 @@ public class ClientEventHandler
 			GuiIngameForge.right_height += ModConfig.right_height_offs_post.getInt();
 			
 			pf.endStartSection("render");
-			for (RegisteredElement re : HUDElementList.element_list) {
+			for (RegisteredElement re : HUDElementList.instance.element_list) {
 				if (!re.to_be_rendered) {
 					continue;
 				}
@@ -207,6 +207,7 @@ public class ClientEventHandler
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@SubscribeEvent
 	public void onPostGuiInit(InitGuiEvent.Post event)
 	{

@@ -73,7 +73,7 @@ public class GuiScreenSettingsHead extends GuiScreen
 		} else if (button.id == BTN_POS_OPTNS) {
 			scr = new GuiSectionedOptions(this, ModConfig.cfgobj_positioning, ClientEventHandler.getAllPosSettings(), true);
 		} else if (button.id == BTN_ELEMENT_OPTNS) {
-			scr = new GuiSectionedOptions(this, ModConfig.cfgobj_elements, HUDElementList.getAllOptions(), true);
+			scr = new GuiSectionedOptions(this, ModConfig.cfgobj_elements, HUDElementList.instance.getAllOptions(), true);
 		}
 		
 		this.mc.displayGuiScreen(scr);

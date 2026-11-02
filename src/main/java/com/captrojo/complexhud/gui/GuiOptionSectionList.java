@@ -3,7 +3,6 @@ package com.captrojo.complexhud.gui;
 import java.util.ArrayList;
 
 import com.captrojo.complexhud.config.ConfigSection;
-import com.captrojo.complexhud.main.I18nHlpr;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;

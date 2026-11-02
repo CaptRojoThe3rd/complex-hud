@@ -1,4 +1,4 @@
-package com.captrojo.complexhud.config;
+package com.captrojo.complexhud.api.config;
 
 import com.captrojo.complexhud.api.IConfigEntry;
 import com.captrojo.complexhud.main.I18nHlpr;

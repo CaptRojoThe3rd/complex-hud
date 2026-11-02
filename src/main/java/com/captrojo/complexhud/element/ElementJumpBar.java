@@ -6,7 +6,7 @@ import com.captrojo.complexhud.api.IConfigEntry;
 import com.captrojo.complexhud.api.PositionInfoXY2;
 import com.captrojo.complexhud.api.PositionOperation;
 import com.captrojo.complexhud.api.PositionOrigin;
-import com.captrojo.complexhud.config.ConfigHeading;
+import com.captrojo.complexhud.api.config.ConfigHeading;
 
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraftforge.client.GuiIngameForge;

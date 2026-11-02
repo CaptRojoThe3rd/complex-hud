@@ -7,7 +7,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.captrojo.complexhud.config.ConfigOption.Type;
+import com.captrojo.complexhud.api.config.ConfigHeading;
+import com.captrojo.complexhud.api.config.ConfigOption;
+import com.captrojo.complexhud.api.config.ConfigOption.Type;
 import com.captrojo.complexhud.main.ComplexHUD;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

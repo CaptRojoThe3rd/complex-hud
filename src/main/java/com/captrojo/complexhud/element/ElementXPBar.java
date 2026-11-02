@@ -6,9 +6,9 @@ import com.captrojo.complexhud.api.IConfigEntry;
 import com.captrojo.complexhud.api.PositionInfoXY2;
 import com.captrojo.complexhud.api.PositionOperation;
 import com.captrojo.complexhud.api.PositionOrigin;
-import com.captrojo.complexhud.config.ConfigHeading;
-import com.captrojo.complexhud.config.ConfigOption;
-import com.captrojo.complexhud.config.ConfigOption.Type;
+import com.captrojo.complexhud.api.config.ConfigHeading;
+import com.captrojo.complexhud.api.config.ConfigOption;
+import com.captrojo.complexhud.api.config.ConfigOption.Type;
 import com.captrojo.complexhud.config.TextAlignment;
 
 import net.minecraft.client.gui.FontRenderer;
@@ -167,7 +167,7 @@ public class ElementXPBar extends ElementFillBarBase
 		GL11.glDisable(GL11.GL_BLEND);
 		this.bindModIcons();
 
-		float cap = (float) this.mc.thePlayer.xpBarCap();
+//		float cap = (float) this.mc.thePlayer.xpBarCap();
 		float xp = this.mc.thePlayer.experience;
 		int filled_w = MathHelper.ceiling_float_int(xp * (float) this.bar_width);
 

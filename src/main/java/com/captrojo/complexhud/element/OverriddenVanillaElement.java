@@ -3,8 +3,8 @@ package com.captrojo.complexhud.element;
 import java.util.Random;
 
 import com.captrojo.complexhud.api.IComplexHUDElement;
-import com.captrojo.complexhud.config.ConfigOption;
-import com.captrojo.complexhud.config.ConfigOption.Type;
+import com.captrojo.complexhud.api.config.ConfigOption;
+import com.captrojo.complexhud.api.config.ConfigOption.Type;
 import com.captrojo.complexhud.main.ComplexHUD;
 
 import net.minecraft.client.Minecraft;

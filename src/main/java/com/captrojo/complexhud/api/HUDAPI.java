@@ -1,14 +1,13 @@
 package com.captrojo.complexhud.api;
 
-import com.captrojo.complexhud.main.ComplexHUD;
-import com.captrojo.complexhud.main.HUDElementList;
-
 public class HUDAPI
 {
+	public static IHUDElementList hud_element_list;
+	
 	/* Get the mod version. */
 	public static String getVersion()
 	{
-		return ComplexHUD.VERSION;
+		return "0.1.0";
 	}
 	
 	/* Register a HUD element. 
@@ -16,7 +15,10 @@ public class HUDAPI
 	 */
 	public static void registerElement(String mod_id, IComplexHUDElement element)
 	{
-		HUDElementList.registerElement(mod_id, element);
+		if (hud_element_list == null) {
+			return;
+		}
+		hud_element_list.registerElement(mod_id, element);
 	}
 	
 	/* Replace a HUD element.
@@ -25,7 +27,10 @@ public class HUDAPI
 	 */
 	public static boolean replaceElement(String mod_id, String unlocalized_name, IComplexHUDElement element)
 	{
-		return HUDElementList.replaceElement(mod_id, unlocalized_name, element);
+		if (hud_element_list == null) {
+			return false;
+		}
+		return hud_element_list.replaceElement(mod_id, unlocalized_name, element);
 	}
 	
 	/* Remove a HUD element. Not sure why you would need this.
@@ -33,6 +38,9 @@ public class HUDAPI
 	 */
 	public static boolean removeElement(String mod_id, String unlocalized_name)
 	{
-		return HUDElementList.removeElement(mod_id, unlocalized_name);
+		if (hud_element_list == null) {
+			return false;
+		}
+		return hud_element_list.removeElement(mod_id, unlocalized_name);
 	}
 }

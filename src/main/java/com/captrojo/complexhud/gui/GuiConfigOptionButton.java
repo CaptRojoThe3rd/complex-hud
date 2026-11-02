@@ -1,10 +1,8 @@
 package com.captrojo.complexhud.gui;
 
-import com.captrojo.complexhud.api.IComplexHUDElement;
-import com.captrojo.complexhud.config.ConfigOption;
+import com.captrojo.complexhud.api.config.ConfigOption;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 
 public abstract class GuiConfigOptionButton extends GuiConfigOption
@@ -28,8 +26,6 @@ public abstract class GuiConfigOptionButton extends GuiConfigOption
 	void draw(int x, int y, int mouse_x, int mouse_y)
 	{
 		super.draw(x, y, mouse_x, mouse_y);
-		
-		FontRenderer fr = Minecraft.getMinecraft().fontRenderer;
 		
 		this.button.xPosition = x + 136;
 		this.button.yPosition = y;

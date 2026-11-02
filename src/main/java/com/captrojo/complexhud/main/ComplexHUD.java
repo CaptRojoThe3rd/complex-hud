@@ -30,7 +30,7 @@ public class ComplexHUD
 {
 	public static final String MOD_ID = "complexhud";
 	public static final String NAME = "Complex HUD";
-	public static final String VERSION = "0.0.1";
+	public static final String VERSION = "0.1.0";
 	
 	public static boolean applecore_loaded;
 	
@@ -58,15 +58,6 @@ public class ComplexHUD
 	{
 		return new ResourceLocation(ident(path));
 	}
-	
-	public static String[] convertEnumToNames(Enum[] en)
-	{
-		String[] names = new String[en.length];
-		for (int i = 0; i < en.length; i++) {
-			names[i] = en[i].name().toLowerCase();
-		}
-		return names;
-	}
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
@@ -74,6 +65,8 @@ public class ComplexHUD
 		if (event.getSide() == Side.SERVER) {
 			return;
 		}
+		
+		HUDAPI.hud_element_list = HUDElementList.instance;
 		
 		applecore_loaded = Loader.isModLoaded("AppleCore");
 		
@@ -86,8 +79,6 @@ public class ComplexHUD
 		ClientEventHandler.instance = new ClientEventHandler();
 		FMLCommonHandler.instance().bus().register(ClientEventHandler.instance);
 		MinecraftForge.EVENT_BUS.register(ClientEventHandler.instance);
-		
-		HUDElementList.init();
 		
 		e_health_bar = new ElementHealthBar();
 		e_armor_bar = new ElementArmorBar();

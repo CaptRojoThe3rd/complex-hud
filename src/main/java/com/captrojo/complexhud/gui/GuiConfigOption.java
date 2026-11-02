@@ -1,10 +1,6 @@
 package com.captrojo.complexhud.gui;
 
-import java.util.ArrayList;
-
-import com.captrojo.complexhud.api.IConfigEntry;
-import com.captrojo.complexhud.config.ConfigOption;
-import com.captrojo.complexhud.config.ConfigSection;
+import com.captrojo.complexhud.api.config.ConfigOption;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;

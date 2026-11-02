@@ -1,7 +1,6 @@
 package com.captrojo.complexhud.gui;
 
-import com.captrojo.complexhud.api.IComplexHUDElement;
-import com.captrojo.complexhud.config.ConfigOption;
+import com.captrojo.complexhud.api.config.ConfigOption;
 import com.captrojo.complexhud.main.HUDElementList;
 
 public class GuiConfigOptionEnum extends GuiConfigOptionButton
@@ -21,7 +20,7 @@ public class GuiConfigOptionEnum extends GuiConfigOptionButton
 		this.cfg_optn.incEnum();
 		this.updateUIWithValue();
 		this.playClickSound();
-		HUDElementList.onConfigUpdated();
+		HUDElementList.instance.onConfigUpdated();
 		return true;
 	}
 

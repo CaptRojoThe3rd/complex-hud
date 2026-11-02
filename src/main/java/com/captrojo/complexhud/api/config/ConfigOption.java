@@ -1,4 +1,4 @@
-package com.captrojo.complexhud.config;
+package com.captrojo.complexhud.api.config;
 
 import com.captrojo.complexhud.api.IConfigEntry;
 import com.captrojo.complexhud.main.I18nHlpr;
@@ -27,6 +27,7 @@ public class ConfigOption implements IConfigEntry
 	Object min;
 	Object max;
 	
+	@SuppressWarnings("rawtypes")
 	Enum[] enum_vals;
 	
 	String unlocalized_name;
@@ -43,6 +44,7 @@ public class ConfigOption implements IConfigEntry
 		this.unlocalized_name = "options.complexhud." + key;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public ConfigOption(Enum[] enum_values, String key, Enum value)
 	{
 		this.type = Type.ENUM;
@@ -117,6 +119,7 @@ public class ConfigOption implements IConfigEntry
 		return (boolean) this.value;
 	}
 	
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public <T extends Enum> T getEnum()
 	{
 		return (T) this.value;

@@ -1,7 +1,7 @@
 package com.captrojo.complexhud.element;
 
-import com.captrojo.complexhud.config.ConfigOption;
-import com.captrojo.complexhud.config.ConfigOption.Type;
+import com.captrojo.complexhud.api.config.ConfigOption;
+import com.captrojo.complexhud.api.config.ConfigOption.Type;
 
 public abstract class ElementHealthBarBase extends OverriddenVanillaElement
 {

@@ -1,6 +1,6 @@
 package com.captrojo.complexhud.gui;
 
-import com.captrojo.complexhud.config.ConfigHeading;
+import com.captrojo.complexhud.api.config.ConfigHeading;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;

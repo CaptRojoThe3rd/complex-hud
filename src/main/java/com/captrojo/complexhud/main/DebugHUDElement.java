@@ -1,12 +1,10 @@
 package com.captrojo.complexhud.main;
 
-import java.util.List;
-
 import com.captrojo.complexhud.api.IComplexHUDElement;
 import com.captrojo.complexhud.api.PositionInfoXY2;
 import com.captrojo.complexhud.api.PositionOperation;
 import com.captrojo.complexhud.api.PositionOrigin;
-import com.captrojo.complexhud.config.ConfigOption;
+import com.captrojo.complexhud.api.config.ConfigOption;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;

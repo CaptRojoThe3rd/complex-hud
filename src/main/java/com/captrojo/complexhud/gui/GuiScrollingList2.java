@@ -107,6 +107,7 @@ public abstract class GuiScrollingList2
 		return this.getSize() * this.element_height + this.field_27261_r;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void registerScrollButtons(List p_22240_1_, int scroll_up_id, int scroll_down_id)
 	{
 		this.scroll_up_action_id = scroll_up_id;

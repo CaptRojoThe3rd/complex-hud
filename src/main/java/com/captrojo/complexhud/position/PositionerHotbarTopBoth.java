@@ -1,6 +1,5 @@
 package com.captrojo.complexhud.position;
 
-import com.captrojo.complexhud.main.ComplexHUD;
 import com.captrojo.complexhud.main.RegisteredElement;
 
 import net.minecraftforge.client.GuiIngameForge;

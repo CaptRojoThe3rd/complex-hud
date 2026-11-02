@@ -1,8 +1,8 @@
 package com.captrojo.complexhud.position;
 
 import com.captrojo.complexhud.api.PositionInfoXY2;
-import com.captrojo.complexhud.config.ConfigOption;
-import com.captrojo.complexhud.config.ConfigOption.Type;
+import com.captrojo.complexhud.api.config.ConfigOption;
+import com.captrojo.complexhud.api.config.ConfigOption.Type;
 import com.captrojo.complexhud.config.ConfigSection;
 import com.captrojo.complexhud.config.ModConfig;
 import com.captrojo.complexhud.main.RegisteredElement;

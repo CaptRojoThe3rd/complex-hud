@@ -2,10 +2,7 @@ package com.captrojo.complexhud.gui;
 
 import java.util.ArrayList;
 
-import com.captrojo.complexhud.main.I18nHlpr;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Tessellator;
 
 public class GuiConfigOptionList extends GuiScrollingList2
