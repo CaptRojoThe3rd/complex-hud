@@ -16,24 +16,24 @@ public abstract class OverriddenVanillaElement extends Gui implements IComplexHU
 {
 	static final ResourceLocation MOD_ICONS = ComplexHUD.resource("textures/gui/icons.png");
 	static final String OVRD_CFG_HEADING = "options.complexhud.overridden_element_optns";
-	static final float[] COLOR_WHITE = {1.0f, 1.0f, 1.0f};
-	
+	static final float[] COLOR_WHITE = {1.0F, 1.0F, 1.0F};
+
 	Minecraft mc;
 	Random rand;
-	
+
 	ConfigOption cfg_enabled;
 	ConfigOption cfg_override_vanilla;
-	
+
 	public boolean enabled;
 	public boolean override_vanilla;
-	
+
 	int update_counter;
-	
+
 	OverriddenVanillaElement()
 	{
 		this.mc = Minecraft.getMinecraft();
 		this.rand = new Random();
-		
+
 		this.cfg_enabled = new ConfigOption(Type.BOOLEAN, "enabled", true);
 		this.cfg_override_vanilla = new ConfigOption(Type.BOOLEAN, "override_vanilla", true);
 	}
@@ -42,12 +42,12 @@ public abstract class OverriddenVanillaElement extends Gui implements IComplexHU
 	{
 		this.mc.getTextureManager().bindTexture(icons);
 	}
-	
+
 	void bindModIcons()
 	{
 		this.mc.getTextureManager().bindTexture(MOD_ICONS);
 	}
-	
+
 	float[][] parseColorListStr(String str)
 	{
 		String[] indvs = str.split(",");
@@ -55,9 +55,9 @@ public abstract class OverriddenVanillaElement extends Gui implements IComplexHU
 		for (int i = 0; i < colors.length; i++) {
 			try {
 				int color = Integer.valueOf(indvs[i], 16);
-				float r = (float) ((color >> 16) & 0xff) / 256.0f;
-				float g = (float) ((color >> 8) & 0xff) / 256.0f;
-				float b = (float) (color & 0xff) / 256.0f;
+				float r = (float) ((color >> 16) & 0xff) / 256.0F;
+				float g = (float) ((color >> 8) & 0xff) / 256.0F;
+				float b = (float) (color & 0xff) / 256.0F;
 				colors[i] = new float[] {r, g, b};
 			} catch (NumberFormatException e) {
 				return new float[0][];
@@ -65,7 +65,7 @@ public abstract class OverriddenVanillaElement extends Gui implements IComplexHU
 		}
 		return colors;
 	}
-	
+
 	void drawTexturedModalRectCF(int x, int y, int u, int v, int w, int h, boolean horz, boolean vert)
 	{
 		if (horz) {
@@ -77,8 +77,8 @@ public abstract class OverriddenVanillaElement extends Gui implements IComplexHU
 
 	void drawTexturedModalRectFlippedHorz(int x, int y, int u, int v, int w, int h)
 	{
-		float uf = 0.00390625f;
-		float vf = 0.00390625f;
+		float uf = 0.00390625F;
+		float vf = 0.00390625F;
 		Tessellator ts = Tessellator.instance;
 		ts.startDrawingQuads();
 		ts.addVertexWithUV((double) (x + 0), (double) (y + h), (double) this.zLevel, (double) ((float) (u + w) * uf), (double) ((float) (v + h) * vf));
@@ -87,7 +87,7 @@ public abstract class OverriddenVanillaElement extends Gui implements IComplexHU
 		ts.addVertexWithUV((double) (x + 0), (double) (y + 0), (double) this.zLevel, (double) ((float) (u + w) * uf), (double) ((float) (v + 0) * vf));
 		ts.draw();
 	}
-	
+
 	@Override
 	public void onConfigUpdated()
 	{

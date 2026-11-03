@@ -34,19 +34,19 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 	ConfigOption cfg_buffer_left;
 	ConfigOption cfg_buffer_right;
 	ConfigSection options_sec;
-	
+
 	/* Cache these values to avoid unnecessary processing every time we need them */
 	public boolean to_be_rendered;
 	public int adj_width;
 	public int adj_height;
-	
+
 	public RegisteredElement(String mod_id, IComplexHUDElement element)
 	{
 		this.element = element;
 
 		this.unlocalized_name = element.getUnlocalizedName();
 		this.key = mod_id + ":" + this.unlocalized_name;
-		
+
 		this.cfg_rndr_prio = new ConfigOption(Type.INT, "priority", element.getDefaultPriority());
 		this.cfg_fixed = new ConfigOption(Type.BOOLEAN, "fixed", element.getDefaultFixedSetting());
 		this.cfg_pos_origin = new ConfigOption(PositionOrigin.values(), "origin", element.getDefaultPosOrigin());
@@ -59,7 +59,7 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 		this.cfg_buffer_left = new ConfigOption(Type.INT, "buffer_left", element.getDefaultBufferLeftSize());
 		this.cfg_buffer_right = new ConfigOption(Type.INT, "buffer_right", element.getDefaultBufferRightSize());
 		IConfigEntry[] extra_options = element.getConfigOptions();
-		
+
 		this.options_sec = new ConfigSection(this.key, this.unlocalized_name);
 		this.options_sec.addAll(
 			new ConfigHeading("options.complexhud.general_optns"),
@@ -80,13 +80,13 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 				this.options_sec.add(optn);
 			}
 		}
-		
+
 		this.options_sec.loadFromJson(ModConfig.cfgobj_elements);
 		this.options_sec.saveToJson(ModConfig.cfgobj_elements);
 		this.element.onConfigUpdated();
 		ModConfig.save();
 	}
-	
+
 	public void reloadValues1()
 	{
 		this.to_be_rendered = this.element.isToBeRendered();
@@ -94,7 +94,7 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 			this.to_be_rendered &= this.shouldRenderInF3();
 		}
 	}
-	
+
 	public void reloadValues2()
 	{
 		this.adj_width = this.element.getWidth();
@@ -102,62 +102,62 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 		this.adj_height = this.element.getHeight();
 		this.adj_height += this.cfg_buffer_top.getInt() + this.cfg_buffer_bottom.getInt();
 	}
-	
+
 	public int getRenderPriority()
 	{
 		return this.cfg_rndr_prio.getInt();
 	}
-	
+
 	public boolean isFixed()
 	{
 		return this.cfg_fixed.getBool();
 	}
-	
+
 	public PositionOrigin getPosOrigin()
 	{
 		return this.cfg_pos_origin.getEnum();
 	}
-	
+
 	public PositionOperation getPosOp()
 	{
 		return this.cfg_pos_op.getEnum();
 	}
-	
+
 	public int getXOffs()
 	{
 		return this.cfg_offs_x.getInt();
 	}
-	
+
 	public int getYOffs()
 	{
 		return this.cfg_offs_y.getInt();
 	}
-	
+
 	public boolean shouldRenderInF3()
 	{
 		return this.cfg_rndr_f3.getBool();
 	}
-	
+
 	public int getTopBufferSize()
 	{
 		return this.cfg_buffer_top.getInt();
 	}
-	
+
 	public int getBottomBufferSize()
 	{
 		return this.cfg_buffer_bottom.getInt();
 	}
-	
+
 	public int getLeftBufferSize()
 	{
 		return this.cfg_buffer_left.getInt();
 	}
-	
+
 	public int getRightBufferSize()
 	{
 		return this.cfg_buffer_right.getInt();
 	}
-	
+
 	@Override
 	public int compareTo(RegisteredElement o)
 	{

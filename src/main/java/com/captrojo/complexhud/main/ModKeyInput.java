@@ -13,12 +13,12 @@ import net.minecraft.client.settings.KeyBinding;
 public class ModKeyInput
 {
 	static KeyBinding k_open_settings = new KeyBinding("Complex HUD config", Keyboard.KEY_H, "key.categories.misc");
-	
+
 	static void registerKeybinds()
 	{
 		ClientRegistry.registerKeyBinding(k_open_settings);
 	}
-	
+
 	@SubscribeEvent
 	public void onKeyInput(KeyInputEvent event)
 	{

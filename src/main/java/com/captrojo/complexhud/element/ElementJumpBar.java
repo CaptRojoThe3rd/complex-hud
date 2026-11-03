@@ -19,13 +19,13 @@ public class ElementJumpBar extends ElementFillBarBase
 
 	static final int V_BG = 98;
 	static final int V_FG = 103;
-	
+
 	public ElementJumpBar()
 	{
 		this.bar_sec_widths = new int[] {20, 162, 20};
 		this.last_sec = 2;
 	}
-	
+
 	@Override
 	public String getUnlocalizedName()
 	{
@@ -102,10 +102,10 @@ public class ElementJumpBar extends ElementFillBarBase
 		this.mc.mcProfiler.startSection("jump_bar");
 		GL11.glDisable(GL11.GL_BLEND);
 		this.bindModIcons();
-		
+
 		float charge = this.mc.thePlayer.getHorseJumpPower();
 		int fill_w = (int) (charge * 182);
-		
+
 		this.drawBar(pos, 182, V_BG, U_1ST, U_2ND, U_END, 0);
 		this.drawBar(pos, fill_w, V_FG, U_1ST, U_2ND, U_END, 0);
 

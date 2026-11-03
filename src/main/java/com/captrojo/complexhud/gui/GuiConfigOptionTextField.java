@@ -10,7 +10,7 @@ public abstract class GuiConfigOptionTextField extends GuiConfigOption
 {
 	GuiTextField text_field;
 	boolean is_input_valid;
-	
+
 	GuiConfigOptionTextField(ConfigOption cfg_optn)
 	{
 		super(cfg_optn);
@@ -19,9 +19,9 @@ public abstract class GuiConfigOptionTextField extends GuiConfigOption
 		this.text_field = new GuiTextField(Minecraft.getMinecraft().fontRenderer, 0, 0, this.w - 2, this.h - 2);
 		this.is_input_valid = true;
 	}
-	
+
 	abstract boolean setValueIfValid();
-	
+
 	@Override
 	void updateScreen()
 	{
@@ -32,9 +32,9 @@ public abstract class GuiConfigOptionTextField extends GuiConfigOption
 	void draw(int x, int y, int mouse_x, int mouse_y)
 	{
 		super.draw(x, y, mouse_x, mouse_y);
-		
+
 		boolean valid = this.is_input_valid && !this.cfg_optn.isInvalid();
-		
+
 		this.text_field.xPosition = x + 137;
 		this.text_field.yPosition = y + 1;
 		this.text_field.setTextColor(valid ? 0xffffff : 0xff2020);

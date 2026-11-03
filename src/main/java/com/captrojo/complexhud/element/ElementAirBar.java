@@ -20,23 +20,23 @@ public class ElementAirBar extends OverriddenVanillaElement
 	static final int U_FULL = 198;
 	static final int U_POPPING = 207;
 	static final int U_EMPTY = 216;
-	
+
 	static final int V_ALL = 0;
-	
+
 	ConfigOption cfg_icon_spacing;
 	ConfigOption cfg_right_to_left;
 
 	int icon_spacing;
 	boolean right_to_left;
-	
+
 	int width;
-	
+
 	public ElementAirBar()
 	{
 		this.cfg_icon_spacing = new ConfigOption(Type.INT, "icon_spacing", -1);
 		this.cfg_right_to_left = new ConfigOption(Type.BOOLEAN, "right_to_left", true);
 	}
-	
+
 	@Override
 	public String getUnlocalizedName()
 	{
@@ -117,19 +117,19 @@ public class ElementAirBar extends OverriddenVanillaElement
 			new ConfigHeading(OVRD_CFG_HEADING),
 			this.cfg_enabled,
 			this.cfg_override_vanilla,
-			
+
 			new ConfigHeading(null),
 			new ConfigHeading("options.complexhud.air_bar_optns"),
 			this.cfg_icon_spacing,
 			this.cfg_right_to_left
 		};
 	}
-	
+
 	@Override
 	public void onConfigUpdated()
 	{
 		super.onConfigUpdated();
-		
+
 		this.icon_spacing = this.cfg_icon_spacing.getInt();
 		this.right_to_left = this.cfg_right_to_left.getBool();
 	}
@@ -167,11 +167,11 @@ public class ElementAirBar extends OverriddenVanillaElement
 		this.mc.mcProfiler.startSection("air");
 		this.bindModIcons();
 		GL11.glEnable(GL11.GL_BLEND);
-		
+
 		int air = this.mc.thePlayer.getAir();
-		int full = MathHelper.ceiling_float_int((float) (air - 2) / 30.0f);
-		int partial = MathHelper.ceiling_float_int((float) (air) / 30.0f);
-		
+		int full = MathHelper.ceiling_float_int((float) (air - 2) / 30.0F);
+		int partial = MathHelper.ceiling_float_int((float) (air) / 30.0F);
+
 		for (int i = 0; i < 10; i++) {
 			int u;
 			if (i < full) {
@@ -181,10 +181,10 @@ public class ElementAirBar extends OverriddenVanillaElement
 			} else {
 				u = U_EMPTY;
 			}
-			
+
 			int draw_idx = this.right_to_left ? (9 - i) : i;
 			int x = pos.left_x + draw_idx * (9 + this.icon_spacing);
-			
+
 			this.drawTexturedModalRect(x, pos.top_y, u, V_ALL, 9, 9);
 		}
 

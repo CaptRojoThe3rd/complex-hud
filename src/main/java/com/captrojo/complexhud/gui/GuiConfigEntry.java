@@ -33,7 +33,7 @@ public abstract class GuiConfigEntry
 		}
 		return null;
 	}
-	
+
 	static ArrayList<GuiConfigEntry> createFrom(ConfigSection section)
 	{
 		ArrayList<GuiConfigEntry> list = new ArrayList<GuiConfigEntry>();
@@ -42,30 +42,30 @@ public abstract class GuiConfigEntry
 		}
 		return list;
 	}
-	
+
 	IConfigEntry cfg_entry;
-	
+
 	int x;
 	int y;
 	int w;
 	int h;
-	
+
 	public GuiConfigEntry(IConfigEntry entry)
 	{
 		this.cfg_entry = entry;
 	}
-	
+
 	void updateScreen()
 	{
 	}
-	
+
 	void draw(int x, int y, int mouse_x, int mouse_y)
 	{
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	abstract boolean mouseClicked(int mouse_x, int mouse_y);
-	
+
 	abstract void keyTyped(char c, int n);
 }

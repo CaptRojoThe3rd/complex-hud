@@ -8,13 +8,13 @@ import net.minecraft.client.gui.FontRenderer;
 public abstract class GuiConfigOption extends GuiConfigEntry
 {
 	ConfigOption cfg_optn;
-	
+
 	GuiConfigOption(ConfigOption cfg_optn)
 	{
 		super(cfg_optn);
 		this.cfg_optn = cfg_optn;
 	}
-	
+
 	boolean checkMousePos(int mouse_x, int mouse_y)
 	{
 		this.x += 136;
@@ -27,14 +27,14 @@ public abstract class GuiConfigOption extends GuiConfigEntry
 		this.x -= 136;
 		return true;
 	}
-	
+
 	abstract void updateUIWithValue();
-	
+
 	@Override
 	void draw(int x, int y, int mouse_x, int mouse_y)
 	{
 		super.draw(x, y, mouse_x, mouse_y);
-		
+
 		String str = this.cfg_optn.getName();
 		FontRenderer fr = Minecraft.getMinecraft().fontRenderer;
 
@@ -45,7 +45,7 @@ public abstract class GuiConfigOption extends GuiConfigEntry
 				str += "...";
 			}
 		}
-		
+
 		fr.drawStringWithShadow(str, x, y + 5, this.cfg_optn.isEnabled() ? 0xffffff : 0xc0c0c0);
 	}
 }

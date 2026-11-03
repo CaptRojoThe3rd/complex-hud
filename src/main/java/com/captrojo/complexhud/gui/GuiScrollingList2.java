@@ -21,21 +21,21 @@ public abstract class GuiScrollingList2
 	protected final int left_x;
 	protected final int right_x;
 	protected final int element_height;
-	
+
 	protected int scrollbar_color_bg = 0x000000;
 	protected int scrollbar_color_shadow = 0x808080;
 	protected int scrollbar_color_fg = 0xc0c0c0;
-	
+
 	protected int scroll_up_action_id;
 	protected int scroll_down_action_id;
 	protected int mouse_x;
 	protected int mouse_y;
-	protected float initial_mouse_click_y = -2.0f;
+	protected float initial_mouse_click_y = -2.0F;
 	protected float scroll_factor;
 	protected float scroll_distance;
 	protected int selected_index = -1;
 	protected long last_click_time = 0L;
-	
+
 	protected boolean highlight_selected_element = true;
 	protected boolean field_27262_q;
 	protected int field_27261_r;
@@ -101,7 +101,7 @@ public abstract class GuiScrollingList2
 		int var6 = var5 / this.element_height;
 		return p_27256_1_ >= var3 && p_27256_1_ <= var4 && var6 >= 0 && var5 >= 0 && var6 < this.getSize() ? var6 : -1;
 	}
-	
+
 	protected int getContentHeight()
 	{
 		return this.getSize() * this.element_height + this.field_27261_r;
@@ -122,8 +122,8 @@ public abstract class GuiScrollingList2
 			var1 /= 2;
 		}
 
-		if (this.scroll_distance < 0.0f) {
-			this.scroll_distance = 0.0f;
+		if (this.scroll_distance < 0.0F) {
+			this.scroll_distance = 0.0F;
 		}
 
 		if (this.scroll_distance > (float) var1) {
@@ -162,7 +162,7 @@ public abstract class GuiScrollingList2
 		int element_y;
 
 		if (Mouse.isButtonDown(0)) {
-			if (this.initial_mouse_click_y == -1.0f) {
+			if (this.initial_mouse_click_y == -1.0F) {
 				boolean var7 = true;
 
 				if (mouse_y >= this.top_y && mouse_y <= this.bottom_y) {
@@ -180,7 +180,7 @@ public abstract class GuiScrollingList2
 					}
 
 					if (mouse_x >= scroll_bar_x_start && mouse_x <= scroll_bar_x_end) {
-						this.scroll_factor = -1.0f;
+						this.scroll_factor = -1.0F;
 						element_y = this.getContentHeight() - (this.bottom_y - this.top_y - 4);
 
 						if (element_y < 1) {
@@ -199,16 +199,16 @@ public abstract class GuiScrollingList2
 
 						this.scroll_factor /= (float) (this.bottom_y - this.top_y - height1) / (float) element_y;
 					} else {
-						this.scroll_factor = 1.0f;
+						this.scroll_factor = 1.0F;
 					}
 
 					if (var7) {
 						this.initial_mouse_click_y = (float) mouse_y;
 					} else {
-						this.initial_mouse_click_y = -2.0f;
+						this.initial_mouse_click_y = -2.0F;
 					}
 				} else {
-					this.initial_mouse_click_y = -2.0f;
+					this.initial_mouse_click_y = -2.0F;
 				}
 			} else if (this.initial_mouse_click_y >= 0.0f) {
 				this.scroll_distance -= ((float) mouse_y - this.initial_mouse_click_y) * this.scroll_factor;
@@ -230,12 +230,12 @@ public abstract class GuiScrollingList2
 					}
 				}
 
-				this.initial_mouse_click_y = -1.0f;
+				this.initial_mouse_click_y = -1.0F;
 			}
 		}
 
 		this.applyScrollLimits();
-		
+
 		Tessellator ts = Tessellator.instance;
 		if (this.mc.theWorld != null) {
 			this.drawGradientRect(this.left_x, this.top_y, this.right_x, this.bottom_y, -1072689136, -804253680);
@@ -276,7 +276,7 @@ public abstract class GuiScrollingList2
 		GL11.glShadeModel(GL11.GL_SMOOTH);
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		this.drawEdgeGradient();
-		
+
 		element_y = this.getContentHeight() - (this.bottom_y - this.top_y - 4);
 
 		if (element_y > 0) {
@@ -325,7 +325,7 @@ public abstract class GuiScrollingList2
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glDisable(GL11.GL_BLEND);
 	}
-	
+
 	protected void drawListBackground()
 	{
 		if (!this.draw_list_background) {
@@ -333,8 +333,8 @@ public abstract class GuiScrollingList2
 		}
 		Tessellator ts = Tessellator.instance;
 		this.mc.renderEngine.bindTexture(Gui.optionsBackground);
-		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-		float var17 = 32.0f;
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		float var17 = 32.0F;
 		ts.startDrawingQuads();
 		ts.setColorOpaque_I(0x202020);
 		ts.addVertexWithUV((double) this.left_x, (double) this.bottom_y, 0.0, (double) ((float) this.left_x / var17), (double) ((float) (this.bottom_y + (int) this.scroll_distance) / var17));
@@ -348,8 +348,8 @@ public abstract class GuiScrollingList2
 	{
 		Tessellator ts = Tessellator.instance;
 		this.mc.renderEngine.bindTexture(Gui.optionsBackground);
-		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-		float var6 = 32.0f;
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		float var6 = 32.0F;
 		ts.startDrawingQuads();
 		ts.setColorRGBA_I(0x404040, alpha_2);
 		ts.addVertexWithUV(0.0, (double) y2, 0.0, 0.0, (double) ((float) y2 / var6));
@@ -365,14 +365,14 @@ public abstract class GuiScrollingList2
 		if (!this.draw_gradient_rect) {
 			return;
 		}
-		float a1 = (float) (color_1 >> 24 & 255) / 255.0f;
-		float r1 = (float) (color_1 >> 16 & 255) / 255.0f;
-		float g1 = (float) (color_1 >> 8 & 255) / 255.0f;
-		float b1 = (float) (color_1 & 255) / 255.0f;
-		float a2 = (float) (color_2 >> 24 & 255) / 255.0f;
-		float r2 = (float) (color_2 >> 16 & 255) / 255.0f;
-		float g2 = (float) (color_2 >> 8 & 255) / 255.0f;
-		float b2 = (float) (color_2 & 255) / 255.0f;
+		float a1 = (float) (color_1 >> 24 & 255) / 255.0F;
+		float r1 = (float) (color_1 >> 16 & 255) / 255.0F;
+		float g1 = (float) (color_1 >> 8 & 255) / 255.0F;
+		float b1 = (float) (color_1 & 255) / 255.0F;
+		float a2 = (float) (color_2 >> 24 & 255) / 255.0F;
+		float r2 = (float) (color_2 >> 16 & 255) / 255.0F;
+		float g2 = (float) (color_2 >> 8 & 255) / 255.0F;
+		float b2 = (float) (color_2 & 255) / 255.0F;
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glDisable(GL11.GL_ALPHA_TEST);
@@ -392,16 +392,16 @@ public abstract class GuiScrollingList2
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
-	
+
 	protected void drawEdgeGradient()
 	{
 		if (!this.draw_edge_gradient) {
 			return;
 		}
-		
+
 		Tessellator ts = Tessellator.instance;
 		byte edge_gradient_size = 4;
-		
+
 		ts.startDrawingQuads();
 		ts.setColorRGBA_I(0x000000, 0);
 		ts.addVertexWithUV((double) this.left_x, (double) (this.top_y + edge_gradient_size), 0.0, 0.0, 1.0);
@@ -419,7 +419,7 @@ public abstract class GuiScrollingList2
 		ts.addVertexWithUV((double) this.left_x, (double) (this.bottom_y - edge_gradient_size), 0.0, 0.0, 0.0);
 		ts.draw();
 	}
-	
+
 	protected void drawSelectedElementHighlight(int left_x, int right_x, int y, int height)
 	{
 		int ylt = this.top_y + 4;
@@ -430,9 +430,9 @@ public abstract class GuiScrollingList2
 		} else if ((y + height) > ylb) {
 			height -= (y + height) - ylb;
 		}
-		
+
 		Tessellator ts = Tessellator.instance;
-		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		ts.startDrawingQuads();
 		ts.setColorOpaque_I(0x808080);

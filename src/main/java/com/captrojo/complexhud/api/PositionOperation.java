@@ -14,9 +14,9 @@ public enum PositionOperation
 	RIGHT(true),
 	DOWN(false),
 	UP(false);
-	
+
 	public final boolean horz;
-	
+
 	private PositionOperation(boolean horz)
 	{
 		this.horz = horz;

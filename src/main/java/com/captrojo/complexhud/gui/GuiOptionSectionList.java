@@ -12,7 +12,7 @@ public class GuiOptionSectionList extends GuiScrollingList2
 {
 	GuiSectionedOptions gui;
 	ArrayList<ConfigSection> option_sections;
-	
+
 	public GuiOptionSectionList(int x, int y, GuiSectionedOptions gui, ArrayList<ConfigSection> option_sections)
 	{
 		super(Minecraft.getMinecraft(), 102, 222, y + 3, y + 225, x + 4, 20);
@@ -23,7 +23,7 @@ public class GuiOptionSectionList extends GuiScrollingList2
 		this.draw_edge_gradient = false;
 		this.draw_gradient_rect = false;
 		this.draw_list_background = false;
-		
+
 		this.selected_index = -1;
 	}
 
@@ -48,14 +48,14 @@ public class GuiOptionSectionList extends GuiScrollingList2
 
 	@Override
 	protected void drawBackground()
-	{	
+	{
 	}
 
 	@Override
 	protected void drawSlot(int idx, int element_right_x, int element_y, int element_h, Tessellator ts)
 	{
 		FontRenderer fr = Minecraft.getMinecraft().fontRenderer;
-		
+
 		int ylt = this.top_y + 4;
 		int ylb = this.bottom_y - 4;
 		int ey1 = element_y + fr.FONT_HEIGHT - 1;
@@ -65,10 +65,10 @@ public class GuiOptionSectionList extends GuiScrollingList2
 		if ((ey1) > ylb) {
 			return;
 		}
-		
+
 		ConfigSection optn_sec = this.option_sections.get(idx);
 		String s = optn_sec.getName();
-		
+
 		int font_color = this.isSelected(idx) ? 0xc0c0ff : 0xffffff;
 		fr.drawStringWithShadow(s, this.left_x + 4, element_y + 4, font_color);
 	}

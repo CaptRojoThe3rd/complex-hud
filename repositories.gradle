@@ -2,6 +2,9 @@
 
 repositories {
 	maven {
+		url = uri("https://jitpack.io")
+	}
+	maven {
 		name = "applecore"
 		url = "https://www.ryanliptak.com/maven/"
 	}

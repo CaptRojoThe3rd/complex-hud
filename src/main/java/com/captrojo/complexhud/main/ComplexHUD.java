@@ -31,21 +31,21 @@ public class ComplexHUD
 	public static final String MOD_ID = "complexhud";
 	public static final String NAME = "Complex HUD";
 	public static final String VERSION = "0.1.0";
-	
+
 	public static boolean applecore_loaded;
-	
+
 	public static String config_dir;
-	
+
 	static ElementHealthBar e_health_bar;
 	static ElementArmorBar e_armor_bar;
 	static ElementHungerBar e_hunger_bar;
 	static ElementAirBar e_air_bar;
 	static ElementMountHealthBar e_mount_health_bar;
-	
+
 	static ElementBossHealth e_boss_health;
 	static ElementXPBar e_xp_bar;
 	static ElementJumpBar e_jump_bar;
-	
+
 	public static String ident(String str)
 	{
 		if (str.contains(":")) {
@@ -53,7 +53,7 @@ public class ComplexHUD
 		}
 		return MOD_ID + ":" + str;
 	}
-	
+
 	public static ResourceLocation resource(String path)
 	{
 		return new ResourceLocation(ident(path));
@@ -65,41 +65,41 @@ public class ComplexHUD
 		if (event.getSide() == Side.SERVER) {
 			return;
 		}
-		
+
 		HUDAPI.hud_element_list = HUDElementList.instance;
-		
+
 		applecore_loaded = Loader.isModLoaded("AppleCore");
-		
+
 		config_dir = event.getSuggestedConfigurationFile().getParent();
 		ModConfig.init(event.getSuggestedConfigurationFile());
-		
+
 		ModKeyInput.registerKeybinds();
 		FMLCommonHandler.instance().bus().register(new ModKeyInput());
-		
+
 		ClientEventHandler.instance = new ClientEventHandler();
 		FMLCommonHandler.instance().bus().register(ClientEventHandler.instance);
 		MinecraftForge.EVENT_BUS.register(ClientEventHandler.instance);
-		
+
 		e_health_bar = new ElementHealthBar();
 		e_armor_bar = new ElementArmorBar();
 		e_hunger_bar = new ElementHungerBar();
 		e_air_bar = new ElementAirBar();
 		e_mount_health_bar = new ElementMountHealthBar();
-		
+
 		e_boss_health = new ElementBossHealth();
 		e_xp_bar = new ElementXPBar();
 		e_jump_bar = new ElementJumpBar();
-		
+
 		HUDAPI.registerElement(MOD_ID, e_health_bar);
 		HUDAPI.registerElement(MOD_ID, e_armor_bar);
 		HUDAPI.registerElement(MOD_ID, e_hunger_bar);
 		HUDAPI.registerElement(MOD_ID, e_air_bar);
 		HUDAPI.registerElement(MOD_ID, e_mount_health_bar);
-		
+
 		HUDAPI.registerElement(MOD_ID, e_boss_health);
 		HUDAPI.registerElement(MOD_ID, e_xp_bar);
 		HUDAPI.registerElement(MOD_ID, e_jump_bar);
-		
+
 		if (Boolean.getBoolean("complexhud.debug")) {
 			for (PositionOrigin o : PositionOrigin.values()) {
 				HUDAPI.registerElement(MOD_ID, new DebugHUDElement(o.ordinal(), o, o.toString()));

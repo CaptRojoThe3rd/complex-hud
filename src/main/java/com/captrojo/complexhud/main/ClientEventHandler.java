@@ -40,15 +40,15 @@ import net.minecraftforge.common.ForgeHooks;
 public class ClientEventHandler
 {
 	static ClientEventHandler instance;
-	
+
 	static PositionerBase[] apos = new PositionerBase[] {
 		new PositionerHotbarSideLeft(),
 		new PositionerHotbarSideRight(),
-		
+
 		new PositionerHotbarTopBoth(),
 		new PositionerHotbarTopLeft(),
 		new PositionerHotbarTopRight(),
-		
+
 		new PositionerTopLeft(),
 		new PositionerTopCenter(),
 		new PositionerTopRight(),
@@ -61,7 +61,7 @@ public class ClientEventHandler
 		new PositionerBottomCenter(),
 		new PositionerBottomRight()
 	};
-	
+
 	public static ArrayList<ConfigSection> getAllPosSettings()
 	{
 		ArrayList<ConfigSection> list = new ArrayList<ConfigSection>();
@@ -70,7 +70,7 @@ public class ClientEventHandler
 		}
 		return list;
 	}
-	
+
 	@SubscribeEvent
 	public void onClientTick(TickEvent.ClientTickEvent event)
 	{
@@ -80,7 +80,7 @@ public class ClientEventHandler
 			}
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void onRenderGameOverlayPre(RenderGameOverlayEvent.Pre event)
 	{
@@ -104,7 +104,7 @@ public class ClientEventHandler
 			event.setCanceled(ComplexHUD.e_mount_health_bar.override_vanilla);
 			return;
 		}
-		
+
 		if (event.type == ElementType.BOSSHEALTH) {
 			event.setCanceled(ComplexHUD.e_boss_health.override_vanilla);
 			return;
@@ -117,23 +117,23 @@ public class ClientEventHandler
 			event.setCanceled(ComplexHUD.e_jump_bar.override_vanilla);
 			return;
 		}
-		
+
 		if (event.type == ElementType.CROSSHAIRS) {
 			Profiler pf = Minecraft.getMinecraft().mcProfiler;
 			pf.startSection("complexhud");
-			
+
 			GuiIngameForge.left_height += ModConfig.left_height_offs_pre.getInt();
 			GuiIngameForge.right_height += ModConfig.right_height_offs_pre.getInt();
-			
+
 			if (HUDElementList.instance.needs_sorting) {
 				HUDElementList.instance.sort();
 			}
-			
+
 			pf.startSection("prerender");
 			for (RegisteredElement re : HUDElementList.instance.element_list) {
 				re.element.doPreRenderWork();
 			}
-			
+
 			pf.endStartSection("positioning");
 			PositionerBase.reset(event.resolution);
 			for (PositionerBase pb : apos) {
@@ -141,7 +141,7 @@ public class ClientEventHandler
 					pb.reset();
 				}
 			}
-			
+
 			for (RegisteredElement re : HUDElementList.instance.element_list) {
 				re.reloadValues1();
 				if (!re.to_be_rendered) {
@@ -155,16 +155,16 @@ public class ClientEventHandler
 				int i = re.getPosOrigin().ordinal();
 				apos[i].addToPosCalc(re);
 			}
-			
+
 			for (PositionerBase pb : apos) {
 				if (pb != null) {
 					pb.positionSections();
 				}
 			}
-			
+
 			GuiIngameForge.left_height += ModConfig.left_height_offs_post.getInt();
 			GuiIngameForge.right_height += ModConfig.right_height_offs_post.getInt();
-			
+
 			pf.endStartSection("render");
 			for (RegisteredElement re : HUDElementList.instance.element_list) {
 				if (!re.to_be_rendered) {
@@ -174,7 +174,7 @@ public class ClientEventHandler
 				apos[i].positionElement(re);
 				re.element.render(event.resolution, event.mouseX, event.mouseY, event.partialTicks, re.pos);
 			}
-			
+
 			pf.endSection();
 			pf.endSection();
 			return;
@@ -194,19 +194,19 @@ public class ClientEventHandler
 			return;
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void onGuiActionPre(ActionPerformedEvent.Pre event)
 	{
 		if (!(event.gui instanceof GuiOptions)) {
 			return;
 		}
-		
+
 		if (event.button.id == ModConfig.optn_id.getInt()) {
 			Minecraft.getMinecraft().displayGuiScreen(new GuiScreenSettingsHead(event.gui));
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@SubscribeEvent
 	public void onPostGuiInit(InitGuiEvent.Post event)
@@ -214,7 +214,7 @@ public class ClientEventHandler
 		if (!(event.gui instanceof GuiOptions)) {
 			return;
 		}
-		
+
 		for (Object o : event.buttonList) {
 			GuiButton b = (GuiButton) o;
 			if (b.id == 200) {

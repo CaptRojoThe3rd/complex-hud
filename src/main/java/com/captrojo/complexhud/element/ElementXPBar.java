@@ -109,7 +109,7 @@ public class ElementXPBar extends ElementFillBarBase
 		this.text_alignment = this.cfg_text_alignment.getEnum();
 		this.bar_text_spacing = this.cfg_bar_text_spacing.getInt();
 		this.hide_for_jump_bar = this.cfg_hide_for_jump_bar.getBool();
-		
+
 		int s = this.bar_width / W_2ND + 3;
 		this.bar_sec_widths = new int[s];
 		this.bar_sec_widths[0] = W_1ST;
@@ -153,7 +153,7 @@ public class ElementXPBar extends ElementFillBarBase
 	public void doPreRenderWork()
 	{
 		this.mc.mcProfiler.startSection("xp_bar");
-		
+
 		this.width = this.bar_width;
 		this.height = 5;
 
@@ -176,12 +176,12 @@ public class ElementXPBar extends ElementFillBarBase
 
 		this.drawBar(pos, this.bar_width, v_bg, U_1ST, U_2ND, U_END, 0);
 		this.drawBar(pos, filled_w, v_fg, U_1ST, U_2ND, U_END, 0);
-		
+
 		if (this.mc.thePlayer.experienceLevel > 0) {
 			FontRenderer fr = this.mc.fontRenderer;
 			String str = Integer.toString(this.mc.thePlayer.experienceLevel);
 			int str_width = fr.getStringWidth(str);
-			
+
 			int text_x;
 			switch (this.text_alignment) {
 			default:
@@ -196,13 +196,13 @@ public class ElementXPBar extends ElementFillBarBase
 				break;
 			}
 			int text_y = pos.top_y - fr.FONT_HEIGHT - this.bar_text_spacing;
-			
+
 			fr.drawString(str, text_x + 1, text_y, 0x000000);
 			fr.drawString(str, text_x - 1, text_y, 0x000000);
 			fr.drawString(str, text_x, text_y + 1, 0x000000);
 			fr.drawString(str, text_x, text_y - 1, 0x000000);
 			fr.drawString(str, text_x, text_y, 0x80ff20);
-			GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		}
 
 		GL11.glEnable(GL11.GL_BLEND);

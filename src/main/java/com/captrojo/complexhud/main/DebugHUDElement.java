@@ -15,19 +15,19 @@ public class DebugHUDElement implements IComplexHUDElement
 	int priority;
 	String text;
 	PositionOrigin origin;
-	
+
 	public DebugHUDElement(int priority, String text)
 	{
 		this(priority, PositionOrigin.TOP_LEFT, text);
 	}
-	
+
 	public DebugHUDElement(int priority, PositionOrigin origin, String text)
 	{
 		this.priority = priority;
 		this.origin = origin;
 		this.text = text;
 	}
-	
+
 	@Override
 	public String getUnlocalizedName()
 	{
@@ -45,7 +45,7 @@ public class DebugHUDElement implements IComplexHUDElement
 	{
 		return false;
 	}
-	
+
 	@Override
 	public PositionOrigin getDefaultPosOrigin()
 	{
@@ -93,19 +93,19 @@ public class DebugHUDElement implements IComplexHUDElement
 	{
 		return 0;
 	}
-	
+
 	@Override
 	public boolean getDefaultRenderInF3Setting()
 	{
 		return false;
 	}
-	
+
 	@Override
 	public ConfigOption[] getConfigOptions()
 	{
 		return null;
 	}
-	
+
 	@Override
 	public void onConfigUpdated()
 	{

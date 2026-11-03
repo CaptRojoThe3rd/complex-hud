@@ -9,16 +9,16 @@ import com.captrojo.complexhud.config.ConfigSection;
 public class HUDElementList implements IHUDElementList
 {
 	public static final HUDElementList instance = new HUDElementList();
-	
+
 	ArrayList<RegisteredElement> element_list = new ArrayList<RegisteredElement>();
 	boolean needs_sorting;
-	
+
 	void sort()
 	{
 		this.element_list.sort(null);
 		this.needs_sorting = false;
 	}
-	
+
 	public void onConfigUpdated()
 	{
 		this.needs_sorting = true;
@@ -26,7 +26,7 @@ public class HUDElementList implements IHUDElementList
 			re.element.onConfigUpdated();
 		}
 	}
-	
+
 	@Override
 	public void registerElement(String mod_id, IComplexHUDElement e)
 	{
@@ -34,7 +34,7 @@ public class HUDElementList implements IHUDElementList
 		this.element_list.add(re);
 		this.sort();
 	}
-	
+
 	@Override
 	public boolean replaceElement(String mod_id, String name, IComplexHUDElement new_element)
 	{
@@ -48,7 +48,7 @@ public class HUDElementList implements IHUDElementList
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean removeElement(String mod_id, String name)
 	{
@@ -61,7 +61,7 @@ public class HUDElementList implements IHUDElementList
 		}
 		return false;
 	}
-	
+
 	public ArrayList<ConfigSection> getAllOptions()
 	{
 		ArrayList<ConfigSection> list = new ArrayList<ConfigSection>();

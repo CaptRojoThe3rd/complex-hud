@@ -16,7 +16,7 @@ public class PositionerHotbarTopBoth extends PositionerBase
 	{
 		this.calcDims();
 		this.positionXCenter();
-		
+
 		int gui_height = Math.max(GuiIngameForge.left_height, GuiIngameForge.right_height);
 		this.positionYBottomSp(end_y - gui_height + 9);
 		int height = (this.getMode() == MODE_SINGLE_COLUMN) ? this.column_height : this.column_height + this.row_height;

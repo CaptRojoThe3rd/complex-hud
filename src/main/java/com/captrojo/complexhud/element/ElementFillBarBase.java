@@ -7,17 +7,17 @@ import com.captrojo.complexhud.api.config.ConfigOption.Type;
 public abstract class ElementFillBarBase extends OverriddenVanillaElement
 {
 	ConfigOption cfg_bar_width;
-	
+
 	int bar_width;
-	
+
 	int[] bar_sec_widths;
 	int last_sec;
-	
+
 	public ElementFillBarBase()
 	{
 		this.cfg_bar_width = new ConfigOption(Type.INT, "bar_width", 182);
 	}
-	
+
 	void drawBar(PositionInfoXY2 pos, int width, int v, int u_1st, int u_2nd, int u_end, int y_offs)
 	{
 		int dw = width;
@@ -46,7 +46,7 @@ public abstract class ElementFillBarBase extends OverriddenVanillaElement
 			this.drawTexturedModalRect(x, y, u, v, w, 5);
 		}
 	}
-	
+
 	@Override
 	public boolean getDefaultFixedSetting()
 	{
@@ -94,12 +94,12 @@ public abstract class ElementFillBarBase extends OverriddenVanillaElement
 	{
 		return true;
 	}
-	
+
 	@Override
 	public void onConfigUpdated()
 	{
 		super.onConfigUpdated();
-		
+
 		this.bar_width = this.cfg_bar_width.getInt();
 	}
 }

@@ -21,25 +21,25 @@ public class ElementBossHealth extends ElementFillBarBase
 	static final int U_1ST = 0;
 	static final int U_2ND = 20;
 	static final int U_END = 181;
-	
+
 	static final int W_1ST = 20;
 	static final int W_2ND = 142;
 	static final int W_EDGE = W_1ST + W_2ND;
-	
+
 	static final int V_BG = 108;
 	static final int V_FG = 113;
-	
+
 	ConfigOption cfg_text_alignment;
 	ConfigOption cfg_bar_text_spacing;
-	
+
 	TextAlignment text_alignment;
 	int bar_text_spacing;
-	
+
 	int width;
 	int height;
-	
+
 	int name_str_width;
-	
+
 	public ElementBossHealth()
 	{
 		this.cfg_text_alignment = new ConfigOption(TextAlignment.values(), "text_alignment", TextAlignment.CENTER);
@@ -126,7 +126,7 @@ public class ElementBossHealth extends ElementFillBarBase
 			new ConfigHeading(OVRD_CFG_HEADING),
 			this.cfg_enabled,
 			this.cfg_override_vanilla,
-			
+
 			new ConfigHeading(null),
 			new ConfigHeading("options.complexhud.boss_health_optns"),
 			this.cfg_bar_width,
@@ -134,15 +134,15 @@ public class ElementBossHealth extends ElementFillBarBase
 			this.cfg_bar_text_spacing
 		};
 	}
-	
+
 	@Override
 	public void onConfigUpdated()
 	{
 		super.onConfigUpdated();
-		
+
 		this.text_alignment = this.cfg_text_alignment.getEnum();
 		this.bar_text_spacing = this.cfg_bar_text_spacing.getInt();
-		
+
 		int s = this.bar_width / W_2ND + 3;
 		this.bar_sec_widths = new int[s];
 		this.bar_sec_widths[0] = W_1ST;
@@ -180,11 +180,11 @@ public class ElementBossHealth extends ElementFillBarBase
 	public void doPreRenderWork()
 	{
 		this.mc.mcProfiler.startSection("boss_health");
-		
+
 		this.name_str_width = this.mc.fontRenderer.getStringWidth(BossStatus.bossName);
 		this.width = Math.max(this.bar_width, this.name_str_width);
 		this.height = this.mc.fontRenderer.FONT_HEIGHT + this.bar_text_spacing + 5;
-		
+
 		this.mc.mcProfiler.endSection();
 	}
 
@@ -194,18 +194,18 @@ public class ElementBossHealth extends ElementFillBarBase
 		this.mc.mcProfiler.startSection("boss_health");
 		GL11.glEnable(GL11.GL_BLEND);
 		this.bindModIcons();
-		
-		BossStatus.statusBarTime--;		
-		
+
+		BossStatus.statusBarTime--;
+
 		int v_bg = V_BG;
 		int v_fg = V_FG;
-		
+
 		int y_offs = this.mc.fontRenderer.FONT_HEIGHT + this.bar_text_spacing;
-		
+
 		this.drawBar(pos, this.bar_width, v_bg, U_1ST, U_2ND, U_END, y_offs);
 		int filled_w = MathHelper.ceiling_float_int(BossStatus.healthScale * (float) this.bar_width);
 		this.drawBar(pos, filled_w, v_fg, U_1ST, U_2ND, U_END, y_offs);
-		
+
 		int text_x;
 		switch (this.text_alignment) {
 		default:
@@ -220,7 +220,7 @@ public class ElementBossHealth extends ElementFillBarBase
 			break;
 		}
 		this.mc.fontRenderer.drawStringWithShadow(BossStatus.bossName, text_x, pos.top_y, 0xffffff);
-		
+
 		GL11.glDisable(GL11.GL_BLEND);
 		this.mc.mcProfiler.endSection();
 	}

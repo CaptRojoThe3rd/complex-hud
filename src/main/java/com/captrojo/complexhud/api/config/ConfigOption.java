@@ -16,22 +16,22 @@ public class ConfigOption implements IConfigEntry
 		DOUBLE,
 		STRING
 	}
-	
+
 	boolean enabled = true;
 	boolean invalid = false;
-	
+
 	public final Type type;
 	public final String key;
 	Object value;
-	
+
 	Object min;
 	Object max;
-	
+
 	@SuppressWarnings("rawtypes")
 	Enum[] enum_vals;
-	
+
 	String unlocalized_name;
-	
+
 	public ConfigOption(Type type, String key, Object val)
 	{
 		if (type == Type.ENUM) {
@@ -40,44 +40,44 @@ public class ConfigOption implements IConfigEntry
 		this.type = type;
 		this.key = key;
 		this.value = val;
-		
+
 		this.unlocalized_name = "options.complexhud." + key;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public ConfigOption(Enum[] enum_values, String key, Enum value)
 	{
 		this.type = Type.ENUM;
 		this.key = key;
 		this.value = value;
-		
+
 		this.enum_vals = enum_values;
 		this.min = 0;
 		this.max = enum_values.length;
-		
+
 		this.unlocalized_name = "options.complexhud." + key;
 	}
-	
+
 	public void setEnabled(boolean enabled)
 	{
 		this.enabled = enabled;
 	}
-	
+
 	public boolean isEnabled()
 	{
 		return this.enabled;
 	}
-	
+
 	public void setInvalid(boolean invalid)
 	{
 		this.invalid = invalid;
 	}
-	
+
 	public boolean isInvalid()
 	{
 		return this.invalid;
 	}
-	
+
 	/* Set the valid range of values for this config option.
 	 * This is not necessary to call when creating an ENUM config option.
 	 */
@@ -87,24 +87,24 @@ public class ConfigOption implements IConfigEntry
 		this.max = max;
 		return this;
 	}
-	
+
 	/* Set the unlocalized name of this config option, overwriting the default one. */
 	public ConfigOption setUnlocalizedName(String unlocalized_name)
 	{
 		this.unlocalized_name = unlocalized_name;
 		return this;
 	}
-	
+
 	public String getName()
 	{
 		return I18nHlpr.get(this.unlocalized_name);
 	}
-	
+
 	public void set(Object val)
 	{
 		this.value = val;
 	}
-	
+
 	public void incEnum()
 	{
 		int v = this.getEnum().ordinal() + 1;
@@ -113,33 +113,33 @@ public class ConfigOption implements IConfigEntry
 		}
 		this.set(this.enum_vals[v]);
 	}
-	
+
 	public boolean getBool()
 	{
 		return (boolean) this.value;
 	}
-	
+
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public <T extends Enum> T getEnum()
 	{
 		return (T) this.value;
 	}
-	
+
 	public int getInt()
 	{
 		return (int) this.value;
 	}
-	
+
 	public double getDouble()
 	{
 		return (double) this.value;
 	}
-	
+
 	public String getString()
 	{
 		return (String) this.value;
 	}
-	
+
 	public void bindToRange()
 	{
 		if (this.type == Type.INT) {
@@ -148,7 +148,7 @@ public class ConfigOption implements IConfigEntry
 			this.value = Math.min(Math.max(this.getDouble(), (double) this.min), (double) this.max);
 		}
 	}
-	
+
 	@Override
 	public void loadFromJson(JsonObject section_obj)
 	{
@@ -174,7 +174,7 @@ public class ConfigOption implements IConfigEntry
 			break;
 		}
 	}
-	
+
 	@Override
 	public void saveToJson(JsonObject section_obj)
 	{

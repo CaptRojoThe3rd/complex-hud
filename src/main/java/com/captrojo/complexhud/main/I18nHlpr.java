@@ -10,22 +10,22 @@ public class I18nHlpr
 	{
 		return getf(k);
 	}
-	
-	public static String getf(String k, Object...f)
+
+	public static String getf(String k, Object... f)
 	{
 		return I18n.format(k, f);
 	}
-	
+
 	public static IChatComponent chat(String k)
 	{
 		return chatf(k);
 	}
-	
-	public static IChatComponent chatf(String k, Object...f)
+
+	public static IChatComponent chatf(String k, Object... f)
 	{
 		return new ChatComponentTranslation(k, f);
 	}
-	
+
 	public static String bool(boolean b)
 	{
 		return b ? get("misc.true") : get("misc.false");
