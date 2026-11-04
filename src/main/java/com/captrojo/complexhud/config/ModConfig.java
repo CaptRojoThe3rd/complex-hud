@@ -11,6 +11,8 @@ import com.captrojo.complexhud.api.config.ConfigHeading;
 import com.captrojo.complexhud.api.config.ConfigOption;
 import com.captrojo.complexhud.api.config.ConfigOption.Type;
 import com.captrojo.complexhud.main.ComplexHUD;
+import com.captrojo.complexhud.position.PosModeEnum;
+import com.captrojo.complexhud.position.PositionerConfigEnum;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -43,10 +45,23 @@ public class ModConfig
 	public static ConfigSection cfgsec_fixes;
 
 	public static ArrayList<ConfigSection> cfg_sections;
+	
+	public static ArrayList<ConfigSection> pos_cfg_sections;
+	
+	public static void updatePositionerConfig()
+	{
+		for (PositionerConfigEnum pce : PositionerConfigEnum.values()) {
+			ConfigSection sec = pos_cfg_sections.get(pce.ordinal());
+			pce.offs_x = ((ConfigOption) sec.get(0)).getInt();
+			pce.offs_y = ((ConfigOption) sec.get(1)).getInt();
+			pce.alignment_enabled = ((ConfigOption) sec.get(2)).getBool();
+			pce.mode = ((ConfigOption) sec.get(3)).getEnum();
+		}
+	}
 
 	public static void init(File cfg_file)
 	{
-		load();
+		ModConfig.load();
 
 		done_y_offs = new ConfigOption(Type.INT, "done_btn_y_offs", 0);
 		optn_enabled = new ConfigOption(Type.BOOLEAN, "optn_btn_enabled", true);
@@ -87,8 +102,23 @@ public class ModConfig
 		cfg_sections = new ArrayList<ConfigSection>();
 		cfg_sections.add(cfgsec_menu_settings);
 		cfg_sections.add(cfgsec_fixes);
+		
+		pos_cfg_sections = new ArrayList<ConfigSection>();
+		for (PositionerConfigEnum pce : PositionerConfigEnum.values()) {
+			ConfigSection sec = new ConfigSection(pce.name, "positioner." + pce.name);
+			pos_cfg_sections.add(sec);
+			
+			sec.add(new ConfigOption(Type.INT, "offset_x", 0));
+			sec.add(new ConfigOption(Type.INT, "offset_y", 0));
+			sec.add(new ConfigOption(Type.BOOLEAN, "alignment_enabled", true));
+			sec.add(new ConfigOption(PosModeEnum.values(), "mode", PosModeEnum.SINGLE_ROW));
+			
+			sec.loadFromJson(cfgobj_positioning);
+			sec.saveToJson(cfgobj_positioning);
+		}
+		ModConfig.updatePositionerConfig();
 
-		save();
+		ModConfig.save();
 	}
 
 	public static void load()

@@ -1,12 +1,10 @@
 package com.captrojo.complexhud.position;
 
-import com.captrojo.complexhud.main.RegisteredElement;
-
 public class PositionerTopLeft extends PositionerBase
 {
 	public PositionerTopLeft()
 	{
-		super("positioner.top_left");
+		super("positioner.top_left", PositionerConfigEnum.TOP_LEFT);
 	}
 
 	@Override
@@ -18,7 +16,7 @@ public class PositionerTopLeft extends PositionerBase
 	}
 
 	@Override
-	void alignElement(RegisteredElement re)
+	void alignElement(PositionedObject obj)
 	{
 	}
 }

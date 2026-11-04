@@ -1,7 +1,6 @@
 package com.captrojo.complexhud.gui;
 
 import com.captrojo.complexhud.api.config.ConfigOption;
-import com.captrojo.complexhud.main.HUDElementList;
 
 public class GuiConfigOptionBoolean extends GuiConfigOptionButton
 {
@@ -20,7 +19,7 @@ public class GuiConfigOptionBoolean extends GuiConfigOptionButton
 		this.cfg_optn.set(!this.cfg_optn.getBool());
 		this.updateUIWithValue();
 		this.playClickSound();
-		HUDElementList.instance.onConfigUpdated();
+		this.updateConfigs();
 		return true;
 	}
 

@@ -1,12 +1,10 @@
 package com.captrojo.complexhud.position;
 
-import com.captrojo.complexhud.main.RegisteredElement;
-
 public class PositionerMiddleLeft extends PositionerBase
 {
 	public PositionerMiddleLeft()
 	{
-		super("positioner.middle_left");
+		super("positioner.middle_left", PositionerConfigEnum.MIDDLE_LEFT);
 	}
 
 	@Override
@@ -18,10 +16,10 @@ public class PositionerMiddleLeft extends PositionerBase
 	}
 
 	@Override
-	void alignElement(RegisteredElement re)
+	void alignElement(PositionedObject obj)
 	{
-		if (re.getPosOp().horz) {
-			this.centerY(re);
+		if (obj.getPosOp().horz) {
+			this.centerY(obj);
 		}
 	}
 }

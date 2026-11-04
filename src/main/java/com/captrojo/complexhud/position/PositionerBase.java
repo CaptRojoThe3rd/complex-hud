@@ -1,11 +1,6 @@
 package com.captrojo.complexhud.position;
 
 import com.captrojo.complexhud.api.PositionInfoXY2;
-import com.captrojo.complexhud.api.config.ConfigOption;
-import com.captrojo.complexhud.api.config.ConfigOption.Type;
-import com.captrojo.complexhud.config.ConfigSection;
-import com.captrojo.complexhud.config.ModConfig;
-import com.captrojo.complexhud.main.RegisteredElement;
 
 import net.minecraft.client.gui.ScaledResolution;
 
@@ -39,12 +34,8 @@ public abstract class PositionerBase
 		middle_x = sr.getScaledWidth() / 2;
 		middle_y = sr.getScaledHeight() / 2;
 	}
-
-	ConfigOption cfg_offs_x;
-	ConfigOption cfg_offs_y;
-	ConfigOption cfg_alignment_enabled;
-	ConfigOption cfg_mode;
-	public ConfigSection options_sec;
+	
+	PositionerConfigEnum config_enum;
 
 	PositionInfoXYWH sec_left;
 	PositionInfoXYWH sec_right;
@@ -58,31 +49,33 @@ public abstract class PositionerBase
 	int row_height;
 	int row_width;
 
-	public PositionerBase(String unlocalized_name)
+	public PositionerBase(String unlocalized_name, PositionerConfigEnum config_enum)
 	{
-		this.cfg_offs_x = new ConfigOption(Type.INT, "offset_x", 0);
-		this.cfg_offs_y = new ConfigOption(Type.INT, "offset_y", 0);
-		this.cfg_alignment_enabled = new ConfigOption(Type.BOOLEAN, "alignment_enabled", true);
-		this.cfg_mode = new ConfigOption(PosModeEnum.values(), "mode", PosModeEnum.SINGLE_ROW);
-		this.options_sec = new ConfigSection(unlocalized_name, unlocalized_name);
-		this.options_sec.addAll(
-			this.cfg_offs_x,
-			this.cfg_offs_y,
-			this.cfg_alignment_enabled,
-			this.cfg_mode
-		);
-		this.options_sec.loadFromJson(ModConfig.cfgobj_positioning);
-		this.options_sec.saveToJson(ModConfig.cfgobj_positioning);
-
+		this.config_enum = config_enum;
 		this.sec_left = new PositionInfoXYWH();
 		this.sec_right = new PositionInfoXYWH();
 		this.sec_top = new PositionInfoXYWH();
 		this.sec_bottom = new PositionInfoXYWH();
 	}
+	
+	int getOffsX()
+	{
+		return this.config_enum.offs_x;
+	}
+	
+	int getOffsY()
+	{
+		return this.config_enum.offs_y;
+	}
+	
+	boolean isAlignmentEnabled()
+	{
+		return this.config_enum.alignment_enabled;
+	}
 
 	int getMode()
 	{
-		return this.cfg_mode.getEnum().ordinal();
+		return this.config_enum.mode.ordinal();
 	}
 
 	public void reset()
@@ -98,9 +91,13 @@ public abstract class PositionerBase
 		this.row_height = 0;
 	}
 
-	public void addToPosCalc(RegisteredElement re)
+	public void addToPosCalc(PositionedObject re)
 	{
-		re.pos = new PositionInfoXY2();
+		if (re.pos == null) {
+			re.pos = new PositionInfoXY2();
+		} else {
+			re.pos.set(0, 0, 0, 0);
+		}
 
 		switch (re.getPosOp()) {
 		case LEFT:
@@ -269,71 +266,71 @@ public abstract class PositionerBase
 		}
 	}
 
-	public void positionElement(RegisteredElement re)
+	public void positionElement(PositionedObject obj)
 	{
-		switch (re.getPosOp()) {
+		switch (obj.getPosOp()) {
 		case LEFT:
-			re.pos.left_x += this.sec_left.x;
-			re.pos.top_y += this.sec_left.y;
+			obj.pos.left_x += this.sec_left.x;
+			obj.pos.top_y += this.sec_left.y;
 			break;
 		case RIGHT:
-			re.pos.left_x += this.sec_right.x;
-			re.pos.top_y += this.sec_right.y;
+			obj.pos.left_x += this.sec_right.x;
+			obj.pos.top_y += this.sec_right.y;
 			break;
 		case DOWN:
-			re.pos.left_x += this.sec_bottom.x;
-			re.pos.top_y += this.sec_bottom.y;
+			obj.pos.left_x += this.sec_bottom.x;
+			obj.pos.top_y += this.sec_bottom.y;
 			break;
 		case UP:
-			re.pos.left_x += this.sec_top.x;
-			re.pos.top_y += this.sec_top.y;
+			obj.pos.left_x += this.sec_top.x;
+			obj.pos.top_y += this.sec_top.y;
 			break;
 		}
-		if (this.cfg_alignment_enabled.getBool()) {
-			this.alignElement(re);
+		if (this.isAlignmentEnabled()) {
+			this.alignElement(obj);
 		}
 
-		re.pos.left_x += re.getXOffs() + this.cfg_offs_x.getInt();
-		re.pos.left_x += re.getLeftBufferSize();
-		re.pos.top_y += re.getYOffs() + this.cfg_offs_y.getInt();
-		re.pos.top_y += re.getTopBufferSize();
+		obj.pos.left_x += obj.getXOffs() + this.getOffsX();
+		obj.pos.left_x += obj.getLeftBufferSize();
+		obj.pos.top_y += obj.getYOffs() + this.getOffsY();
+		obj.pos.top_y += obj.getTopBufferSize();
 
 		/* We want to use non-adjusted width and height here, since the element
 		 * is unaware of buffer sizes.
 		 */
-		re.pos.right_x = re.pos.left_x + re.element.getWidth() - 1;
-		re.pos.bottom_y = re.pos.top_y + re.element.getHeight() - 1;
+		obj.pos.right_x = obj.pos.left_x + obj.getElementWidth() - 1;
+		obj.pos.bottom_y = obj.pos.top_y + obj.getElementHeight() - 1;
 	}
 
-	abstract void alignElement(RegisteredElement re);
+	abstract void alignElement(PositionedObject obj);
 
-	void centerX(RegisteredElement re)
+	void centerX(PositionedObject obj)
 	{
-		re.pos.left_x = (sr.getScaledWidth() / 2) - (re.adj_width / 2);
+		obj.pos.left_x = (sr.getScaledWidth() / 2) - (obj.adj_width / 2);
 	}
 
-	void centerY(RegisteredElement re)
+	void centerY(PositionedObject obj)
 	{
-		re.pos.top_y = (sr.getScaledHeight() / 2) - (re.adj_height / 2);
+		obj.pos.top_y = (sr.getScaledHeight() / 2) - (obj.adj_height / 2);
 	}
 
-	void alignRight(RegisteredElement re, int right_x)
+	void alignRight(PositionedObject obj, int right_x)
 	{
-		re.pos.left_x = right_x - re.adj_width;
+		obj.pos.left_x = right_x - obj.adj_width;
 	}
 
-	void alignRightSideOfScreen(RegisteredElement re)
+	void alignRightSideOfScreen(PositionedObject obj)
 	{
-		this.alignRightSideSp(re, end_x);
+		this.alignRightSideSp(obj, end_x);
 	}
 
-	void alignRightSideSp(RegisteredElement re, int end_x_sp)
+	void alignRightSideSp(PositionedObject obj, int end_x_sp)
 	{
-		if (!re.getPosOp().horz) {
+		if (!obj.getPosOp().horz) {
 			if (this.getMode() == MODE_SINGLE_ROW) {
-				this.alignRight(re, end_x_sp);
+				this.alignRight(obj, end_x_sp);
 			} else {
-				this.alignRight(re, end_x_sp - this.sec_right.w);
+				this.alignRight(obj, end_x_sp - this.sec_right.w);
 			}
 		}
 	}

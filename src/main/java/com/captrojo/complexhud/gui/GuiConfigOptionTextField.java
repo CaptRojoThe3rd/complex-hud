@@ -1,7 +1,6 @@
 package com.captrojo.complexhud.gui;
 
 import com.captrojo.complexhud.api.config.ConfigOption;
-import com.captrojo.complexhud.main.HUDElementList;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiTextField;
@@ -54,6 +53,6 @@ public abstract class GuiConfigOptionTextField extends GuiConfigOption
 	{
 		this.text_field.textboxKeyTyped(c, n);
 		this.is_input_valid = this.setValueIfValid();
-		HUDElementList.instance.onConfigUpdated();
+		this.updateConfigs();
 	}
 }

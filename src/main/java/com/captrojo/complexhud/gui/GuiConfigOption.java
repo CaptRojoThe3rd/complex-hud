@@ -1,6 +1,8 @@
 package com.captrojo.complexhud.gui;
 
 import com.captrojo.complexhud.api.config.ConfigOption;
+import com.captrojo.complexhud.config.ModConfig;
+import com.captrojo.complexhud.main.HUDElementList;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -13,6 +15,12 @@ public abstract class GuiConfigOption extends GuiConfigEntry
 	{
 		super(cfg_optn);
 		this.cfg_optn = cfg_optn;
+	}
+	
+	void updateConfigs()
+	{
+		HUDElementList.instance.onConfigUpdated();
+		ModConfig.updatePositionerConfig();
 	}
 
 	boolean checkMousePos(int mouse_x, int mouse_y)

@@ -1,12 +1,10 @@
 package com.captrojo.complexhud.position;
 
-import com.captrojo.complexhud.main.RegisteredElement;
-
 public class PositionerHotbarSideRight extends PositionerBase
 {
 	public PositionerHotbarSideRight()
 	{
-		super("positioner.hotbar_side_right");
+		super("positioner.hotbar_side_right", PositionerConfigEnum.HOTBAR_SIDE_RIGHT);
 	}
 
 	@Override
@@ -18,7 +16,7 @@ public class PositionerHotbarSideRight extends PositionerBase
 	}
 
 	@Override
-	void alignElement(RegisteredElement re)
+	void alignElement(PositionedObject obj)
 	{
 	}
 }

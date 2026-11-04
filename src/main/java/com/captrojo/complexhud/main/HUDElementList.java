@@ -1,10 +1,12 @@
 package com.captrojo.complexhud.main;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.captrojo.complexhud.api.IComplexHUDElement;
 import com.captrojo.complexhud.api.IHUDElementList;
 import com.captrojo.complexhud.config.ConfigSection;
+import com.captrojo.complexhud.position.PositionedObject;
 
 public class HUDElementList implements IHUDElementList
 {
@@ -12,11 +14,17 @@ public class HUDElementList implements IHUDElementList
 
 	ArrayList<RegisteredElement> element_list = new ArrayList<RegisteredElement>();
 	boolean needs_sorting;
+	List<PositionedObject> obj_list;
 
 	void sort()
 	{
 		this.element_list.sort(null);
 		this.needs_sorting = false;
+		
+		this.obj_list = new ArrayList<PositionedObject>();
+		for (RegisteredElement re : this.element_list) {
+			this.obj_list.add(re);
+		}
 	}
 
 	public void onConfigUpdated()

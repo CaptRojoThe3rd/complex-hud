@@ -34,7 +34,6 @@
  * For more details, see https://docs.gradle.org/8.0.1/userguide/java_library_plugin.html#sec:java_library_configurations_graph
  */
 dependencies {
-	/* These are optional, but I prefer to test with them installed */
-	implementation("applecore:AppleCore:1.7.10-3.1.1:deobf")
-	implementation("com.github.GTNewHorizons:Et-Futurum-Requiem:2.6.65-GTNH:dev")
+	compileOnly("applecore:AppleCore:1.7.10-3.1.1:deobf")
+	compileOnly("com.github.GTNewHorizons:Et-Futurum-Requiem:2.6.65-GTNH:dev")
 }

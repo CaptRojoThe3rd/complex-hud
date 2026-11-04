@@ -1,14 +1,12 @@
 package com.captrojo.complexhud.position;
 
-import com.captrojo.complexhud.main.RegisteredElement;
-
 import net.minecraftforge.client.GuiIngameForge;
 
 public class PositionerBottomCenter extends PositionerBase
 {
 	public PositionerBottomCenter()
 	{
-		super("positioner.bottom_center");
+		super("positioner.bottom_center", PositionerConfigEnum.BOTTOM_CENTER);
 	}
 
 	@Override
@@ -21,10 +19,10 @@ public class PositionerBottomCenter extends PositionerBase
 	}
 
 	@Override
-	void alignElement(RegisteredElement re)
+	void alignElement(PositionedObject obj)
 	{
-		if (!re.getPosOp().horz) {
-			this.centerX(re);
+		if (!obj.getPosOp().horz) {
+			this.centerX(obj);
 		}
 	}
 }

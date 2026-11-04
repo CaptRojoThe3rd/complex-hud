@@ -1,14 +1,12 @@
 package com.captrojo.complexhud.position;
 
-import com.captrojo.complexhud.main.RegisteredElement;
-
 import net.minecraftforge.client.GuiIngameForge;
 
 public class PositionerHotbarTopRight extends PositionerBase
 {
 	public PositionerHotbarTopRight()
 	{
-		super("positioner.hotbar_top_right");
+		super("positioner.hotbar_top_right", PositionerConfigEnum.HOTBAR_TOP_RIGHT);
 	}
 
 	@Override
@@ -22,10 +20,10 @@ public class PositionerHotbarTopRight extends PositionerBase
 	}
 
 	@Override
-	void alignElement(RegisteredElement re)
+	void alignElement(PositionedObject obj)
 	{
-		if (!re.getPosOp().horz) {
-			this.alignRightSideSp(re, middle_x + 91);
+		if (!obj.getPosOp().horz) {
+			this.alignRightSideSp(obj, middle_x + 91);
 		}
 	}
 }

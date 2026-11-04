@@ -10,13 +10,13 @@ import com.captrojo.complexhud.api.config.ConfigOption;
 import com.captrojo.complexhud.api.config.ConfigOption.Type;
 import com.captrojo.complexhud.config.ConfigSection;
 import com.captrojo.complexhud.config.ModConfig;
+import com.captrojo.complexhud.position.PositionedObject;
 
 import net.minecraft.client.Minecraft;
 
-public class RegisteredElement implements Comparable<RegisteredElement>
+public class RegisteredElement extends PositionedObject implements Comparable<RegisteredElement>
 {
 	public IComplexHUDElement element;
-	public PositionInfoXY2 pos;
 
 	public String mod_id;
 	public String unlocalized_name;
@@ -34,11 +34,6 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 	ConfigOption cfg_buffer_left;
 	ConfigOption cfg_buffer_right;
 	ConfigSection options_sec;
-
-	/* Cache these values to avoid unnecessary processing every time we need them */
-	public boolean to_be_rendered;
-	public int adj_width;
-	public int adj_height;
 
 	public RegisteredElement(String mod_id, IComplexHUDElement element)
 	{
@@ -87,72 +82,85 @@ public class RegisteredElement implements Comparable<RegisteredElement>
 		ModConfig.save();
 	}
 
-	public void reloadValues1()
+	@Override
+	public int getElementWidth()
 	{
-		this.to_be_rendered = this.element.isToBeRendered();
-		if (Minecraft.getMinecraft().gameSettings.showDebugInfo) {
-			this.to_be_rendered &= this.shouldRenderInF3();
-		}
+		return this.element.getWidth();
 	}
 
-	public void reloadValues2()
+	@Override
+	public int getElementHeight()
 	{
-		this.adj_width = this.element.getWidth();
-		this.adj_width += this.cfg_buffer_left.getInt() + this.cfg_buffer_right.getInt();
-		this.adj_height = this.element.getHeight();
-		this.adj_height += this.cfg_buffer_top.getInt() + this.cfg_buffer_bottom.getInt();
+		return this.element.getHeight();
 	}
 
+	@Override
+	public boolean isElementToBeRendered()
+	{
+		return this.element.isToBeRendered();
+	}
+
+	@Override
 	public int getRenderPriority()
 	{
 		return this.cfg_rndr_prio.getInt();
 	}
 
+	@Override
 	public boolean isFixed()
 	{
 		return this.cfg_fixed.getBool();
 	}
 
+	@Override
 	public PositionOrigin getPosOrigin()
 	{
 		return this.cfg_pos_origin.getEnum();
 	}
 
+	@Override
 	public PositionOperation getPosOp()
 	{
 		return this.cfg_pos_op.getEnum();
 	}
 
+	@Override
 	public int getXOffs()
 	{
 		return this.cfg_offs_x.getInt();
 	}
 
+	@Override
 	public int getYOffs()
 	{
 		return this.cfg_offs_y.getInt();
 	}
 
+	@Override
 	public boolean shouldRenderInF3()
 	{
 		return this.cfg_rndr_f3.getBool();
 	}
 
+	@Override
 	public int getTopBufferSize()
 	{
 		return this.cfg_buffer_top.getInt();
 	}
 
+	@Override
 	public int getBottomBufferSize()
 	{
 		return this.cfg_buffer_bottom.getInt();
 	}
 
+	@Override
 	public int getLeftBufferSize()
 	{
 		return this.cfg_buffer_left.getInt();
 	}
 
+	@Override
 	public int getRightBufferSize()
 	{
 		return this.cfg_buffer_right.getInt();

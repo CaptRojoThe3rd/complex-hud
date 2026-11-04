@@ -1,26 +1,8 @@
 package com.captrojo.complexhud.main;
 
-import java.util.ArrayList;
-
-import com.captrojo.complexhud.api.PositionInfoXY2;
-import com.captrojo.complexhud.config.ConfigSection;
 import com.captrojo.complexhud.config.ModConfig;
 import com.captrojo.complexhud.gui.GuiScreenSettingsHead;
-import com.captrojo.complexhud.position.PositionerBase;
-import com.captrojo.complexhud.position.PositionerBottomCenter;
-import com.captrojo.complexhud.position.PositionerBottomLeft;
-import com.captrojo.complexhud.position.PositionerBottomRight;
-import com.captrojo.complexhud.position.PositionerHotbarSideLeft;
-import com.captrojo.complexhud.position.PositionerHotbarSideRight;
-import com.captrojo.complexhud.position.PositionerHotbarTopBoth;
-import com.captrojo.complexhud.position.PositionerHotbarTopLeft;
-import com.captrojo.complexhud.position.PositionerHotbarTopRight;
-import com.captrojo.complexhud.position.PositionerMiddleCenter;
-import com.captrojo.complexhud.position.PositionerMiddleLeft;
-import com.captrojo.complexhud.position.PositionerMiddleRight;
-import com.captrojo.complexhud.position.PositionerTopCenter;
-import com.captrojo.complexhud.position.PositionerTopLeft;
-import com.captrojo.complexhud.position.PositionerTopRight;
+import com.captrojo.complexhud.position.PositioningHandler;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
@@ -40,36 +22,6 @@ import net.minecraftforge.common.ForgeHooks;
 public class ClientEventHandler
 {
 	static ClientEventHandler instance;
-
-	static PositionerBase[] apos = new PositionerBase[] {
-		new PositionerHotbarSideLeft(),
-		new PositionerHotbarSideRight(),
-
-		new PositionerHotbarTopBoth(),
-		new PositionerHotbarTopLeft(),
-		new PositionerHotbarTopRight(),
-
-		new PositionerTopLeft(),
-		new PositionerTopCenter(),
-		new PositionerTopRight(),
-
-		new PositionerMiddleLeft(),
-		new PositionerMiddleCenter(),
-		new PositionerMiddleRight(),
-
-		new PositionerBottomLeft(),
-		new PositionerBottomCenter(),
-		new PositionerBottomRight()
-	};
-
-	public static ArrayList<ConfigSection> getAllPosSettings()
-	{
-		ArrayList<ConfigSection> list = new ArrayList<ConfigSection>();
-		for (PositionerBase pb : apos) {
-			list.add(pb.options_sec);
-		}
-		return list;
-	}
 
 	@SubscribeEvent
 	public void onClientTick(TickEvent.ClientTickEvent event)
@@ -133,45 +85,18 @@ public class ClientEventHandler
 			for (RegisteredElement re : HUDElementList.instance.element_list) {
 				re.element.doPreRenderWork();
 			}
-
-			pf.endStartSection("positioning");
-			PositionerBase.reset(event.resolution);
-			for (PositionerBase pb : apos) {
-				if (pb != null) {
-					pb.reset();
-				}
-			}
-
-			for (RegisteredElement re : HUDElementList.instance.element_list) {
-				re.reloadValues1();
-				if (!re.to_be_rendered) {
-					continue;
-				}
-				re.reloadValues2();
-				if (re.isFixed()) {
-					re.pos = new PositionInfoXY2(0, re.adj_width - 1, 0, re.adj_height - 1);
-					continue;
-				}
-				int i = re.getPosOrigin().ordinal();
-				apos[i].addToPosCalc(re);
-			}
-
-			for (PositionerBase pb : apos) {
-				if (pb != null) {
-					pb.positionSections();
-				}
-			}
+			pf.endSection();
+			
+			PositioningHandler.positionElements(HUDElementList.instance.obj_list, event.resolution);
 
 			GuiIngameForge.left_height += ModConfig.left_height_offs_post.getInt();
 			GuiIngameForge.right_height += ModConfig.right_height_offs_post.getInt();
 
-			pf.endStartSection("render");
+			pf.startSection("render");
 			for (RegisteredElement re : HUDElementList.instance.element_list) {
 				if (!re.to_be_rendered) {
 					continue;
 				}
-				int i = re.getPosOrigin().ordinal();
-				apos[i].positionElement(re);
 				re.element.render(event.resolution, event.mouseX, event.mouseY, event.partialTicks, re.pos);
 			}
 
